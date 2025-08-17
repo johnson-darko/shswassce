@@ -227,6 +227,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Search programs (must come before :id routes)
+  app.get("/api/programs/search", async (req, res) => {
+    try {
+      const filters = programSearchFiltersSchema.parse(req.query);
+      const programs = await storage.searchPrograms(filters);
+      
+      // Enhance programs with university data
+      const enhancedPrograms = await Promise.all(
+        programs.map(async (program) => {
+          const university = await storage.getUniversity(program.universityId);
+          return {
+            ...program,
+            universityName: university?.name,
+            universityType: university?.type,
+            universityRegion: university?.region,
+          };
+        })
+      );
+      
+      res.json(enhancedPrograms);
+    } catch (error) {
+      console.error('Programs search error:', error);
+      res.status(500).json({ message: "Failed to search programs", error: (error as Error).message });
+    }
+  });
+
   // Get program by ID
   app.get("/api/programs/:id", async (req, res) => {
     try {
@@ -291,31 +317,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Enhanced routes for program-driven eligibility
-
-  // Search programs
-  app.get("/api/programs/search", async (req, res) => {
-    try {
-      const filters = programSearchFiltersSchema.parse(req.query);
-      const programs = await storage.searchPrograms(filters);
-      
-      // Enhance programs with university data
-      const enhancedPrograms = await Promise.all(
-        programs.map(async (program) => {
-          const university = await storage.getUniversity(program.universityId);
-          return {
-            ...program,
-            universityName: university?.name,
-            universityType: university?.type,
-            universityRegion: university?.region,
-          };
-        })
-      );
-      
-      res.json(enhancedPrograms);
-    } catch (error) {
-      res.status(400).json({ message: "Invalid search parameters" });
-    }
-  });
 
   // Get universities offering a specific program
   app.get("/api/programs/:programName/universities", async (req, res) => {
