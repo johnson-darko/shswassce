@@ -317,6 +317,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // User endpoints
+  app.post("/api/user/grades", async (req, res) => {
+    try {
+      const grades = wassceeGradesSchema.parse(req.body);
+      // For now, just echo back the grades as confirmation
+      res.json(grades);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid grade data" });
+    }
+  });
+
+  app.get("/api/user/preferences", async (req, res) => {
+    try {
+      // Return empty preferences for now
+      res.json({});
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch preferences" });
+    }
+  });
+
+  app.post("/api/user/preferences", async (req, res) => {
+    try {
+      const preferences = userPreferencesSchema.parse(req.body);
+      // For now, just echo back the preferences
+      res.json(preferences);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid preference data" });
+    }
+  });
+
   // Get scholarships for a university
   app.get("/api/universities/:id/scholarships", async (req, res) => {
     try {
