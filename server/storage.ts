@@ -86,7 +86,7 @@ export class MemStorage implements IStorage {
         annualCost: 15000,
         medianEarnings: 45000,
         acceptanceRate: 65,
-        description: "Ghana's premier university, established in 1948"
+        description: "Ghana's premier university, established in 1948" as string
       },
       {
         id: "knust-001",
@@ -623,7 +623,7 @@ export class MemStorage implements IStorage {
 
     if (filters.field) {
       programs = programs.filter(program => 
-        program.description?.toLowerCase().includes(filters.field.toLowerCase())
+        program.description?.toLowerCase().includes(filters.field!.toLowerCase())
       );
     }
 
@@ -656,7 +656,7 @@ export class MemStorage implements IStorage {
       program.name.toLowerCase().includes(programName.toLowerCase())
     );
     
-    const universityIds = [...new Set(programs.map(p => p.universityId))];
+    const universityIds = Array.from(new Set(programs.map(p => p.universityId)));
     return universityIds.map(id => this.universities.get(id)).filter(Boolean) as University[];
   }
 
