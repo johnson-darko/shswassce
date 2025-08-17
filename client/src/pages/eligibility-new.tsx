@@ -7,9 +7,10 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { Loader2, CheckCircle, XCircle, AlertCircle, Heart, Download, Share2, Briefcase, DollarSign, TrendingUp } from 'lucide-react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
+import { useToast } from '@/hooks/use-toast';
 
 const gradeOptions = ['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9'];
 
@@ -38,6 +39,10 @@ interface EligibilityResult {
   message: string;
   details: string[];
   recommendations?: string[];
+  careerOutcomes?: string[];
+  averageSalary?: number;
+  employmentRate?: number;
+  isFavorite?: boolean;
 }
 
 const coreSubjects = [

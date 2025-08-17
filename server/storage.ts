@@ -11,9 +11,13 @@ import {
   type InsertScholarship,
   type SearchFilters,
   type ProgramSearchFilters,
-  type UserPreferences
+  type UserPreferences,
+  type ToggleFavorite
 } from "@shared/schema";
 import { randomUUID } from "crypto";
+import { db } from "./db";
+import { users, universities, programs, requirements, scholarships } from "@shared/schema";
+import { eq, and, or, ilike, desc } from "drizzle-orm";
 
 export interface IStorage {
   // User methods
@@ -48,6 +52,10 @@ export interface IStorage {
   // User preferences
   saveUserPreferences(preferences: UserPreferences): Promise<void>;
   getUserPreferences(): Promise<UserPreferences>;
+  
+  // Favorites management
+  toggleFavoriteProgram(userId: string, programId: string, action: 'add' | 'remove'): Promise<void>;
+  getUserFavoritePrograms(userId: string): Promise<string[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -682,4 +690,160 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+// Database Storage Implementation
+export class DatabaseStorage implements IStorage {
+  // User methods
+  async getUser(id: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db.insert(users).values(insertUser).returning();
+    return user;
+  }
+
+  // University methods
+  async getAllUniversities(): Promise<University[]> {
+    return await db.select().from(universities);
+  }
+
+  async getUniversity(id: string): Promise<University | undefined> {
+    const [university] = await db.select().from(universities).where(eq(universities.id, id));
+    return university || undefined;
+  }
+
+  async searchUniversities(filters: SearchFilters): Promise<University[]> {
+    let query = db.select().from(universities);
+    
+    if (filters.query) {
+      query = query.where(ilike(universities.name, `%${filters.query}%`));
+    }
+    if (filters.region) {
+      query = query.where(eq(universities.region, filters.region));
+    }
+    if (filters.type) {
+      query = query.where(eq(universities.type, filters.type));
+    }
+    
+    return await query;
+  }
+
+  async createUniversity(university: InsertUniversity): Promise<University> {
+    const [created] = await db.insert(universities).values(university).returning();
+    return created;
+  }
+
+  // Program methods
+  async getProgramsByUniversity(universityId: string): Promise<Program[]> {
+    return await db.select().from(programs).where(eq(programs.universityId, universityId));
+  }
+
+  async getProgram(id: string): Promise<Program | undefined> {
+    const [program] = await db.select().from(programs).where(eq(programs.id, id));
+    return program || undefined;
+  }
+
+  async createProgram(program: InsertProgram): Promise<Program> {
+    const [created] = await db.insert(programs).values(program).returning();
+    return created;
+  }
+
+  // Requirement methods
+  async getRequirementsByProgram(programId: string): Promise<Requirement[]> {
+    return await db.select().from(requirements).where(eq(requirements.programId, programId));
+  }
+
+  async createRequirement(requirement: InsertRequirement): Promise<Requirement> {
+    const [created] = await db.insert(requirements).values(requirement).returning();
+    return created;
+  }
+
+  // Scholarship methods
+  async getScholarshipsByUniversity(universityId: string): Promise<Scholarship[]> {
+    return await db.select().from(scholarships).where(eq(scholarships.universityId, universityId));
+  }
+
+  async createScholarship(scholarship: InsertScholarship): Promise<Scholarship> {
+    const [created] = await db.insert(scholarships).values(scholarship).returning();
+    return created;
+  }
+
+  // Enhanced methods for program-driven eligibility
+  async searchPrograms(filters: ProgramSearchFilters): Promise<Program[]> {
+    let query = db.select().from(programs);
+    
+    if (filters.query) {
+      query = query.where(ilike(programs.name, `%${filters.query}%`));
+    }
+    if (filters.level) {
+      query = query.where(eq(programs.level, filters.level));
+    }
+    
+    return await query;
+  }
+
+  async getUniversitiesByProgram(programName: string): Promise<University[]> {
+    const result = await db
+      .select({ university: universities })
+      .from(universities)
+      .innerJoin(programs, eq(programs.universityId, universities.id))
+      .where(ilike(programs.name, `%${programName}%`));
+    
+    return result.map(r => r.university);
+  }
+
+  async getScholarshipsByProgram(programName: string): Promise<Scholarship[]> {
+    const result = await db
+      .select({ scholarship: scholarships })
+      .from(scholarships)
+      .innerJoin(programs, eq(programs.id, scholarships.programId))
+      .where(ilike(programs.name, `%${programName}%`));
+    
+    return result.map(r => r.scholarship);
+  }
+
+  // User preferences
+  async saveUserPreferences(preferences: UserPreferences): Promise<void> {
+    // For now, just store in memory since we don't have user authentication
+    this.userPreferences = preferences;
+  }
+
+  async getUserPreferences(): Promise<UserPreferences> {
+    return this.userPreferences || {};
+  }
+
+  // Favorites management
+  async toggleFavoriteProgram(userId: string, programId: string, action: 'add' | 'remove'): Promise<void> {
+    const user = await this.getUser(userId);
+    if (!user) return;
+
+    const favorites = (user.favoritePrograms as string[]) || [];
+    
+    if (action === 'add' && !favorites.includes(programId)) {
+      favorites.push(programId);
+    } else if (action === 'remove') {
+      const index = favorites.indexOf(programId);
+      if (index > -1) favorites.splice(index, 1);
+    }
+
+    await db.update(users)
+      .set({ favoritePrograms: favorites })
+      .where(eq(users.id, userId));
+  }
+
+  async getUserFavoritePrograms(userId: string): Promise<string[]> {
+    const user = await this.getUser(userId);
+    return (user?.favoritePrograms as string[]) || [];
+  }
+
+  private userPreferences: UserPreferences = {};
+}
+
+// Use DatabaseStorage instead of MemStorage
+export const storage = new DatabaseStorage();

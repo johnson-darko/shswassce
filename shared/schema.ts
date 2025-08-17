@@ -7,6 +7,8 @@ export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
+  favoritePrograms: jsonb("favorite_programs").default([]), // Array of program IDs
+  favoriteUniversities: jsonb("favorite_universities").default([]), // Array of university IDs
 });
 
 export const universities = pgTable("universities", {
@@ -35,6 +37,9 @@ export const programs = pgTable("programs", {
   tuitionInternational: integer("tuition_international"),
   currency: text("currency").default("GHS"),
   description: text("description"),
+  careerOutcomes: jsonb("career_outcomes"), // Array of typical jobs/fields
+  averageSalary: integer("average_salary"),
+  employmentRate: integer("employment_rate"), // Percentage
 });
 
 export const requirements = pgTable("requirements", {
@@ -133,6 +138,10 @@ export interface EligibilityResult {
   details: string[];
   recommendations?: string[];
   matchScore?: number; // For sorting by best match
+  careerOutcomes?: string[]; // Typical jobs/fields for graduates
+  averageSalary?: number;
+  employmentRate?: number;
+  isFavorite?: boolean; // Whether user has saved this program
 }
 
 export const programSearchFiltersSchema = z.object({
@@ -174,3 +183,23 @@ export const programWithDetailsSchema = z.object({
 });
 
 export type ProgramWithDetails = z.infer<typeof programWithDetailsSchema>;
+
+// Favorites management
+export const toggleFavoriteSchema = z.object({
+  programId: z.string(),
+  action: z.enum(['add', 'remove']),
+});
+
+export type ToggleFavorite = z.infer<typeof toggleFavoriteSchema>;
+
+// Export/share schemas
+export const exportRequestSchema = z.object({
+  format: z.enum(['csv', 'json', 'pdf']),
+  data: z.object({
+    results: z.array(z.any()), // EligibilityResult array
+    userGrades: z.object({}).passthrough(), // WassceeGrades
+    timestamp: z.string(),
+  }),
+});
+
+export type ExportRequest = z.infer<typeof exportRequestSchema>;

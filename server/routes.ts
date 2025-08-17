@@ -6,10 +6,14 @@ import {
   wassceeGradesSchema, 
   programSearchFiltersSchema,
   userPreferencesSchema,
+  toggleFavoriteSchema,
+  exportRequestSchema,
   type EligibilityResult, 
   type WassceeGrades,
   type ProgramSearchFilters,
-  type UserPreferences 
+  type UserPreferences,
+  type ToggleFavorite,
+  type ExportRequest 
 } from "@shared/schema";
 
 // WASSCE grade mapping for comparison
@@ -167,7 +171,11 @@ function checkEligibility(grades: WassceeGrades): Promise<EligibilityResult[]> {
           status,
           message,
           details,
-          recommendations: recommendations.length > 0 ? recommendations : undefined
+          recommendations: recommendations.length > 0 ? recommendations : undefined,
+          careerOutcomes: program.careerOutcomes as string[] || [],
+          averageSalary: program.averageSalary || undefined,
+          employmentRate: program.employmentRate || undefined,
+          isFavorite: false // Will be updated based on user preferences
         });
       }
     }
@@ -444,6 +452,106 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(preferences);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch preferences" });
+    }
+  });
+
+  // Favorites API routes
+  app.post('/api/favorites/toggle', async (req, res) => {
+    try {
+      const validation = toggleFavoriteSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ message: 'Invalid request data', errors: validation.error.errors });
+      }
+
+      const { programId, action } = validation.data;
+      // For now, use a dummy user ID since we don't have authentication
+      const userId = "user-dummy-001";
+      
+      await storage.toggleFavoriteProgram(userId, programId, action);
+      
+      res.json({ 
+        message: `Program ${action === 'add' ? 'added to' : 'removed from'} favorites`,
+        programId,
+        action
+      });
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+      res.status(500).json({ message: 'Failed to update favorites' });
+    }
+  });
+
+  app.get('/api/favorites', async (req, res) => {
+    try {
+      // For now, use a dummy user ID since we don't have authentication
+      const userId = "user-dummy-001";
+      const favorites = await storage.getUserFavoritePrograms(userId);
+      res.json({ favorites });
+    } catch (error) {
+      console.error('Error fetching favorites:', error);
+      res.status(500).json({ message: 'Failed to fetch favorites' });
+    }
+  });
+
+  // Export API route
+  app.post('/api/export', async (req, res) => {
+    try {
+      const validation = exportRequestSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ message: 'Invalid export request', errors: validation.error.errors });
+      }
+
+      const { format, data } = validation.data;
+      const { results, userGrades, timestamp } = data;
+
+      if (format === 'csv') {
+        // Generate CSV
+        const headers = [
+          'Program Name', 'University', 'Status', 'Message', 
+          'Career Outcomes', 'Average Salary', 'Employment Rate'
+        ];
+        
+        const csvRows = [
+          headers.join(','),
+          ...results.map((result: EligibilityResult) => [
+            `"${result.programName}"`,
+            `"${result.universityName}"`,
+            `"${result.status}"`,
+            `"${result.message}"`,
+            `"${(result.careerOutcomes || []).join('; ')}"`,
+            result.averageSalary || '',
+            result.employmentRate || ''
+          ].join(','))
+        ];
+
+        res.setHeader('Content-Type', 'text/csv');
+        res.setHeader('Content-Disposition', `attachment; filename="eligibility-results-${timestamp}.csv"`);
+        res.send(csvRows.join('\n'));
+      } else if (format === 'json') {
+        // Generate JSON
+        const exportData = {
+          timestamp,
+          userGrades,
+          results: results.map((result: EligibilityResult) => ({
+            programName: result.programName,
+            universityName: result.universityName,
+            status: result.status,
+            message: result.message,
+            careerOutcomes: result.careerOutcomes || [],
+            averageSalary: result.averageSalary,
+            employmentRate: result.employmentRate,
+            details: result.details
+          }))
+        };
+
+        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Content-Disposition', `attachment; filename="eligibility-results-${timestamp}.json"`);
+        res.json(exportData);
+      } else {
+        res.status(400).json({ message: 'Unsupported export format' });
+      }
+    } catch (error) {
+      console.error('Error exporting data:', error);
+      res.status(500).json({ message: 'Failed to export data' });
     }
   });
 
