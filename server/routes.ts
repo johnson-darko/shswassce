@@ -366,8 +366,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           universityName: university.name,
           coreSubjects: requirement.coreSubjects as Record<string, string>,
           electiveSubjects: requirement.electiveSubjects as Array<{subject: string, min_grade: string}>,
-          additionalRequirements: requirement.additionalRequirements,
-          aggregatePoints: requirement.aggregatePoints
+          additionalRequirements: requirement.additionalRequirements || undefined,
+          aggregatePoints: requirement.aggregatePoints || undefined
         });
         
         results.push(result);

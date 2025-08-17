@@ -106,7 +106,7 @@ export default function EnhancedEligibilityPage() {
   // Save grades mutation
   const saveGradesMutation = useMutation({
     mutationFn: async (grades: WassceeGrades) => {
-      return apiRequest('/api/user/preferences', 'POST', { grades });
+      return apiRequest('POST', '/api/user/preferences', { grades });
     },
     onSuccess: () => {
       setSavedGrades(gradeForm.getValues());
@@ -118,8 +118,8 @@ export default function EnhancedEligibilityPage() {
   // Check eligibility mutation
   const eligibilityMutation = useMutation({
     mutationFn: async ({ grades, programIds }: { grades: WassceeGrades; programIds: string[] }) => {
-      const response = await apiRequest('/api/check-program-eligibility', 'POST', { grades, programIds });
-      return response as EligibilityResult[];
+      const response = await apiRequest('POST', '/api/check-program-eligibility', { grades, programIds });
+      return response as unknown as EligibilityResult[];
     },
     onSuccess: () => {
       setStep('results');
@@ -129,7 +129,7 @@ export default function EnhancedEligibilityPage() {
   // Save favorites mutation
   const saveFavoritesMutation = useMutation({
     mutationFn: async (favoritePrograms: string[]) => {
-      return apiRequest('/api/user/preferences', 'POST', { 
+      return apiRequest('POST', '/api/user/preferences', { 
         favoritePrograms,
         grades: savedGrades 
       });
