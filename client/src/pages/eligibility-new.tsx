@@ -34,10 +34,10 @@ interface EligibilityResult {
   programId: string;
   programName: string;
   universityName: string;
-  eligible: boolean;
-  reason?: string;
-  matchedRequirements?: string[];
-  missingRequirements?: string[];
+  status: 'eligible' | 'borderline' | 'not_eligible';
+  message: string;
+  details: string[];
+  recommendations?: string[];
 }
 
 const coreSubjects = [
@@ -135,18 +135,26 @@ function EligibilityPage() {
     />
   );
 
-  const getEligibilityIcon = (eligible: boolean) => {
-    if (eligible) {
-      return <CheckCircle className="h-5 w-5 text-green-600" />;
+  const getEligibilityIcon = (status: 'eligible' | 'borderline' | 'not_eligible') => {
+    switch (status) {
+      case 'eligible':
+        return <CheckCircle className="h-5 w-5 text-green-600" />;
+      case 'borderline':
+        return <AlertCircle className="h-5 w-5 text-yellow-600" />;
+      case 'not_eligible':
+        return <XCircle className="h-5 w-5 text-red-600" />;
     }
-    return <XCircle className="h-5 w-5 text-red-600" />;
   };
 
-  const getEligibilityBadge = (eligible: boolean) => {
-    if (eligible) {
-      return <Badge className="bg-green-100 text-green-800 border-green-300">Eligible</Badge>;
+  const getEligibilityBadge = (status: 'eligible' | 'borderline' | 'not_eligible') => {
+    switch (status) {
+      case 'eligible':
+        return <Badge className="bg-green-100 text-green-800 border-green-300">Eligible</Badge>;
+      case 'borderline':
+        return <Badge className="bg-yellow-100 text-yellow-800 border-yellow-300">Borderline</Badge>;
+      case 'not_eligible':
+        return <Badge className="bg-red-100 text-red-800 border-red-300">Not Eligible</Badge>;
     }
-    return <Badge className="bg-red-100 text-red-800 border-red-300">Not Eligible</Badge>;
   };
 
   return (
@@ -186,11 +194,11 @@ function EligibilityPage() {
                   </div>
                 </div>
 
-                <div className="flex justify-center pt-4">
+                <div className="flex justify-center pt-6">
                   <Button
                     type="submit"
                     disabled={saveGradesMutation.isPending || checkEligibilityMutation.isPending}
-                    className="bg-scorecard-orange hover:bg-scorecard-orange/90 text-white px-8 py-3 text-lg"
+                    className="bg-scorecard-orange hover:bg-scorecard-orange/90 text-white px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     data-testid="button-check-eligibility"
                   >
                     {(saveGradesMutation.isPending || checkEligibilityMutation.isPending) ? (
@@ -235,38 +243,36 @@ function EligibilityPage() {
                         </p>
                       </div>
                       <div className="flex items-center gap-2">
-                        {getEligibilityIcon(result.eligible)}
-                        {getEligibilityBadge(result.eligible)}
+                        {getEligibilityIcon(result.status)}
+                        {getEligibilityBadge(result.status)}
                       </div>
                     </div>
 
-                    {result.reason && (
-                      <p className="text-sm text-scorecard-gray mb-3" data-testid={`reason-${result.programId}`}>
-                        {result.reason}
-                      </p>
-                    )}
+                    <p className="text-sm text-scorecard-gray mb-3" data-testid={`message-${result.programId}`}>
+                      {result.message}
+                    </p>
 
-                    {result.matchedRequirements && result.matchedRequirements.length > 0 && (
+                    {result.details && result.details.length > 0 && (
                       <div className="mb-3">
-                        <p className="text-sm font-medium text-green-700 mb-2">Met Requirements:</p>
-                        <div className="flex flex-wrap gap-1">
-                          {result.matchedRequirements.map((req, index) => (
-                            <Badge key={index} className="bg-green-100 text-green-800 border-green-300 text-xs">
-                              {req}
-                            </Badge>
+                        <p className="text-sm font-medium text-scorecard-blue mb-2">Details:</p>
+                        <div className="space-y-1">
+                          {result.details.map((detail, index) => (
+                            <p key={index} className="text-xs text-scorecard-gray">
+                              {detail}
+                            </p>
                           ))}
                         </div>
                       </div>
                     )}
 
-                    {result.missingRequirements && result.missingRequirements.length > 0 && (
+                    {result.recommendations && result.recommendations.length > 0 && (
                       <div>
-                        <p className="text-sm font-medium text-red-700 mb-2">Missing Requirements:</p>
-                        <div className="flex flex-wrap gap-1">
-                          {result.missingRequirements.map((req, index) => (
-                            <Badge key={index} className="bg-red-100 text-red-800 border-red-300 text-xs">
-                              {req}
-                            </Badge>
+                        <p className="text-sm font-medium text-blue-700 mb-2">Recommendations:</p>
+                        <div className="space-y-1">
+                          {result.recommendations.map((rec, index) => (
+                            <p key={index} className="text-xs text-blue-600">
+                              • {rec}
+                            </p>
                           ))}
                         </div>
                       </div>

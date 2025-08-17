@@ -306,6 +306,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Programs eligibility endpoint (same as check-eligibility)
+  app.post("/api/programs/eligibility", async (req, res) => {
+    try {
+      const grades = wassceeGradesSchema.parse(req.body);
+      const results = await checkEligibility(grades);
+      res.json(results);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid grade data" });
+    }
+  });
+
   // Get scholarships for a university
   app.get("/api/universities/:id/scholarships", async (req, res) => {
     try {
