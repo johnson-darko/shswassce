@@ -82,11 +82,7 @@ function EligibilityPage() {
 
   const saveGradesMutation = useMutation({
     mutationFn: async (grades: GradeFormData) => {
-      const response = await apiRequest('/api/user/grades', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(grades),
-      });
+      const response = await apiRequest('POST', '/api/user/grades', grades);
       return response.json();
     },
     onSuccess: (data) => {
@@ -96,11 +92,7 @@ function EligibilityPage() {
 
   const checkEligibilityMutation = useMutation({
     mutationFn: async (grades: GradeFormData): Promise<EligibilityResult[]> => {
-      const response = await apiRequest('/api/programs/eligibility', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(grades),
-      });
+      const response = await apiRequest('POST', '/api/programs/eligibility', grades);
       return response.json();
     },
     onSuccess: (results: EligibilityResult[]) => {
