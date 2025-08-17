@@ -104,19 +104,21 @@ export const searchFiltersSchema = z.object({
   sortBy: z.enum(['relevance', 'cost_asc', 'cost_desc', 'graduation_rate', 'acceptance_rate']).optional(),
 });
 
+const gradeEnum = z.enum(['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9']);
+
 export const wassceeGradesSchema = z.object({
-  english: z.enum(['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9']).optional(),
-  mathematics: z.enum(['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9']).optional(),
-  science: z.enum(['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9']).optional(),
-  social: z.enum(['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9']).optional(),
-  electiveMath: z.enum(['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9']).optional(),
-  physics: z.enum(['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9']).optional(),
-  chemistry: z.enum(['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9']).optional(),
-  biology: z.enum(['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9']).optional(),
-  economics: z.enum(['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9']).optional(),
-  government: z.enum(['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9']).optional(),
-  literature: z.enum(['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9']).optional(),
-  geography: z.enum(['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9']).optional(),
+  english: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
+  mathematics: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
+  science: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
+  social: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
+  electiveMath: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
+  physics: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
+  chemistry: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
+  biology: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
+  economics: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
+  government: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
+  literature: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
+  geography: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
 });
 
 export type SearchFilters = z.infer<typeof searchFiltersSchema>;
