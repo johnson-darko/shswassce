@@ -130,4 +130,45 @@ export interface EligibilityResult {
   message: string;
   details: string[];
   recommendations?: string[];
+  matchScore?: number; // For sorting by best match
 }
+
+export const programSearchFiltersSchema = z.object({
+  query: z.string().optional(),
+  level: z.string().optional(),
+  region: z.string().optional(),
+  type: z.string().optional(),
+  field: z.string().optional(),
+});
+
+export type ProgramSearchFilters = z.infer<typeof programSearchFiltersSchema>;
+
+// User preferences and saved data
+export const userPreferencesSchema = z.object({
+  grades: wassceeGradesSchema.optional(),
+  favoritePrograms: z.array(z.string()).optional(),
+  favoriteUniversities: z.array(z.string()).optional(),
+});
+
+export type UserPreferences = z.infer<typeof userPreferencesSchema>;
+
+// Enhanced program with deadline and career info
+export const programWithDetailsSchema = z.object({
+  id: z.string(),
+  universityId: z.string(),
+  name: z.string(),
+  level: z.string(),
+  duration: z.number().optional(),
+  tuitionLocal: z.number().optional(),
+  tuitionInternational: z.number().optional(),
+  currency: z.string().optional(),
+  description: z.string().optional(),
+  field: z.string().optional(),
+  applicationDeadline: z.string().optional(),
+  careerOutcomes: z.array(z.string()).optional(),
+  universityName: z.string().optional(),
+  universityType: z.string().optional(),
+  universityRegion: z.string().optional(),
+});
+
+export type ProgramWithDetails = z.infer<typeof programWithDetailsSchema>;

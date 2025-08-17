@@ -7,7 +7,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Search from "@/pages/search";
 import Compare from "@/pages/compare";
-import Eligibility from "@/pages/eligibility";
+import Eligibility from "@/pages/eligibility-new";
 import UniversityDetail from "@/pages/university-detail";
 import Header from "@/components/header";
 import ComparisonBar from "@/components/comparison-bar";

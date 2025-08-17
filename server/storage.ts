@@ -9,7 +9,9 @@ import {
   type InsertRequirement,
   type Scholarship,
   type InsertScholarship,
-  type SearchFilters
+  type SearchFilters,
+  type ProgramSearchFilters,
+  type UserPreferences
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 
@@ -37,6 +39,15 @@ export interface IStorage {
   // Scholarship methods
   getScholarshipsByUniversity(universityId: string): Promise<Scholarship[]>;
   createScholarship(scholarship: InsertScholarship): Promise<Scholarship>;
+  
+  // Enhanced methods for program-driven eligibility
+  searchPrograms(filters: ProgramSearchFilters): Promise<Program[]>;
+  getUniversitiesByProgram(programName: string): Promise<University[]>;
+  getScholarshipsByProgram(programName: string): Promise<Scholarship[]>;
+  
+  // User preferences
+  saveUserPreferences(preferences: UserPreferences): Promise<void>;
+  getUserPreferences(): Promise<UserPreferences>;
 }
 
 export class MemStorage implements IStorage {
@@ -45,6 +56,7 @@ export class MemStorage implements IStorage {
   private programs: Map<string, Program>;
   private requirements: Map<string, Requirement>;
   private scholarships: Map<string, Scholarship>;
+  private userPreferences: UserPreferences;
 
   constructor() {
     this.users = new Map();
@@ -52,6 +64,7 @@ export class MemStorage implements IStorage {
     this.programs = new Map();
     this.requirements = new Map();
     this.scholarships = new Map();
+    this.userPreferences = {};
     
     // Initialize with sample data
     this.initializeSampleData();
@@ -139,7 +152,7 @@ export class MemStorage implements IStorage {
 
     universities.forEach(uni => this.universities.set(uni.id, uni));
 
-    // Sample Programs
+    // Sample Programs with enhanced data
     const programs = [
       {
         id: "prog-001",
@@ -150,7 +163,10 @@ export class MemStorage implements IStorage {
         tuitionLocal: 15000,
         tuitionInternational: 25000,
         currency: "GHS",
-        description: "Comprehensive computer science program with industry focus"
+        description: "Comprehensive computer science program with industry focus",
+        field: "Technology",
+        applicationDeadline: "2025-05-31",
+        careerOutcomes: ["Software Developer", "Data Scientist", "IT Consultant", "Systems Analyst", "Cybersecurity Specialist"]
       },
       {
         id: "prog-002",
@@ -161,7 +177,10 @@ export class MemStorage implements IStorage {
         tuitionLocal: 12000,
         tuitionInternational: 20000,
         currency: "GHS",
-        description: "Economics program with policy and development focus"
+        description: "Economics program with policy and development focus",
+        field: "Business",
+        applicationDeadline: "2025-06-15",
+        careerOutcomes: ["Economic Analyst", "Policy Advisor", "Financial Consultant", "Development Officer", "Research Economist"]
       },
       {
         id: "prog-003",
@@ -172,7 +191,10 @@ export class MemStorage implements IStorage {
         tuitionLocal: 14000,
         tuitionInternational: 24000,
         currency: "GHS",
-        description: "Accredited engineering program with practical training"
+        description: "Accredited engineering program with practical training",
+        field: "Engineering",
+        applicationDeadline: "2025-04-30",
+        careerOutcomes: ["Civil Engineer", "Project Manager", "Construction Manager", "Structural Engineer", "Infrastructure Planner"]
       },
       {
         id: "prog-004",
@@ -183,7 +205,10 @@ export class MemStorage implements IStorage {
         tuitionLocal: 11000,
         tuitionInternational: 18000,
         currency: "GHS",
-        description: "Teacher training program for mathematics education"
+        description: "Teacher training program for mathematics education",
+        field: "Education",
+        applicationDeadline: "2025-07-01",
+        careerOutcomes: ["Mathematics Teacher", "Education Officer", "Curriculum Developer", "Educational Consultant", "School Administrator"]
       },
       {
         id: "prog-005",
@@ -194,7 +219,52 @@ export class MemStorage implements IStorage {
         tuitionLocal: 45000,
         tuitionInternational: 45000,
         currency: "GHS",
-        description: "Liberal arts business program with leadership focus"
+        description: "Liberal arts business program with leadership focus",
+        field: "Business",
+        applicationDeadline: "2025-03-15",
+        careerOutcomes: ["Business Manager", "Entrepreneur", "Management Consultant", "Marketing Manager", "Operations Manager"]
+      },
+      {
+        id: "prog-006",
+        universityId: "knust-001",
+        name: "B.Sc. Computer Engineering",
+        level: "Bachelor's",
+        duration: 48,
+        tuitionLocal: 14500,
+        tuitionInternational: 24500,
+        currency: "GHS",
+        description: "Hardware and software engineering with embedded systems",
+        field: "Technology",
+        applicationDeadline: "2025-04-30",
+        careerOutcomes: ["Computer Engineer", "Hardware Designer", "Embedded Systems Engineer", "Software Engineer", "Robotics Engineer"]
+      },
+      {
+        id: "prog-007",
+        universityId: "ucc-001",
+        name: "Diploma in Nursing",
+        level: "Diploma",
+        duration: 36,
+        tuitionLocal: 8000,
+        tuitionInternational: 15000,
+        currency: "GHS",
+        description: "Professional nursing program with clinical practice",
+        field: "Health",
+        applicationDeadline: "2025-06-30",
+        careerOutcomes: ["Registered Nurse", "Community Health Nurse", "Hospital Nurse", "Public Health Officer", "Nursing Supervisor"]
+      },
+      {
+        id: "prog-008",
+        universityId: "uds-001",
+        name: "B.Sc. Agriculture",
+        level: "Bachelor's",
+        duration: 48,
+        tuitionLocal: 9500,
+        tuitionInternational: 16000,
+        currency: "GHS",
+        description: "Modern agriculture with sustainable farming practices",
+        field: "Agriculture",
+        applicationDeadline: "2025-08-15",
+        careerOutcomes: ["Agricultural Officer", "Farm Manager", "Agricultural Consultant", "Extension Officer", "Agribusiness Manager"]
       }
     ];
 
@@ -284,10 +354,122 @@ export class MemStorage implements IStorage {
         ],
         additionalRequirements: "Interview and essay required for admission",
         aggregatePoints: 18
+      },
+      {
+        id: "req-006",
+        programId: "prog-006",
+        coreSubjects: {
+          "English": "C6",
+          "Mathematics": "C6",
+          "Integrated Science": "C6",
+          "Social Studies": "C6"
+        },
+        electiveSubjects: [
+          {"subject": "Elective Mathematics", "min_grade": "B3"},
+          {"subject": "Physics", "min_grade": "B3"},
+          {"subject": "Chemistry", "min_grade": "C6"}
+        ],
+        additionalRequirements: "Strong background in mathematics and physics required",
+        aggregatePoints: 20
+      },
+      {
+        id: "req-007",
+        programId: "prog-007",
+        coreSubjects: {
+          "English": "C6",
+          "Mathematics": "C6",
+          "Integrated Science": "C6",
+          "Social Studies": "C6"
+        },
+        electiveSubjects: [
+          {"subject": "Biology", "min_grade": "C6"},
+          {"subject": "Chemistry", "min_grade": "C6"},
+          {"subject": "Any other elective", "min_grade": "C6"}
+        ],
+        additionalRequirements: "Medical fitness certificate and interview required",
+        aggregatePoints: 24
+      },
+      {
+        id: "req-008",
+        programId: "prog-008",
+        coreSubjects: {
+          "English": "C6",
+          "Mathematics": "C6",
+          "Integrated Science": "C6",
+          "Social Studies": "C6"
+        },
+        electiveSubjects: [
+          {"subject": "Biology", "min_grade": "C6"},
+          {"subject": "Chemistry", "min_grade": "C6"},
+          {"subject": "Any other elective", "min_grade": "C6"}
+        ],
+        additionalRequirements: "Interest in sustainable agriculture practices",
+        aggregatePoints: 30
       }
     ];
 
     requirements.forEach(req => this.requirements.set(req.id, req));
+
+    // Enhanced Sample Scholarships
+    const scholarships = [
+      {
+        id: "sch-001",
+        universityId: "ug-001",
+        name: "UG Merit Scholarship",
+        amount: 5000,
+        currency: "GHS",
+        description: "Merit-based scholarship for academic excellence",
+        requirements: "Minimum aggregate of 12 points, leadership experience",
+        deadline: "2025-06-30",
+        eligibilityPrograms: ["B.Sc. Computer Science", "B.A. Economics"]
+      },
+      {
+        id: "sch-002",
+        universityId: "knust-001",
+        name: "KNUST Engineering Excellence Award",
+        amount: 8000,
+        currency: "GHS",
+        description: "Scholarship for outstanding engineering students",
+        requirements: "Excellent performance in mathematics and physics",
+        deadline: "2025-05-15",
+        eligibilityPrograms: ["B.Sc. Civil Engineering", "B.Sc. Computer Engineering"]
+      },
+      {
+        id: "sch-003",
+        universityId: "ucc-001",
+        name: "UCC Teacher Training Support",
+        amount: 6000,
+        currency: "GHS",
+        description: "Support for future educators",
+        requirements: "Commitment to teach for 2 years after graduation",
+        deadline: "2025-07-15",
+        eligibilityPrograms: ["B.Ed. Mathematics", "Diploma in Nursing"]
+      },
+      {
+        id: "sch-004",
+        universityId: "ashesi-001",
+        name: "Ashesi Leadership Scholarship",
+        amount: 20000,
+        currency: "GHS",
+        description: "Full scholarship for exceptional leaders",
+        requirements: "Demonstrated leadership, community service, essay",
+        deadline: "2025-02-28",
+        eligibilityPrograms: ["B.Sc. Business Administration"]
+      },
+      {
+        id: "sch-005",
+        universityId: "uds-001",
+        name: "Northern Development Scholarship",
+        amount: 4000,
+        currency: "GHS",
+        description: "Supporting students from northern regions",
+        requirements: "Resident of Northern Ghana, financial need",
+        deadline: "2025-08-01",
+        eligibilityPrograms: ["B.Sc. Agriculture"]
+      }
+    ];
+
+    scholarships.forEach(sch => this.scholarships.set(sch.id, sch));
   }
 
   // User methods
@@ -421,6 +603,82 @@ export class MemStorage implements IStorage {
     const newScholarship: Scholarship = { ...scholarship, id };
     this.scholarships.set(id, newScholarship);
     return newScholarship;
+  }
+
+  // Enhanced methods for program-driven eligibility
+  async searchPrograms(filters: ProgramSearchFilters): Promise<Program[]> {
+    let programs = Array.from(this.programs.values());
+
+    if (filters.query) {
+      const query = filters.query.toLowerCase();
+      programs = programs.filter(program => 
+        program.name.toLowerCase().includes(query) ||
+        program.description?.toLowerCase().includes(query)
+      );
+    }
+
+    if (filters.level) {
+      programs = programs.filter(program => program.level === filters.level);
+    }
+
+    if (filters.field) {
+      programs = programs.filter(program => 
+        program.description?.toLowerCase().includes(filters.field.toLowerCase())
+      );
+    }
+
+    // Filter by region and type using university data
+    if (filters.region || filters.type) {
+      const validPrograms = [];
+      for (const program of programs) {
+        const university = this.universities.get(program.universityId);
+        if (university) {
+          let matches = true;
+          if (filters.region && university.region !== filters.region) {
+            matches = false;
+          }
+          if (filters.type && university.type !== filters.type) {
+            matches = false;
+          }
+          if (matches) {
+            validPrograms.push(program);
+          }
+        }
+      }
+      programs = validPrograms;
+    }
+
+    return programs;
+  }
+
+  async getUniversitiesByProgram(programName: string): Promise<University[]> {
+    const programs = Array.from(this.programs.values()).filter(program =>
+      program.name.toLowerCase().includes(programName.toLowerCase())
+    );
+    
+    const universityIds = [...new Set(programs.map(p => p.universityId))];
+    return universityIds.map(id => this.universities.get(id)).filter(Boolean) as University[];
+  }
+
+  async getScholarshipsByProgram(programName: string): Promise<Scholarship[]> {
+    const universities = await this.getUniversitiesByProgram(programName);
+    const scholarships = [];
+    
+    for (const university of universities) {
+      const uniScholarships = await this.getScholarshipsByUniversity(university.id);
+      scholarships.push(...uniScholarships);
+    }
+    
+    return scholarships;
+  }
+
+  // User preferences methods
+  async saveUserPreferences(preferences: UserPreferences): Promise<void> {
+    this.userPreferences = { ...this.userPreferences, ...preferences };
+  }
+
+  async getUserPreferences(): Promise<UserPreferences> {
+    return this.userPreferences;
   }
 }
 
