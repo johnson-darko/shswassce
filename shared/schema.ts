@@ -49,6 +49,10 @@ export const requirements = pgTable("requirements", {
   electiveSubjects: jsonb("elective_subjects").notNull(), // [{"subject": "Elective Mathematics", "min_grade": "B3"}, ...]
   additionalRequirements: text("additional_requirements"),
   aggregatePoints: integer("aggregate_points"), // Maximum aggregate score if applicable
+  // Enhanced fields for complex requirements
+  admissionTracks: jsonb("admission_tracks"), // Multiple pathway options for programs like KNUST
+  specialConditions: jsonb("special_conditions"), // Age, experience, portfolio requirements
+  requirementComplexity: text("requirement_complexity").default("basic"), // basic, intermediate, advanced
 });
 
 export const scholarships = pgTable("scholarships", {
@@ -133,7 +137,7 @@ export interface EligibilityResult {
   programId: string;
   programName: string;
   universityName: string;
-  status: 'eligible' | 'borderline' | 'not_eligible';
+  status: 'eligible' | 'borderline' | 'not_eligible' | 'multiple_tracks';
   message: string;
   details: string[];
   recommendations?: string[];
@@ -142,6 +146,26 @@ export interface EligibilityResult {
   averageSalary?: number;
   employmentRate?: number;
   isFavorite?: boolean; // Whether user has saved this program
+  // Enhanced fields for complex eligibility
+  admissionTracks?: AdmissionTrack[]; // Available tracks for complex programs
+  bestTrackMatch?: string; // Which track best fits the student's grades
+  requirementComplexity?: 'basic' | 'intermediate' | 'advanced';
+}
+
+export interface AdmissionTrack {
+  name: string;
+  description: string;
+  electiveOptions: ElectiveOption[];
+  additionalRequirements?: string[];
+  status: 'eligible' | 'borderline' | 'not_eligible';
+  matchDetails: string[];
+}
+
+export interface ElectiveOption {
+  name: string; // e.g., "Science Track", "Business Track", "General Arts"
+  subjects: string[]; // Required subjects for this track
+  minGrades: Record<string, string>; // Specific grade requirements per subject
+  additionalRules?: string[]; // Special conditions like "Must have B3 in Integrated Science"
 }
 
 export const programSearchFiltersSchema = z.object({

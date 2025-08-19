@@ -12,6 +12,8 @@ export default function EligibilityResults({ results }: EligibilityResultsProps)
     switch (status) {
       case 'eligible':
         return <CheckCircle className="h-6 w-6 text-green-500" />;
+      case 'multiple_tracks':
+        return <CheckCircle className="h-6 w-6 text-blue-500" />;
       case 'borderline':
         return <AlertTriangle className="h-6 w-6 text-yellow-500" />;
       case 'not_eligible':
@@ -23,6 +25,8 @@ export default function EligibilityResults({ results }: EligibilityResultsProps)
     switch (status) {
       case 'eligible':
         return 'bg-green-50 border-green-200';
+      case 'multiple_tracks':
+        return 'bg-blue-50 border-blue-200';
       case 'borderline':
         return 'bg-yellow-50 border-yellow-200';
       case 'not_eligible':
@@ -34,6 +38,8 @@ export default function EligibilityResults({ results }: EligibilityResultsProps)
     switch (status) {
       case 'eligible':
         return <Badge className="bg-green-100 text-green-800">✅ Eligible</Badge>;
+      case 'multiple_tracks':
+        return <Badge className="bg-blue-100 text-blue-800">🎯 Multiple Tracks Available</Badge>;
       case 'borderline':
         return <Badge className="bg-yellow-100 text-yellow-800">⚠️ Borderline</Badge>;
       case 'not_eligible':
@@ -113,6 +119,64 @@ export default function EligibilityResults({ results }: EligibilityResultsProps)
                         </li>
                       ))}
                     </ul>
+                  </div>
+                )}
+
+                {/* Enhanced Multi-Track Display */}
+                {result.status === 'multiple_tracks' && result.admissionTracks && (
+                  <div className="mt-4 p-3 bg-blue-50 rounded-lg" data-testid={`admission-tracks-${index}`}>
+                    <h5 className="font-medium text-blue-900 mb-3">
+                      Available Admission Tracks:
+                      {result.bestTrackMatch && (
+                        <span className="text-sm font-normal text-blue-700 ml-2">
+                          (Best match: {result.bestTrackMatch})
+                        </span>
+                      )}
+                    </h5>
+                    <div className="space-y-3">
+                      {result.admissionTracks.map((track, trackIndex) => (
+                        <div key={trackIndex} className="border border-blue-200 rounded p-3 bg-white">
+                          <div className="flex items-center gap-2 mb-2">
+                            <div className="flex-shrink-0">
+                              {track.status === 'eligible' ? (
+                                <CheckCircle className="h-4 w-4 text-green-500" />
+                              ) : track.status === 'borderline' ? (
+                                <AlertTriangle className="h-4 w-4 text-yellow-500" />
+                              ) : (
+                                <XCircle className="h-4 w-4 text-red-500" />
+                              )}
+                            </div>
+                            <h6 className="font-medium text-gray-900" data-testid={`track-name-${index}-${trackIndex}`}>
+                              {track.name}
+                            </h6>
+                            <Badge 
+                              className={`text-xs ${
+                                track.status === 'eligible' ? 'bg-green-100 text-green-800' :
+                                track.status === 'borderline' ? 'bg-yellow-100 text-yellow-800' :
+                                'bg-red-100 text-red-800'
+                              }`}
+                            >
+                              {track.status}
+                            </Badge>
+                          </div>
+                          <p className="text-xs text-gray-600 mb-2">{track.description}</p>
+                          {track.matchDetails && track.matchDetails.length > 0 && (
+                            <div className="text-xs space-y-1">
+                              {track.matchDetails.map((detail, detailIndex) => (
+                                <p key={detailIndex} className="text-gray-700">
+                                  {detail}
+                                </p>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    {result.requirementComplexity === 'advanced' && (
+                      <p className="text-xs text-blue-600 mt-2 italic">
+                        💡 This program has complex requirements with multiple pathways. Contact the admissions office for detailed guidance.
+                      </p>
+                    )}
                   </div>
                 )}
               </div>
