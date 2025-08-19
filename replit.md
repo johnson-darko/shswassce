@@ -22,8 +22,9 @@ Preferred communication style: Simple, everyday language.
 - **Runtime**: Node.js with Express.js server framework
 - **Language**: TypeScript with ES modules for modern JavaScript features
 - **Database Layer**: Drizzle ORM for type-safe database operations with PostgreSQL dialect
-- **Storage**: In-memory storage implementation with interface for future database integration
+- **Storage**: PostgreSQL database with automatic sample data seeding on startup
 - **API Design**: RESTful endpoints with structured error handling and request logging middleware
+- **Data Initialization**: Automatic database seeding with comprehensive sample data on every app startup
 
 ### Data Models
 - **Universities**: Core institution data including location, type, size, costs, and performance metrics
@@ -41,9 +42,10 @@ Preferred communication style: Simple, everyday language.
 ## External Dependencies
 
 ### Database & ORM
-- **PostgreSQL**: Primary database (configured via Drizzle but using in-memory storage currently)
+- **PostgreSQL**: Primary database with automatic sample data seeding
 - **Drizzle ORM**: Type-safe database toolkit with schema migrations
 - **Neon Database**: Serverless PostgreSQL provider for production deployment
+- **Sample Data**: Comprehensive Ghanaian university data (5 universities, 8 programs, requirements, scholarships) loaded automatically on startup
 
 ### UI & Styling
 - **Radix UI**: Headless component primitives for accessibility and customization

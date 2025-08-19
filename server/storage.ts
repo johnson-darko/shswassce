@@ -14,8 +14,7 @@ import {
   type UserPreferences,
   type ToggleFavorite
 } from "@shared/schema";
-import { DatabaseStorage } from "./db-storage";
-import { seedDatabase } from "./seed-data";
+import { randomUUID } from "crypto";
 
 export interface IStorage {
   // User methods
@@ -842,5 +841,6 @@ export class DatabaseStorage implements IStorage {
 }
 
 // Using MemStorage with comprehensive sample data for MyCampusMingle platform
-// Use in-memory storage with sample data for now
+// Use in-memory storage with sample data for now  
+// Database is automatically seeded on startup in server/index.ts
 export const storage: IStorage = new MemStorage();
