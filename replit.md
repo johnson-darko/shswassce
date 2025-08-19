@@ -28,15 +28,18 @@ Preferred communication style: Simple, everyday language.
 
 ### Data Models
 - **Universities**: Core institution data including location, type, size, costs, and performance metrics
-- **Programs**: Academic programs with duration, tuition costs, and curriculum details
-- **Requirements**: Structured WASSCE grade requirements with core and elective subject specifications
+- **Programs**: Academic programs with duration, tuition costs, and curriculum details including KNUST Agriculture programs
+- **Requirements**: Complex WASSCE grade requirements supporting multi-track admission systems with advanced requirement complexity
+- **Admission Tracks**: Multiple pathways per program (Science, Business, Arts, Agriculture) with flexible elective combinations
 - **Scholarships**: Financial aid information linked to institutions
 - **Users**: Basic user management for future authentication features
 
 ### Key Features Architecture
 - **Search System**: Multi-criteria filtering with query parameters, region, type, and cost range filters
 - **Comparison Engine**: Session-based university comparison with persistent selection state
-- **Eligibility Checker**: Grade evaluation engine that matches student WASSCE results against program requirements
+- **Eligibility Checker**: Advanced multi-track grade evaluation engine that matches student WASSCE results against complex program requirements
+- **Multi-Track Admission System**: Supports universities with multiple admission pathways (Science, Business, Arts, Agriculture tracks)
+- **Student-Friendly Interface**: Uses clear language like "Ways You Can Apply" instead of technical terms
 - **Responsive Design**: Mobile-first approach with adaptive layouts and touch-friendly interactions
 
 ## External Dependencies

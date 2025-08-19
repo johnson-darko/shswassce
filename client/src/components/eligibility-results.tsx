@@ -126,10 +126,10 @@ export default function EligibilityResults({ results }: EligibilityResultsProps)
                 {result.status === 'multiple_tracks' && result.admissionTracks && (
                   <div className="mt-4 p-3 bg-blue-50 rounded-lg" data-testid={`admission-tracks-${index}`}>
                     <h5 className="font-medium text-blue-900 mb-3">
-                      Available Admission Tracks:
+                      Ways You Can Apply:
                       {result.bestTrackMatch && (
                         <span className="text-sm font-normal text-blue-700 ml-2">
-                          (Best match: {result.bestTrackMatch})
+                          (Best option for you: {result.bestTrackMatch})
                         </span>
                       )}
                     </h5>

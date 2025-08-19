@@ -87,7 +87,7 @@ function checkMultiTrackEligibility(
   
   const allDetails = [
     ...coreResult.details,
-    `Available admission tracks: ${trackResults.length}`,
+    `Ways you can apply: ${trackResults.length}`,
     ...trackResults.flatMap(track => [`${track.name}: ${track.status}`, ...track.matchDetails])
   ];
   
