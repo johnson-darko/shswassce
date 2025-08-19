@@ -39,6 +39,8 @@ Preferred communication style: Simple, everyday language.
 - **Comparison Engine**: Session-based university comparison with persistent selection state
 - **Eligibility Checker**: Advanced multi-track grade evaluation engine that matches student WASSCE results against complex program requirements
 - **Multi-Track Admission System**: Supports universities with multiple admission pathways (Science, Business, Arts, Agriculture tracks)
+- **PDF Requirements Parser**: Smart extraction system for university admission documents that automatically parses WASSCE/SSSCE requirements and saves them to database
+- **Admin Tools**: PDF upload interface for adding new university programs and requirements from official documents
 - **Student-Friendly Interface**: Uses clear language like "Ways You Can Apply" instead of technical terms
 - **Responsive Design**: Mobile-first approach with adaptive layouts and touch-friendly interactions
 
@@ -61,6 +63,8 @@ Preferred communication style: Simple, everyday language.
 - **TypeScript**: Static type checking across frontend, backend, and shared code
 - **ESBuild**: Fast JavaScript bundler for server-side code compilation
 - **TanStack Query**: Data fetching and caching library for API interactions
+- **PDF-Parse**: Local PDF text extraction library for parsing university admission documents
+- **Multer**: File upload middleware for handling PDF document uploads
 
 ### Validation & Forms
 - **Zod**: Schema validation library for runtime type checking

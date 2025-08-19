@@ -1,4 +1,4 @@
-import * as pdfParse from 'pdf-parse';
+import pdfParse from 'pdf-parse';
 import { storage } from './storage';
 import type { InsertProgram, InsertRequirement } from '@shared/schema';
 
