@@ -14,6 +14,7 @@ export default function Header() {
     { name: "Search Colleges", href: "/search", current: location === "/search" },
     { name: "Compare", href: "/compare", current: location === "/compare" },
     { name: "Check Eligibility", href: "/eligibility", current: location === "/eligibility" },
+    { name: "PDF Parser", href: "/admin/pdf", current: location === "/admin/pdf" },
   ];
 
   return (
