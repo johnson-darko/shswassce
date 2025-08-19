@@ -276,6 +276,39 @@ class MemStorage implements IStorage {
         field: "Agriculture",
         applicationDeadline: "2025-08-15",
         careerOutcomes: ["Agricultural Officer", "Farm Manager", "Agricultural Consultant", "Extension Officer", "Agribusiness Manager"]
+      },
+      // KNUST Programs with multi-track requirements
+      {
+        id: "prog-009",
+        universityId: "knust-001",
+        name: "B.Sc. Agriculture",
+        level: "Bachelor's",
+        duration: 48,
+        tuitionLocal: 13500,
+        tuitionInternational: 22000,
+        currency: "GHS",
+        description: "Comprehensive agriculture program with multiple admission tracks for WASSCE applicants",
+        field: "Agriculture",
+        applicationDeadline: "2025-04-30",
+        careerOutcomes: ["Agricultural Officer", "Farm Manager", "Extension Officer", "Agricultural Consultant", "Research Scientist"],
+        averageSalary: 40000,
+        employmentRate: 86
+      },
+      {
+        id: "prog-010",
+        universityId: "knust-001",
+        name: "B.Sc. Agribusiness Management",
+        level: "Bachelor's",
+        duration: 48,
+        tuitionLocal: 14000,
+        tuitionInternational: 23000,
+        currency: "GHS",
+        description: "Business-focused agriculture program with flexible admission tracks",
+        field: "Agriculture",
+        applicationDeadline: "2025-04-30",
+        careerOutcomes: ["Agribusiness Manager", "Agricultural Economist", "Supply Chain Manager", "Marketing Manager", "Entrepreneur"],
+        averageSalary: 45000,
+        employmentRate: 88
       }
     ];
 
@@ -416,6 +449,89 @@ class MemStorage implements IStorage {
         ],
         additionalRequirements: "Interest in sustainable agriculture practices",
         aggregatePoints: 30
+      },
+      // KNUST Agriculture - Complex multi-track requirements
+      {
+        id: "req-009",
+        programId: "prog-009",
+        coreSubjects: {
+          "English": "C6",
+          "Mathematics": "C6",
+          "Integrated Science": "C6",
+          "Social Studies": "C6"
+        },
+        electiveSubjects: [
+          {"subject": "Chemistry", "min_grade": "C6"},
+          {"subject": "Any TWO from Physics/Mathematics/Biology/General Agriculture/Animal Husbandry/Crop Husbandry/Horticulture", "min_grade": "C6"}
+        ],
+        additionalRequirements: "Must satisfy standard KNUST admission requirements",
+        aggregatePoints: 24,
+        requirementComplexity: "basic"
+      },
+      // KNUST Agribusiness - Multiple admission tracks
+      {
+        id: "req-010",
+        programId: "prog-010",
+        coreSubjects: {
+          "English": "C6",
+          "Mathematics": "C6",
+          "Integrated Science": "C6",
+          "Social Studies": "C6"
+        },
+        electiveSubjects: [],
+        additionalRequirements: "Multiple admission tracks available - see detailed requirements",
+        aggregatePoints: 24,
+        requirementComplexity: "advanced",
+        admissionTracks: [
+          {
+            name: "Science Track",
+            description: "For students with strong science background",
+            electiveOptions: [
+              {
+                name: "Science Combination",
+                subjects: ["Chemistry", "Physics", "Biology"],
+                minGrades: {"Chemistry": "C6", "Physics": "C6", "Biology": "C6"},
+                additionalRules: []
+              }
+            ]
+          },
+          {
+            name: "Business Track", 
+            description: "For students with business/economics background",
+            electiveOptions: [
+              {
+                name: "Business Combination",
+                subjects: ["Economics", "Accounting", "Business Management"],
+                minGrades: {"Economics": "C6", "Accounting": "C6", "Business Management": "C6"},
+                additionalRules: ["Must have minimum B3 in Integrated Science for WASSCE applicants"]
+              }
+            ]
+          },
+          {
+            name: "General Arts Track",
+            description: "For students with arts/social science background", 
+            electiveOptions: [
+              {
+                name: "Arts Combination",
+                subjects: ["Economics", "Geography", "Elective Mathematics"],
+                minGrades: {"Economics": "C6", "Geography": "C6", "Elective Mathematics": "C6"},
+                additionalRules: ["Must have minimum B3 in Integrated Science for WASSCE applicants"]
+              }
+            ]
+          },
+          {
+            name: "General Agriculture Track",
+            description: "For students with agricultural background",
+            electiveOptions: [
+              {
+                name: "Agriculture Combination", 
+                subjects: ["Chemistry", "Physics", "General Agriculture"],
+                minGrades: {"Chemistry": "C6", "Physics": "C6", "General Agriculture": "C6"},
+                additionalRules: []
+              }
+            ]
+          }
+        ]
       }
     ];
 
