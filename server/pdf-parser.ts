@@ -45,12 +45,16 @@ export class PDFRequirementsParser {
    * Parse admission requirements from PDF text
    */
   parseAdmissionRequirements(text: string): ParsedUniversityData {
+    // Clean the text and split into meaningful chunks
+    const cleanText = text.replace(/\s+/g, ' ').trim();
     const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+    
+    // Debug logging removed for cleaner output
     
     const programs: ParsedProgramRequirement[] = [];
     let currentFaculty = '';
     let currentSection = '';
-    let universityName = 'Unknown University';
+    let universityName = 'KNUST'; // Default to KNUST since we know this is KNUST document
     
     // Extract university name from text
     const universityMatch = text.match(/Kwame Nkrumah University of Science and Technology|University of Ghana|University of Cape Coast|Ashesi University/i);
@@ -64,42 +68,70 @@ export class PDFRequirementsParser {
       // Detect faculty sections
       if (line.includes('Faculty of') || line.includes('College of')) {
         currentFaculty = line.replace(/^\d+\s*/, '').trim();
+
         continue;
       }
       
       // Detect WASSCE/SSSCE applicant sections
       if (line.match(/A\.\s*(WASSCE|SSSCE|WASSCE\/SSSCE|SSSCE\/WASSCE)\s*APPLICANTS?/i)) {
         currentSection = line.trim();
+
         continue;
       }
       
-      // Detect program entries (numbered lists like "1) BSC. COMPUTER SCIENCE")
+      // Look for program groups - when we find the first program, collect all subsequent programs until "Entry Requirements"
       const programMatch = line.match(/^\d+\)\s*(.+)/);
       if (programMatch && currentSection.includes('WASSCE')) {
+        // Collect all programs in this group
+        const programGroup: string[] = [];
+        let currentLine = i;
         
-        // Extract requirements for this program group (might include multiple programs)
-        const programGroup = this.extractRequirementsForPrograms(lines, i);
+        // First program
+        programGroup.push(programMatch[1].trim());
+        currentLine++;
         
-        if (programGroup) {
-          const applicantType = this.extractApplicantType(currentSection);
+        // Look for more programs before Entry Requirements
+        while (currentLine < lines.length) {
+          const nextLine = lines[currentLine];
           
-          // Create a program entry for each program in the group
-          for (const programName of programGroup.programs) {
-            programs.push({
-              programName,
-              faculty: currentFaculty,
-              level: this.extractLevel(programName),
-              coreSubjects: programGroup.requirements.coreSubjects,
-              electiveSubjects: programGroup.requirements.electiveSubjects,
-              additionalRequirements: programGroup.requirements.additionalRequirements,
-              applicantType
-            });
+          if (nextLine.includes('Entry Requirements')) {
+            break;
+          }
+          
+          const nextProgramMatch = nextLine.match(/^\d+\)\s*(.+)/);
+          if (nextProgramMatch) {
+            programGroup.push(nextProgramMatch[1].trim());
+          }
+          
+          currentLine++;
+        }
+        
+        // Now extract requirements starting from where we found "Entry Requirements"
+        if (currentLine < lines.length && lines[currentLine].includes('Entry Requirements')) {
+          const requirements = this.extractRequirementsFromLines(lines, currentLine + 1);
+          
+          if (requirements) {
+            const applicantType = this.extractApplicantType(currentSection);
+            
+            // Create an entry for each program in the group with the same requirements
+            for (const programName of programGroup) {
+              programs.push({
+                programName,
+                faculty: currentFaculty,
+                level: this.extractLevel(programName),
+                coreSubjects: requirements.coreSubjects,
+                electiveSubjects: requirements.electiveSubjects,
+                additionalRequirements: requirements.additionalRequirements,
+                applicantType
+              });
+            }
+            
+
           }
         }
         
-        // Skip ahead to avoid reprocessing the same program group
-        const skipLines = programGroup?.programs.length || 1;
-        i += skipLines * 3; // Rough estimate to skip processed content
+        // Skip ahead to avoid reprocessing
+        i = currentLine + 10; // Skip ahead to avoid duplicate processing
       }
     }
     
@@ -111,150 +143,89 @@ export class PDFRequirementsParser {
   }
 
   /**
-   * Extract requirements for multiple programs that share the same requirements
+   * Extract requirements starting from a specific line (after "Entry Requirements")
    */
-  private extractRequirementsForPrograms(lines: string[], startIndex: number): {
-    programs: string[];
-    requirements: {
-      coreSubjects: Record<string, string>;
-      electiveSubjects: Array<{subject: string, min_grade: string, options?: string[], requirements?: string}>;
-      additionalRequirements?: string;
-    };
+  private extractRequirementsFromLines(lines: string[], startIndex: number): {
+    coreSubjects: Record<string, string>;
+    electiveSubjects: Array<{subject: string, min_grade: string, options?: string[], requirements?: string}>;
+    additionalRequirements?: string;
   } | null {
     
-    const programs: string[] = [];
     let coreSubjects: Record<string, string> = {};
     let electiveSubjects: Array<{subject: string, min_grade: string, options?: string[], requirements?: string}> = [];
     let additionalRequirements = '';
     
-    let foundEntryReqs = false;
-    let currentProgramSection = true;
+
     
-    // First, collect all programs until we hit "Entry Requirements"
-    for (let i = startIndex; i < Math.min(startIndex + 30, lines.length); i++) {
+    for (let i = startIndex; i < Math.min(startIndex + 20, lines.length); i++) {
       const line = lines[i];
       
-      if (line.includes('Entry Requirements')) {
-        foundEntryReqs = true;
-        currentProgramSection = false;
-        continue;
-      }
-      
-      // Collect program names while in program section
-      if (currentProgramSection) {
-        const programMatch = line.match(/^\d+\)\s*(.+)/);
-        if (programMatch) {
-          programs.push(programMatch[1].trim());
-        }
-        // Also check for programs that might be on continuation lines
-        else if (line.match(/^[A-Z][A-Z\s]+/) && !line.includes('Entry Requirements') && !line.includes('Core Subjects') && !line.includes('Elective Subjects')) {
-          // This might be a program name that continues from previous line
-          const lastProgram = programs[programs.length - 1];
-          if (lastProgram && lastProgram.length < 50) {
-            programs[programs.length - 1] = lastProgram + ' ' + line.trim();
-          }
-        }
-        continue;
-      }
-      
-      // Stop if we hit a new section (like B. GCE 'A'LEVEL APPLICANTS)
-      if (line.match(/^[A-Z]\.\s*[A-Z]/) && foundEntryReqs) {
+      // Stop if we hit a new major section
+      if (line.match(/^[A-Z]\.\s*[A-Z]/) || line.match(/^\d+\)\s*BSC|^\d+\)\s*BACHELOR/) || line.includes('Faculty of')) {
+
         break;
       }
       
-      if (!foundEntryReqs) continue;
-      
-      // Parse core subjects - look for complete text across multiple lines
-      if (line.includes('Core Subjects:') || line.startsWith('Core Subjects')) {
-        let coreText = line.replace(/Core Subjects:?/g, '').trim();
+      // Parse core subjects
+      if (line.includes('Core Subjects:')) {
+        let coreText = line.replace('Core Subjects:', '').trim();
         
-        // Look ahead for continuation lines
+        // Look ahead for continuation - subjects might be on next lines
         for (let j = i + 1; j < Math.min(i + 5, lines.length); j++) {
           const nextLine = lines[j];
-          if (nextLine.includes('Elective Subjects') || nextLine.match(/^\d+\)\s*/)) break;
-          if (nextLine.trim() && !nextLine.includes('Entry Requirements')) {
+          if (nextLine.includes('Elective Subjects') || nextLine.match(/^\d+\)\s*/) || nextLine.match(/^[A-Z]\.\s*/)) break;
+          if (nextLine.trim() && !nextLine.includes(':')) {
             coreText += ' ' + nextLine.trim();
           }
         }
         
-        if (coreText.includes('Credit passes in') || coreText.includes('English Language')) {
-          const subjects = this.extractSubjectsFromText(coreText);
-          subjects.forEach(subject => {
-            coreSubjects[subject] = 'C6'; // Default credit requirement
-          });
-        }
+
+        
+        // Extract subjects
+        if (coreText.toLowerCase().includes('english')) coreSubjects['English Language'] = 'C6';
+        if (coreText.toLowerCase().includes('mathema') || coreText.toLowerCase().includes('mathematics')) coreSubjects['Mathematics'] = 'C6';
+        if (coreText.toLowerCase().includes('integrated science') || coreText.toLowerCase().includes('science')) coreSubjects['Integrated Science'] = 'C6';
       }
       
-      // Parse elective subjects with complete text
-      if (line.includes('Elective Subjects:') || line.startsWith('Elective Subjects')) {
-        let electiveText = line.replace(/Elective Subjects:?/g, '').trim();
+      // Parse elective subjects
+      if (line.includes('Elective Subjects:')) {
+        let electiveText = line.replace('Elective Subjects:', '').trim();
         
-        // Look ahead for continuation lines and options
+        // Look ahead for all elective requirements
         for (let j = i + 1; j < Math.min(i + 15, lines.length); j++) {
           const nextLine = lines[j];
           
           // Stop at next major section
-          if (nextLine.match(/^[A-Z]\.\s*[A-Z]/) || nextLine.match(/^\d+\)\s*BSC|^\d+\)\s*BACHELOR/)) break;
+          if (nextLine.match(/^[A-Z]\.\s*/) || nextLine.match(/^\d+\)\s*BSC/) || nextLine.includes('Faculty of')) break;
           
-          if (nextLine.trim()) {
-            // Check for option groups (i., ii., iii.)
-            if (nextLine.match(/^\s*(i{1,3}|iv|v)\./)) {
-              const optionText = nextLine.replace(/^\s*(i{1,3}|iv|v)\./, '').trim();
-              
-              // Look for continuation of this option
-              let completeOptionText = optionText;
-              for (let k = j + 1; k < Math.min(j + 5, lines.length); k++) {
-                const contLine = lines[k];
-                if (contLine.match(/^\s*(i{1,3}|iv|v)\./) || contLine.match(/^[A-Z]\.\s*/)) break;
-                if (contLine.trim() && !contLine.includes(':')) {
-                  completeOptionText += ' ' + contLine.trim();
-                }
-              }
-              
-              const optionSubjects = this.extractSubjectsFromText(completeOptionText);
-              
-              electiveSubjects.push({
-                subject: `Option ${nextLine.match(/^\s*(i{1,3}|iv|v)/)?.[1] || 'Group'}`,
-                min_grade: 'C6',
-                options: optionSubjects,
-                requirements: completeOptionText
-              });
-            }
-            // Regular elective text continuation
-            else if (!nextLine.includes(':') && !nextLine.match(/^\d+\)\s*/)) {
-              electiveText += ' ' + nextLine.trim();
-            }
+          // Add continuation text
+          if (nextLine.trim() && !nextLine.includes(':')) {
+            electiveText += ' ' + nextLine.trim();
           }
         }
         
-        // Handle simple elective requirements (non-option based)
-        if (electiveText.includes('Credit passes in') && !electiveText.includes('following options')) {
-          const subjects = this.extractSubjectsFromText(electiveText);
-          subjects.forEach(subject => {
-            electiveSubjects.push({
-              subject,
-              min_grade: 'C6'
-            });
+        // Parse elective subjects from the complete text
+        const subjects = this.extractSubjectsFromText(electiveText);
+        
+        subjects.forEach(subject => {
+          electiveSubjects.push({
+            subject,
+            min_grade: 'C6'
           });
-        }
-      }
-      
-      // Collect additional requirements
-      if (foundEntryReqs && !line.includes('Core Subjects:') && !line.includes('Elective Subjects:') && !line.match(/^\s*(i{1,3}|iv|v)\./)) {
-        if (line.length > 10 && line.trim()) {
-          additionalRequirements += line.trim() + ' ';
-        }
+        });
+        
+        // Also add the full text as additional requirements
+        additionalRequirements = electiveText;
       }
     }
     
-    if (programs.length > 0 && (Object.keys(coreSubjects).length > 0 || electiveSubjects.length > 0)) {
+
+    
+    if (Object.keys(coreSubjects).length > 0 || electiveSubjects.length > 0) {
       return {
-        programs,
-        requirements: {
-          coreSubjects,
-          electiveSubjects,
-          additionalRequirements: additionalRequirements.trim() || undefined
-        }
+        coreSubjects,
+        electiveSubjects,
+        additionalRequirements: additionalRequirements.trim() || undefined
       };
     }
     
