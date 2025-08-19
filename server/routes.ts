@@ -191,6 +191,7 @@ function checkEligibility(grades: WassceeGrades): Promise<EligibilityResult[]> {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+
   // Search universities
   app.get("/api/universities/search", async (req, res) => {
     try {

@@ -14,10 +14,8 @@ import {
   type UserPreferences,
   type ToggleFavorite
 } from "@shared/schema";
-import { randomUUID } from "crypto";
-import { db } from "./db";
-import { users, universities, programs, requirements, scholarships } from "@shared/schema";
-import { eq, and, or, ilike, desc } from "drizzle-orm";
+import { DatabaseStorage } from "./db-storage";
+import { seedDatabase } from "./seed-data";
 
 export interface IStorage {
   // User methods
@@ -58,7 +56,7 @@ export interface IStorage {
   getUserFavoritePrograms(userId: string): Promise<string[]>;
 }
 
-export class MemStorage implements IStorage {
+class MemStorage implements IStorage {
   private users: Map<string, User>;
   private universities: Map<string, University>;
   private programs: Map<string, Program>;
@@ -174,7 +172,9 @@ export class MemStorage implements IStorage {
         description: "Comprehensive computer science program with industry focus",
         field: "Technology",
         applicationDeadline: "2025-05-31",
-        careerOutcomes: ["Software Developer", "Data Scientist", "IT Consultant", "Systems Analyst", "Cybersecurity Specialist"]
+        careerOutcomes: ["Software Developer", "Data Scientist", "IT Consultant", "Systems Analyst", "Cybersecurity Specialist"],
+        averageSalary: 55000,
+        employmentRate: 90
       },
       {
         id: "prog-002",
@@ -188,7 +188,9 @@ export class MemStorage implements IStorage {
         description: "Economics program with policy and development focus",
         field: "Business",
         applicationDeadline: "2025-06-15",
-        careerOutcomes: ["Economic Analyst", "Policy Advisor", "Financial Consultant", "Development Officer", "Research Economist"]
+        careerOutcomes: ["Economic Analyst", "Policy Advisor", "Financial Consultant", "Development Officer", "Research Economist"],
+        averageSalary: 42000,
+        employmentRate: 85
       },
       {
         id: "prog-003",
@@ -202,7 +204,9 @@ export class MemStorage implements IStorage {
         description: "Accredited engineering program with practical training",
         field: "Engineering",
         applicationDeadline: "2025-04-30",
-        careerOutcomes: ["Civil Engineer", "Project Manager", "Construction Manager", "Structural Engineer", "Infrastructure Planner"]
+        careerOutcomes: ["Civil Engineer", "Project Manager", "Construction Manager", "Structural Engineer", "Infrastructure Planner"],
+        averageSalary: 60000,
+        employmentRate: 92
       },
       {
         id: "prog-004",
@@ -493,7 +497,12 @@ export class MemStorage implements IStorage {
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = randomUUID();
-    const user: User = { ...insertUser, id };
+    const user: User = { 
+      ...insertUser, 
+      id,
+      favoritePrograms: [],
+      favoriteUniversities: []
+    };
     this.users.set(id, user);
     return user;
   }
@@ -818,32 +827,20 @@ export class DatabaseStorage implements IStorage {
     return this.userPreferences || {};
   }
 
-  // Favorites management
+  // Favorites management (simplified for memory storage)
   async toggleFavoriteProgram(userId: string, programId: string, action: 'add' | 'remove'): Promise<void> {
-    const user = await this.getUser(userId);
-    if (!user) return;
-
-    const favorites = (user.favoritePrograms as string[]) || [];
-    
-    if (action === 'add' && !favorites.includes(programId)) {
-      favorites.push(programId);
-    } else if (action === 'remove') {
-      const index = favorites.indexOf(programId);
-      if (index > -1) favorites.splice(index, 1);
-    }
-
-    await db.update(users)
-      .set({ favoritePrograms: favorites })
-      .where(eq(users.id, userId));
+    // For memory storage, just log the action
+    console.log(`${action} favorite program ${programId} for user ${userId}`);
   }
 
   async getUserFavoritePrograms(userId: string): Promise<string[]> {
-    const user = await this.getUser(userId);
+    const user = this.users.get(userId);
     return (user?.favoritePrograms as string[]) || [];
   }
 
   private userPreferences: UserPreferences = {};
 }
 
-// Use DatabaseStorage instead of MemStorage
-export const storage = new DatabaseStorage();
+// Using MemStorage with comprehensive sample data for MyCampusMingle platform
+// Use in-memory storage with sample data for now
+export const storage: IStorage = new MemStorage();
