@@ -1,7 +1,9 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import multer from 'multer';
 import { storage } from "./storage";
 import { checkEnhancedEligibility } from "./enhanced-eligibility";
+import { pdfParser } from "./pdf-parser";
 import { 
   searchFiltersSchema, 
   wassceeGradesSchema, 
@@ -16,6 +18,17 @@ import {
   type ToggleFavorite,
   type ExportRequest 
 } from "@shared/schema";
+
+// WASSCE grade values for comparison (lower is better)
+const gradeValues: Record<string, number> = {
+  'A1': 1, 'B2': 2, 'B3': 3, 'C4': 4, 'C5': 5, 'C6': 6, 'D7': 7, 'E8': 8, 'F9': 9
+};
+
+// Configure multer for file uploads
+const upload = multer({ 
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
+});
 
 // Enhanced eligibility checking now handled by enhanced-eligibility.ts
 
@@ -286,8 +299,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Sort by eligibility status and add match scores
       const sortedResults = results.sort((a, b) => {
-        const statusOrder = { 'eligible': 0, 'borderline': 1, 'not_eligible': 2 };
-        return statusOrder[a.status] - statusOrder[b.status];
+        const statusOrder: Record<string, number> = { 'eligible': 0, 'multiple_tracks': 0, 'borderline': 1, 'not_eligible': 2 };
+        return (statusOrder[a.status] ?? 2) - (statusOrder[b.status] ?? 2);
       });
       
       res.json(sortedResults);
@@ -413,6 +426,89 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Error exporting data:', error);
       res.status(500).json({ message: 'Failed to export data' });
+    }
+  });
+
+  // PDF Upload endpoint for parsing admission requirements
+  app.post('/api/admin/parse-pdf', upload.single('pdf'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ message: 'PDF file is required' });
+      }
+
+      if (req.file.mimetype !== 'application/pdf') {
+        return res.status(400).json({ message: 'Only PDF files are allowed' });
+      }
+
+      // Extract text from PDF
+      const pdfText = await pdfParser.extractTextFromPDF(req.file.buffer);
+      
+      // Parse admission requirements
+      const parsedData = pdfParser.parseAdmissionRequirements(pdfText);
+      
+      // Save to database
+      const result = await pdfParser.saveToDatabase(parsedData);
+
+      res.json({
+        message: 'PDF parsed successfully',
+        university: parsedData.universityName,
+        programsFound: parsedData.programs.length,
+        programsCreated: result.programsCreated,
+        requirementsCreated: result.requirementsCreated,
+        programs: parsedData.programs.map(p => ({
+          name: p.programName,
+          faculty: p.faculty,
+          level: p.level,
+          applicantType: p.applicantType,
+          coreSubjects: Object.keys(p.coreSubjects),
+          electiveCount: p.electiveSubjects.length
+        }))
+      });
+    } catch (error) {
+      console.error('PDF parsing error:', error);
+      res.status(500).json({ 
+        message: 'Failed to parse PDF', 
+        error: (error as Error).message 
+      });
+    }
+  });
+
+  // Preview PDF content without saving
+  app.post('/api/admin/preview-pdf', upload.single('pdf'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ message: 'PDF file is required' });
+      }
+
+      if (req.file.mimetype !== 'application/pdf') {
+        return res.status(400).json({ message: 'Only PDF files are allowed' });
+      }
+
+      // Extract text from PDF
+      const pdfText = await pdfParser.extractTextFromPDF(req.file.buffer);
+      
+      // Parse admission requirements
+      const parsedData = pdfParser.parseAdmissionRequirements(pdfText);
+
+      res.json({
+        university: parsedData.universityName,
+        programsFound: parsedData.programs.length,
+        programs: parsedData.programs.map(p => ({
+          name: p.programName,
+          faculty: p.faculty,
+          level: p.level,
+          applicantType: p.applicantType,
+          coreSubjects: p.coreSubjects,
+          electiveSubjects: p.electiveSubjects,
+          additionalRequirements: p.additionalRequirements
+        }))
+      });
+    } catch (error) {
+      console.error('PDF preview error:', error);
+      res.status(500).json({ 
+        message: 'Failed to preview PDF', 
+        error: (error as Error).message 
+      });
     }
   });
 
