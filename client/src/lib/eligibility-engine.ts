@@ -229,10 +229,10 @@ export function evaluateProgramEligibility(
  * Sorts eligibility results by status priority
  */
 export function sortEligibilityResults(results: EligibilityResult[]): EligibilityResult[] {
-  const statusOrder = { 'eligible': 0, 'borderline': 1, 'not_eligible': 2 };
+  const statusOrder: Record<string, number> = { 'eligible': 0, 'borderline': 1, 'not_eligible': 2, 'multiple_tracks': 3 };
   
   return results.sort((a, b) => {
-    const statusDiff = statusOrder[a.status] - statusOrder[b.status];
+    const statusDiff = (statusOrder[a.status] || 99) - (statusOrder[b.status] || 99);
     if (statusDiff !== 0) return statusDiff;
     
     // Secondary sort by university name

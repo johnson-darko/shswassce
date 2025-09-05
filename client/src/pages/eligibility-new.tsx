@@ -8,8 +8,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Loader2, CheckCircle, XCircle, AlertCircle, Heart, Download, Share2, Briefcase, DollarSign, TrendingUp } from 'lucide-react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiRequest } from '@/lib/queryClient';
+import { checkEligibilityOffline } from '@/lib/offline-eligibility-engine';
+import { userPrefsService } from '@/lib/local-data-service';
 import { useToast } from '@/hooks/use-toast';
 
 const gradeOptions = ['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9'];
@@ -35,7 +35,7 @@ interface EligibilityResult {
   programId: string;
   programName: string;
   universityName: string;
-  status: 'eligible' | 'borderline' | 'not_eligible';
+  status: 'eligible' | 'borderline' | 'not_eligible' | 'multiple_tracks';
   message: string;
   details: string[];
   recommendations?: string[];
@@ -43,6 +43,10 @@ interface EligibilityResult {
   averageSalary?: number;
   employmentRate?: number;
   isFavorite?: boolean;
+  matchScore?: number;
+  admissionTracks?: any[];
+  bestTrackMatch?: string;
+  requirementComplexity?: string;
 }
 
 const coreSubjects = [
@@ -85,32 +89,33 @@ function EligibilityPage() {
     },
   });
 
-  const saveGradesMutation = useMutation({
-    mutationFn: async (grades: GradeFormData) => {
-      const response = await apiRequest('POST', '/api/user/grades', grades);
-      return response.json();
-    },
-    onSuccess: (data) => {
-      setSavedGrades(data);
-    },
-  });
-
-  const checkEligibilityMutation = useMutation({
-    mutationFn: async (grades: GradeFormData): Promise<EligibilityResult[]> => {
-      const response = await apiRequest('POST', '/api/programs/eligibility', grades);
-      return response.json();
-    },
-    onSuccess: (results: EligibilityResult[]) => {
-      setEligibilityResults(results);
-    },
-  });
+  const [isChecking, setIsChecking] = useState(false);
+  const { toast } = useToast();
 
   const handleGradeSubmit = async (data: GradeFormData) => {
+    setIsChecking(true);
     try {
-      await saveGradesMutation.mutateAsync(data);
-      await checkEligibilityMutation.mutateAsync(data);
+      // Save grades locally
+      userPrefsService.saveGrades(data);
+      setSavedGrades(data);
+      
+      // Check eligibility offline
+      const results = await checkEligibilityOffline(data);
+      setEligibilityResults(results);
+      
+      toast({
+        title: "Eligibility Check Complete",
+        description: `Found ${results.filter(r => r.status === 'eligible').length} eligible programs for you!`,
+      });
     } catch (error) {
-      console.error('Failed to save grades or check eligibility:', error);
+      console.error('Failed to check eligibility:', error);
+      toast({
+        title: "Error",
+        description: "Failed to check eligibility. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsChecking(false);
     }
   };
 
@@ -140,23 +145,27 @@ function EligibilityPage() {
     />
   );
 
-  const getEligibilityIcon = (status: 'eligible' | 'borderline' | 'not_eligible') => {
+  const getEligibilityIcon = (status: 'eligible' | 'borderline' | 'not_eligible' | 'multiple_tracks') => {
     switch (status) {
       case 'eligible':
         return <CheckCircle className="h-5 w-5 text-green-600" />;
       case 'borderline':
         return <AlertCircle className="h-5 w-5 text-yellow-600" />;
+      case 'multiple_tracks':
+        return <CheckCircle className="h-5 w-5 text-blue-600" />;
       case 'not_eligible':
         return <XCircle className="h-5 w-5 text-red-600" />;
     }
   };
 
-  const getEligibilityBadge = (status: 'eligible' | 'borderline' | 'not_eligible') => {
+  const getEligibilityBadge = (status: 'eligible' | 'borderline' | 'not_eligible' | 'multiple_tracks') => {
     switch (status) {
       case 'eligible':
         return <Badge className="bg-green-100 text-green-800 border-green-300">Eligible</Badge>;
       case 'borderline':
         return <Badge className="bg-yellow-100 text-yellow-800 border-yellow-300">Borderline</Badge>;
+      case 'multiple_tracks':
+        return <Badge className="bg-blue-100 text-blue-800 border-blue-300">Multiple Options</Badge>;
       case 'not_eligible':
         return <Badge className="bg-red-100 text-red-800 border-red-300">Not Eligible</Badge>;
     }
@@ -202,11 +211,11 @@ function EligibilityPage() {
                 <div className="flex justify-center pt-6">
                   <Button
                     type="submit"
-                    disabled={saveGradesMutation.isPending || checkEligibilityMutation.isPending}
+                    disabled={isChecking}
                     className="bg-scorecard-orange hover:bg-scorecard-orange/90 text-white px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     data-testid="button-check-eligibility"
                   >
-                    {(saveGradesMutation.isPending || checkEligibilityMutation.isPending) ? (
+                    {isChecking ? (
                       <>
                         <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                         Checking Eligibility...

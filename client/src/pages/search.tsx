@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { localDataService, userPrefsService } from '@/lib/local-data-service';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -33,23 +33,33 @@ export default function SearchPage() {
     setAppliedFilters(initialFilters);
   }, [location]);
 
-  const { data: universities = [], isLoading, error } = useQuery({
-    queryKey: ['/api/universities/search', appliedFilters],
-    queryFn: async () => {
-      const params = new URLSearchParams();
-      Object.entries(appliedFilters).forEach(([key, value]) => {
-        if (value !== undefined && value !== null) {
-          params.append(key, value.toString());
+  const [universities, setUniversities] = useState<University[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Load universities when filters change
+  useEffect(() => {
+    const loadUniversities = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const results = await localDataService.getUniversities(appliedFilters);
+        setUniversities(results);
+        
+        // Save search to history
+        if (appliedFilters.query) {
+          userPrefsService.addToSearchHistory(appliedFilters.query);
         }
-      });
-      
-      const response = await fetch(`/api/universities/search?${params}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch universities');
+      } catch (err) {
+        setError('Failed to load universities');
+        console.error('Error loading universities:', err);
+      } finally {
+        setIsLoading(false);
       }
-      return response.json() as Promise<University[]>;
-    },
-  });
+    };
+
+    loadUniversities();
+  }, [appliedFilters]);
 
   const handleSearch = () => {
     const newFilters = { ...filters, query: searchQuery };
@@ -87,7 +97,13 @@ export default function SearchPage() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-red-600 mb-4">Error Loading Universities</h2>
-            <p className="text-scorecard-gray">Failed to load university data. Please try again later.</p>
+            <p className="text-scorecard-gray">{error}. Please try again later.</p>
+            <Button 
+              onClick={() => window.location.reload()}
+              className="mt-4 bg-scorecard-blue hover:bg-blue-900"
+            >
+              Retry
+            </Button>
           </div>
         </div>
       </div>
