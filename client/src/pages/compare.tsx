@@ -12,15 +12,17 @@ export default function ComparePage() {
   const { selectedUniversities, universityDetails, removeFromComparison, clearComparison } = useComparison();
 
   const { data: universities = [], isLoading, error } = useQuery({
-    queryKey: ['offline-universities-compare', Array.from(selectedUniversities)],
+    queryKey: ['offline-universities-compare', Array.from(selectedUniversities), 'v2'], // Force cache bust
     queryFn: async () => {
       if (selectedUniversities.size === 0) return [];
-      console.log('Loading comparison data offline');
+      console.log('Loading comparison data offline - no API calls');
       
       const universityIds = Array.from(selectedUniversities);
       return await localDataService.getUniversitiesByIds(universityIds);
     },
     enabled: selectedUniversities.size > 0,
+    staleTime: 0, // Force fresh queries
+    cacheTime: 0, // Don't cache
   });
 
   if (selectedUniversities.size === 0) {
