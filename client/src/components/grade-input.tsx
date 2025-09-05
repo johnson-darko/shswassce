@@ -150,7 +150,7 @@ export default function GradeInput({ grades, onGradesChange }: GradeInputProps) 
   return (
     <Card className="w-full bg-scorecard-bg" data-testid="grade-input">
       <CardHeader>
-        <CardTitle className="text-center text-scorecard-blue">Enter Your WASSCE Grades</CardTitle>
+        <CardTitle className="text-center text-scorecard-blue">Enter Your WASSCE Grades (New Design)</CardTitle>
       </CardHeader>
       <CardContent>
         {/* Core Subjects */}
