@@ -359,33 +359,22 @@ export default function Calculator() {
     setShowEligibility(true);
     
     try {
-      const response = await fetch('/api/programs/eligibility', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          english: grades.english,
-          mathematics: grades.mathematics,
-          science: grades.science,
-          social: grades.social,
-          elective1Subject: grades.elective1Subject,
-          elective1Grade: grades.elective1Grade,
-          elective2Subject: grades.elective2Subject,
-          elective2Grade: grades.elective2Grade,
-          elective3Subject: grades.elective3Subject,
-          elective3Grade: grades.elective3Grade,
-          elective4Subject: grades.elective4Subject,
-          elective4Grade: grades.elective4Grade,
-        }),
+      const { checkEligibilityOffline } = await import('@/lib/offline-eligibility-engine');
+      const results = await checkEligibilityOffline({
+        english: grades.english,
+        mathematics: grades.mathematics,
+        science: grades.science,
+        social: grades.social,
+        elective1Subject: grades.elective1Subject,
+        elective1Grade: grades.elective1Grade,
+        elective2Subject: grades.elective2Subject,
+        elective2Grade: grades.elective2Grade,
+        elective3Subject: grades.elective3Subject,
+        elective3Grade: grades.elective3Grade,
+        elective4Subject: grades.elective4Subject,
+        elective4Grade: grades.elective4Grade,
       });
-
-      if (response.ok) {
-        const results = await response.json();
-        setEligibilityResults(results);
-      } else {
-        console.error('Failed to check eligibility');
-      }
+      setEligibilityResults(results);
     } catch (error) {
       console.error('Error checking eligibility:', error);
     } finally {
