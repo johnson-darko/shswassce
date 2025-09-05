@@ -387,7 +387,7 @@ export class PDFRequirementsParser {
   }
 
   /**
-   * Save parsed data to database
+   * Save parsed data to storage (offline mode)
    */
   async saveToDatabase(parsedData: ParsedUniversityData): Promise<{
     universityId: string;
@@ -400,7 +400,7 @@ export class PDFRequirementsParser {
       .find(u => u.name.toLowerCase().includes(parsedData.universityName.toLowerCase()));
     
     if (!university) {
-      throw new Error(`University not found: ${parsedData.universityName}. Please ensure the university exists in the database first.`);
+      throw new Error(`University not found: ${parsedData.universityName}. Please ensure the university exists in the storage first.`);
     }
     
     let programsCreated = 0;
@@ -464,16 +464,6 @@ export class PDFRequirementsParser {
       } else {
         // Update existing requirements with new tracks
         const existing = existingRequirements[0];
-        const updatedTracks = {
-          ...(existing.admissionTracks as any || {}),
-          [programData.applicantType]: {
-            coreSubjects: programData.coreSubjects,
-            electiveSubjects: programData.electiveSubjects,
-            additionalRequirements: programData.additionalRequirements
-          }
-        };
-        
-        // Update the requirement (this would need to be implemented in storage)
         console.log(`Would update requirements for program ${program.name} with new track: ${programData.applicantType}`);
       }
     }
