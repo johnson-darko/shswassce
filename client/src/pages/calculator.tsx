@@ -207,25 +207,23 @@ export default function Calculator() {
       return null;
     }
 
-    // Check if we have at least 2 elective grades (minimum requirement)
-    if (electiveGrades.length < 2) {
+    // Check if we have all 4 elective grades (required for SHS aggregate)
+    if (electiveGrades.length < 4) {
       return null;
     }
 
     // Calculate core total (all 4 subjects required)
     const coreTotal = coreGrades.reduce((sum, grade) => sum + gradeValues[grade], 0);
     
-    // Calculate elective total (best 3 subjects, or all if less than 3)
-    const sortedElectives = electiveGrades.sort((a, b) => gradeValues[a] - gradeValues[b]);
-    const bestElectives = sortedElectives.slice(0, 3);
-    const electiveTotal = bestElectives.reduce((sum, grade) => sum + gradeValues[grade], 0);
+    // Calculate elective total (all 4 subjects for SHS)
+    const electiveTotal = electiveGrades.reduce((sum, grade) => sum + gradeValues[grade], 0);
     
     return {
       coreTotal,
       electiveTotal,
       aggregate: coreTotal + electiveTotal,
       electiveCount: electiveGrades.length,
-      bestElectivesUsed: bestElectives.length
+      totalSubjects: 8
     };
   };
 
@@ -420,8 +418,8 @@ export default function Calculator() {
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-green-800">{result.electiveTotal}</div>
-                  <div className="text-sm text-green-600">Best Electives</div>
-                  <div className="text-xs text-gray-500">({result.bestElectivesUsed} subjects)</div>
+                  <div className="text-sm text-green-600">All Electives</div>
+                  <div className="text-xs text-gray-500">({result.electiveCount} subjects)</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-green-900">{result.aggregate}</div>
@@ -441,7 +439,7 @@ export default function Calculator() {
               <Alert>
                 <AlertDescription>
                   <strong>How it's calculated:</strong> All 4 core subjects ({result.coreTotal} points) + 
-                  your best {result.bestElectivesUsed} elective subjects ({result.electiveTotal} points) = 
+                  all 4 elective subjects ({result.electiveTotal} points) = 
                   <strong> {result.aggregate} aggregate</strong>. Lower scores are better!
                 </AlertDescription>
               </Alert>
@@ -454,9 +452,9 @@ export default function Calculator() {
             <CardContent className="pt-6">
               <Alert>
                 <AlertDescription>
-                  <strong>Instructions:</strong> Fill in all 4 core subjects and at least 2 elective subjects 
-                  to calculate your aggregate score. Your aggregate will be calculated using all core subjects 
-                  plus your best 3 elective subjects.
+                  <strong>Instructions:</strong> Fill in all 4 core subjects and all 4 elective subjects 
+                  to calculate your SHS aggregate score. Your aggregate will be calculated using all 8 subjects 
+                  (4 core + 4 electives).
                 </AlertDescription>
               </Alert>
             </CardContent>
