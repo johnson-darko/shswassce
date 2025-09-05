@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -70,6 +70,43 @@ const electiveSubjects = [
 function EligibilityPage() {
   const [savedGrades, setSavedGrades] = useState<GradeFormData | null>(null);
   const [eligibilityResults, setEligibilityResults] = useState<EligibilityResult[]>([]);
+  const [isLoadingGrades, setIsLoadingGrades] = useState(true);
+
+  // Load saved grades from localStorage on component mount
+  useEffect(() => {
+    console.log('Loading saved grades from localStorage...');
+    const loadedGrades = userPrefsService.getGrades();
+    
+    if (loadedGrades) {
+      console.log('Found saved grades:', loadedGrades);
+      setSavedGrades(loadedGrades);
+      
+      // Reset form with saved values
+      gradeForm.reset({
+        english: loadedGrades.english || '',
+        mathematics: loadedGrades.mathematics || '',
+        science: loadedGrades.science || '',
+        social: loadedGrades.social || '',
+        electiveMath: loadedGrades.electiveMath || '',
+        physics: loadedGrades.physics || '',
+        chemistry: loadedGrades.chemistry || '',
+        biology: loadedGrades.biology || '',
+        economics: loadedGrades.economics || '',
+        government: loadedGrades.government || '',
+        literature: loadedGrades.literature || '',
+        geography: loadedGrades.geography || '',
+      });
+      
+      toast({
+        title: "Grades Restored",
+        description: "Your previously entered grades have been loaded!",
+      });
+    } else {
+      console.log('No saved grades found');
+    }
+    
+    setIsLoadingGrades(false);
+  }, []);
 
   const gradeForm = useForm<GradeFormData>({
     resolver: zodResolver(gradeFormSchema),
@@ -92,6 +129,30 @@ function EligibilityPage() {
   const [isChecking, setIsChecking] = useState(false);
   const { toast } = useToast();
 
+  const clearSavedGrades = () => {
+    localStorage.removeItem('gh-uni-guide-preferences');
+    setSavedGrades(null);
+    gradeForm.reset({
+      english: '',
+      mathematics: '',
+      science: '',
+      social: '',
+      electiveMath: '',
+      physics: '',
+      chemistry: '',
+      biology: '',
+      economics: '',
+      government: '',
+      literature: '',
+      geography: '',
+    });
+    setEligibilityResults([]);
+    toast({
+      title: "Grades Cleared",
+      description: "All saved grades have been removed.",
+    });
+  };
+
   const handleGradeSubmit = async (data: GradeFormData) => {
     setIsChecking(true);
     try {
@@ -105,7 +166,7 @@ function EligibilityPage() {
       
       toast({
         title: "Eligibility Check Complete",
-        description: `Found ${results.filter(r => r.status === 'eligible').length} eligible programs for you!`,
+        description: `Found ${results.filter(r => r.status === 'eligible').length} eligible programs for you! Grades saved for next time.`,
       });
     } catch (error) {
       console.error('Failed to check eligibility:', error);
@@ -188,8 +249,19 @@ function EligibilityPage() {
             <CardTitle className="text-2xl text-scorecard-blue text-center">
               Enter Your WASSCE Grades
             </CardTitle>
+            {savedGrades && (
+              <p className="text-center text-green-600 font-medium mt-2">
+                ✓ Your grades have been saved and will persist across sessions
+              </p>
+            )}
           </CardHeader>
           <CardContent>
+            {isLoadingGrades ? (
+              <div className="flex justify-center items-center py-12">
+                <Loader2 className="h-8 w-8 animate-spin text-scorecard-blue" />
+                <span className="ml-3 text-scorecard-gray">Loading your saved grades...</span>
+              </div>
+            ) : (
             <Form {...gradeForm}>
               <form onSubmit={gradeForm.handleSubmit(handleGradeSubmit)} className="space-y-6">
                 {/* Core Subjects */}
@@ -208,10 +280,10 @@ function EligibilityPage() {
                   </div>
                 </div>
 
-                <div className="flex justify-center pt-6">
+                <div className="flex justify-center gap-4 pt-6">
                   <Button
                     type="submit"
-                    disabled={isChecking}
+                    disabled={isChecking || isLoadingGrades}
                     className="bg-scorecard-orange hover:bg-scorecard-orange/90 text-white px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     data-testid="button-check-eligibility"
                   >
@@ -224,9 +296,23 @@ function EligibilityPage() {
                       'Check Program Eligibility'
                     )}
                   </Button>
+                  
+                  {savedGrades && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={clearSavedGrades}
+                      disabled={isChecking || isLoadingGrades}
+                      className="border-red-500 text-red-600 hover:bg-red-50 px-6 py-4 text-lg font-semibold rounded-lg transition-all duration-200"
+                      data-testid="button-clear-grades"
+                    >
+                      Clear Saved Grades
+                    </Button>
+                  )}
                 </div>
               </form>
             </Form>
+            )}
           </CardContent>
         </Card>
 
