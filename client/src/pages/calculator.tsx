@@ -194,37 +194,106 @@ export default function Calculator() {
   };
 
   const calculateAggregate = () => {
-    const coreGrades = [grades.english, grades.mathematics, grades.science, grades.social];
-    const electiveGrades = [
-      grades.elective1Grade,
-      grades.elective2Grade, 
-      grades.elective3Grade,
-      grades.elective4Grade
-    ].filter(grade => grade !== '');
+    const coreGradesData = [
+      { subject: 'English Language', grade: grades.english },
+      { subject: 'Mathematics', grade: grades.mathematics },
+      { subject: 'Integrated Science', grade: grades.science },
+      { subject: 'Social Studies', grade: grades.social }
+    ].filter(item => item.grade !== '');
 
-    // Check if we have all core subjects
-    if (coreGrades.some(grade => !grade)) {
+    const electiveGradesData = [
+      { subject: grades.elective1Subject, grade: grades.elective1Grade },
+      { subject: grades.elective2Subject, grade: grades.elective2Grade },
+      { subject: grades.elective3Subject, grade: grades.elective3Grade },
+      { subject: grades.elective4Subject, grade: grades.elective4Grade }
+    ].filter(item => item.grade !== '' && item.subject !== '');
+
+    // Check if we have at least 3 core and 3 elective subjects
+    if (coreGradesData.length < 3 || electiveGradesData.length < 3) {
       return null;
     }
 
-    // Check if we have all 4 elective grades (required for SHS aggregate)
-    if (electiveGrades.length < 4) {
+    // Filter subjects with C6 or better (grades 1-6)
+    const validCoreGrades = coreGradesData.filter(item => gradeValues[item.grade] <= 6);
+    const validElectiveGrades = electiveGradesData.filter(item => gradeValues[item.grade] <= 6);
+
+    if (validCoreGrades.length < 3 || validElectiveGrades.length < 3) {
       return null;
     }
 
-    // Calculate core total (all 4 subjects required)
-    const coreTotal = coreGrades.reduce((sum, grade) => sum + gradeValues[grade], 0);
-    
-    // Calculate elective total (all 4 subjects for SHS)
-    const electiveTotal = electiveGrades.reduce((sum, grade) => sum + gradeValues[grade], 0);
-    
+    // Sort by grade value (lower is better)
+    const sortedCore = validCoreGrades.sort((a, b) => gradeValues[a.grade] - gradeValues[b.grade]);
+    const sortedElectives = validElectiveGrades.sort((a, b) => gradeValues[a.grade] - gradeValues[b.grade]);
+
+    // Pick best 3 core and best 3 electives
+    const bestCore = sortedCore.slice(0, 3);
+    const bestElectives = sortedElectives.slice(0, 3);
+
+    const coreTotal = bestCore.reduce((sum, item) => sum + gradeValues[item.grade], 0);
+    const electiveTotal = bestElectives.reduce((sum, item) => sum + gradeValues[item.grade], 0);
+
+    // Calculate alternative combinations
+    const alternatives = calculateAlternativeCombinations(validCoreGrades, validElectiveGrades, bestCore, bestElectives);
+
     return {
+      bestCore,
+      bestElectives,
       coreTotal,
       electiveTotal,
       aggregate: coreTotal + electiveTotal,
-      electiveCount: electiveGrades.length,
-      totalSubjects: 8
+      alternatives,
+      totalSubjects: 6
     };
+  };
+
+  const calculateAlternativeCombinations = (
+    validCore: Array<{subject: string, grade: string}>, 
+    validElectives: Array<{subject: string, grade: string}>,
+    bestCore: Array<{subject: string, grade: string}>,
+    bestElectives: Array<{subject: string, grade: string}>
+  ) => {
+    const alternatives: Array<{
+      name: string,
+      core: Array<{subject: string, grade: string}>,
+      electives: Array<{subject: string, grade: string}>,
+      aggregate: number
+    }> = [];
+
+    // Generate different combinations of 3 core and 3 electives
+    const getCombinations = (arr: any[], size: number) => {
+      if (size === 1) return arr.map(el => [el]);
+      return arr.flatMap((el, i) => 
+        getCombinations(arr.slice(i + 1), size - 1).map(combo => [el, ...combo])
+      );
+    };
+
+    const coreCombinations = getCombinations(validCore, 3);
+    const electiveCombinations = getCombinations(validElectives, 3);
+
+    let altCount = 1;
+    for (const coreCombo of coreCombinations.slice(0, 6)) { // Limit to 6 alternatives
+      for (const electiveCombo of electiveCombinations.slice(0, 2)) {
+        const coreTotal = coreCombo.reduce((sum: number, item: any) => sum + gradeValues[item.grade], 0);
+        const electiveTotal = electiveCombo.reduce((sum: number, item: any) => sum + gradeValues[item.grade], 0);
+        const aggregate = coreTotal + electiveTotal;
+
+        // Skip the best combination (already shown)
+        const isBestCombo = JSON.stringify([...coreCombo, ...electiveCombo].sort()) === 
+                           JSON.stringify([...bestCore, ...bestElectives].sort());
+        
+        if (!isBestCombo && alternatives.length < 6) {
+          alternatives.push({
+            name: `Alternative ${altCount}`,
+            core: coreCombo,
+            electives: electiveCombo,
+            aggregate
+          });
+          altCount++;
+        }
+      }
+    }
+
+    return alternatives.sort((a, b) => a.aggregate - b.aggregate);
   };
 
   const result = calculateAggregate();
@@ -400,51 +469,74 @@ export default function Calculator() {
           </CardContent>
         </Card>
 
-        {/* Results Section */}
+        {/* Best Score Results Section */}
         {result && (
-          <Card className="bg-green-50 border-green-200" data-testid="calculator-result">
-            <CardHeader>
-              <CardTitle className="text-green-800 flex items-center gap-2">
-                <CalculatorIcon className="h-5 w-5" />
-                Your WASSCE Aggregate Score
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-green-800">{result.coreTotal}</div>
-                  <div className="text-sm text-green-600">Core Subjects</div>
-                  <div className="text-xs text-gray-500">(4 subjects)</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-green-800">{result.electiveTotal}</div>
-                  <div className="text-sm text-green-600">All Electives</div>
-                  <div className="text-xs text-gray-500">({result.electiveCount} subjects)</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-green-900">{result.aggregate}</div>
-                  <div className="text-sm text-green-600 font-medium">Total Aggregate</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-lg font-bold text-blue-800">
-                    {result.aggregate <= 6 ? "Excellent" : 
-                     result.aggregate <= 12 ? "Very Good" : 
-                     result.aggregate <= 18 ? "Good" : 
-                     result.aggregate <= 24 ? "Credit" : "Pass"}
+          <>
+            <Card className="bg-slate-700 text-white mb-6" data-testid="calculator-result">
+              <CardContent className="p-6">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <div className="text-sm text-slate-300 mb-1">Best Score</div>
+                    <h2 className="text-2xl font-bold mb-4">Your Best Aggregate Score</h2>
+                    <div className="mb-4">
+                      <div className="text-sm text-slate-300 mb-2">Subjects:</div>
+                      <div className="flex flex-wrap gap-2">
+                        {result.bestCore.map((item, index) => (
+                          <span key={index} className="bg-slate-600 px-3 py-1 rounded-full text-sm">
+                            {item.subject}
+                          </span>
+                        ))}
+                        {result.bestElectives.map((item, index) => (
+                          <span key={index} className="bg-slate-600 px-3 py-1 rounded-full text-sm">
+                            {item.subject}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-sm text-blue-600">Performance</div>
+                  <div className="text-right">
+                    <div className="text-6xl font-bold">{result.aggregate}</div>
+                  </div>
                 </div>
-              </div>
+              </CardContent>
+            </Card>
+
+            {/* Alternative Combinations Section */}
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-slate-700 mb-2">Alternative Combinations</h2>
+              <p className="text-gray-600 mb-6">These are other valid subject combinations and their aggregate scores:</p>
               
-              <Alert>
-                <AlertDescription>
-                  <strong>How it's calculated:</strong> All 4 core subjects ({result.coreTotal} points) + 
-                  all 4 elective subjects ({result.electiveTotal} points) = 
-                  <strong> {result.aggregate} aggregate</strong>. Lower scores are better!
-                </AlertDescription>
-              </Alert>
-            </CardContent>
-          </Card>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {result.alternatives.map((alt, index) => (
+                  <Card key={index} className="border-slate-200" data-testid={`alternative-${index + 1}`}>
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="font-semibold text-slate-700">{alt.name}</h3>
+                        <div className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full font-bold">
+                          {alt.aggregate}
+                        </div>
+                      </div>
+                      <div className="mb-3">
+                        <div className="text-xs text-gray-600 mb-1">Subjects:</div>
+                        <div className="space-y-1">
+                          {alt.core.map((item, idx) => (
+                            <div key={idx} className="text-sm text-gray-700">
+                              {item.subject}
+                            </div>
+                          ))}
+                          {alt.electives.map((item, idx) => (
+                            <div key={idx} className="text-sm text-gray-700">
+                              {item.subject}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </>
         )}
 
         {!result && (
@@ -452,9 +544,9 @@ export default function Calculator() {
             <CardContent className="pt-6">
               <Alert>
                 <AlertDescription>
-                  <strong>Instructions:</strong> Fill in all 4 core subjects and all 4 elective subjects 
-                  to calculate your SHS aggregate score. Your aggregate will be calculated using all 8 subjects 
-                  (4 core + 4 electives).
+                  <strong>Instructions:</strong> Fill in your grades for core and elective subjects 
+                  to calculate your WASSCE aggregate score. Your aggregate will be calculated using your 
+                  best 3 core subjects + best 3 elective subjects (6 subjects total). Only subjects with grades C6 or better will be considered.
                 </AlertDescription>
               </Alert>
             </CardContent>
