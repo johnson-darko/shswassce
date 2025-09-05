@@ -25,23 +25,7 @@ interface CalculatorGrades {
   elective4Grade: string;
 }
 
-interface EligibilityResult {
-  programId: string;
-  programName: string;
-  universityId: string;
-  universityName: string;
-  status: 'eligible' | 'borderline' | 'not_eligible' | 'multiple_tracks';
-  message: string;
-  details: string[];
-  recommendations?: string[];
-  matchScore?: number;
-  aggregateScore?: number;
-  level?: string;
-  duration?: number;
-  tuitionLocal?: number;
-  description?: string;
-  careerOutcomes?: string[];
-}
+import type { EligibilityResult } from '@shared/schema';
 
 const gradeOptions = ['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9'];
 

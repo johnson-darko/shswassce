@@ -17,42 +17,109 @@ function meetsGradeRequirement(studentGrade: string | undefined, requiredGrade: 
   return gradeToNumber(studentGrade) <= gradeToNumber(requiredGrade);
 }
 
-// Calculate aggregate points from grades (lower is better in Ghana system)
-function calculateAggregatePoints(grades: WassceeGrades): number {
-  const coreSubjects = ['english', 'mathematics', 'social', 'science'];
-  let total = 0;
-  let validGrades = 0;
+// Calculate all possible aggregate combinations (best + alternatives)
+function calculateAllAggregateCombinations(grades: WassceeGrades): Array<{
+  combination: string;
+  aggregate: number;
+  coreSubjects: Array<{subject: string, grade: string}>;
+  electiveSubjects: Array<{subject: string, grade: string}>;
+  isBest: boolean;
+}> {
+  const gradeValues: Record<string, number> = {
+    'A1': 1, 'B2': 2, 'B3': 3, 'C4': 4, 'C5': 5, 'C6': 6, 'D7': 7, 'E8': 8, 'F9': 9
+  };
 
-  coreSubjects.forEach(subject => {
-    const grade = grades[subject as keyof WassceeGrades];
-    if (grade && grade !== '') {
-      total += gradeToNumber(grade);
-      validGrades++;
-    }
-  });
+  const coreGradesData = [
+    { subject: 'English Language', grade: grades.english, key: 'english' },
+    { subject: 'Mathematics', grade: grades.mathematics, key: 'mathematics' },
+    { subject: 'Integrated Science', grade: grades.science, key: 'science' },
+    { subject: 'Social Studies', grade: grades.social, key: 'social' }
+  ].filter(item => item.grade !== '');
 
-  // Add best 3 electives from the new flexible structure
-  const electiveGrades: number[] = [];
+  const electiveGradesData = [
+    { subject: grades.elective1Subject, grade: grades.elective1Grade },
+    { subject: grades.elective2Subject, grade: grades.elective2Grade },
+    { subject: grades.elective3Subject, grade: grades.elective3Grade },
+    { subject: grades.elective4Subject, grade: grades.elective4Grade }
+  ].filter(item => item.grade !== '' && item.subject !== '');
+
+  // Must have at least 3 core and 3 elective subjects
+  if (coreGradesData.length < 3 || electiveGradesData.length < 3) {
+    return [];
+  }
+
+  // Filter subjects with C6 or better (grades 1-6)
+  const validCoreGrades = coreGradesData.filter(item => gradeValues[item.grade] <= 6);
+  const validElectiveGrades = electiveGradesData.filter(item => gradeValues[item.grade] <= 6);
+
+  if (validCoreGrades.length < 3 || validElectiveGrades.length < 3) {
+    return [];
+  }
+
+  // English and Mathematics are mandatory
+  const englishCore = validCoreGrades.find(item => item.key === 'english');
+  const mathCore = validCoreGrades.find(item => item.key === 'mathematics');
   
-  // Check all 4 elective slots
-  for (let i = 1; i <= 4; i++) {
-    const gradeKey = `elective${i}Grade` as keyof WassceeGrades;
-    const subjectKey = `elective${i}Subject` as keyof WassceeGrades;
+  if (!englishCore || !mathCore) {
+    return [];
+  }
+
+  // Get other core subjects for combinations
+  const otherCoreSubjects = validCoreGrades.filter(
+    item => item.key !== 'english' && item.key !== 'mathematics'
+  );
+
+  // Generate all combinations of 3 electives
+  const getCombinations = (arr: any[], size: number): any[][] => {
+    if (size === 1) return arr.map(el => [el]);
+    return arr.flatMap((el, i) => 
+      getCombinations(arr.slice(i + 1), size - 1).map(combo => [el, ...combo])
+    );
+  };
+
+  const electiveCombinations = getCombinations(validElectiveGrades, 3);
+  const combinations: Array<{
+    combination: string;
+    aggregate: number;
+    coreSubjects: Array<{subject: string, grade: string}>;
+    electiveSubjects: Array<{subject: string, grade: string}>;
+    isBest: boolean;
+  }> = [];
+
+  // Generate all valid combinations
+  for (const thirdCore of otherCoreSubjects) {
+    const coreCombo = [englishCore, mathCore, thirdCore];
     
-    const grade = grades[gradeKey];
-    const subject = grades[subjectKey];
-    
-    if (grade && grade !== '' && subject && subject !== '') {
-      electiveGrades.push(gradeToNumber(grade));
+    for (const electiveCombo of electiveCombinations) {
+      const coreTotal = coreCombo.reduce((sum, item) => sum + gradeValues[item.grade], 0);
+      const electiveTotal = electiveCombo.reduce((sum, item) => sum + gradeValues[item.grade], 0);
+      const aggregate = coreTotal + electiveTotal;
+
+      combinations.push({
+        combination: `${coreCombo.map(c => c.subject).join(', ')} + ${electiveCombo.map(e => e.subject).join(', ')}`,
+        aggregate,
+        coreSubjects: coreCombo.map(c => ({ subject: c.subject, grade: c.grade })),
+        electiveSubjects: electiveCombo.map(e => ({ subject: e.subject || '', grade: e.grade || '' })),
+        isBest: false
+      });
     }
   }
 
-  // Sort electives (best first) and take best 3
-  electiveGrades.sort((a, b) => a - b);
-  const bestThreeElectives = electiveGrades.slice(0, 3);
-  total += bestThreeElectives.reduce((sum, grade) => sum + grade, 0);
+  // Sort by aggregate (best first)
+  combinations.sort((a, b) => a.aggregate - b.aggregate);
+  
+  // Mark the best combination
+  if (combinations.length > 0) {
+    combinations[0].isBest = true;
+  }
 
-  return total;
+  return combinations;
+}
+
+// Calculate aggregate points from grades (lower is better in Ghana system) - legacy function
+function calculateAggregatePoints(grades: WassceeGrades): number {
+  const combinations = calculateAllAggregateCombinations(grades);
+  return combinations.length > 0 ? combinations[0].aggregate : 999; // Return best aggregate or very high number
 }
 
 // Enhanced eligibility checker for complex requirements
@@ -184,7 +251,8 @@ export async function checkEligibilityOffline(grades: WassceeGrades): Promise<El
     ]);
 
     const results: EligibilityResult[] = [];
-    const aggregatePoints = calculateAggregatePoints(grades);
+    const allAggregateCombinations = calculateAllAggregateCombinations(grades);
+    const bestAggregatePoints = allAggregateCombinations.length > 0 ? allAggregateCombinations[0].aggregate : 999;
 
     for (const program of programs) {
       const programRequirements = requirements.filter(req => req.programId === program.id);
@@ -200,6 +268,8 @@ export async function checkEligibilityOffline(grades: WassceeGrades): Promise<El
       let recommendations: string[] = [];
       let admissionTracks: AdmissionTrack[] = [];
       let bestTrackMatch: string | undefined;
+      let usedCombination: string | undefined;
+      let combinationFromBest = false;
 
       // Check if program has complex admission tracks
       if (requirement.requirementComplexity === 'advanced' && requirement.admissionTracks) {
@@ -309,17 +379,45 @@ export async function checkEligibilityOffline(grades: WassceeGrades): Promise<El
           }
         }
 
-        // Check aggregate points if specified
-        if (requirement.aggregatePoints && aggregatePoints > requirement.aggregatePoints) {
-          if (aggregatePoints <= requirement.aggregatePoints + 3) {
-            borderline = true;
-            details.push(`Aggregate: ${aggregatePoints}/${requirement.aggregatePoints} (close)`);
+        // Check aggregate points using ALL combinations - find the best match
+        if (requirement.aggregatePoints && allAggregateCombinations.length > 0) {
+          let bestMatchingCombination = null;
+          let aggregateStatus = 'not_eligible';
+          
+          for (const combo of allAggregateCombinations) {
+            if (combo.aggregate <= requirement.aggregatePoints) {
+              bestMatchingCombination = combo;
+              aggregateStatus = 'eligible';
+              break; // First one is the best since they're sorted
+            } else if (combo.aggregate <= requirement.aggregatePoints + 3) {
+              if (!bestMatchingCombination) {
+                bestMatchingCombination = combo;
+                aggregateStatus = 'borderline';
+              }
+            }
+          }
+          
+          if (bestMatchingCombination) {
+            usedCombination = bestMatchingCombination.combination;
+            combinationFromBest = bestMatchingCombination.isBest;
+            
+            if (aggregateStatus === 'eligible') {
+              details.push(`Aggregate: ✓ ${bestMatchingCombination.aggregate}/${requirement.aggregatePoints}`);
+              if (!bestMatchingCombination.isBest) {
+                details.push(`Using alternative combination: ${bestMatchingCombination.combination}`);
+              }
+            } else if (aggregateStatus === 'borderline') {
+              borderline = true;
+              details.push(`Aggregate: ${bestMatchingCombination.aggregate}/${requirement.aggregatePoints} (close)`);
+              if (!bestMatchingCombination.isBest) {
+                details.push(`Using alternative combination: ${bestMatchingCombination.combination}`);
+              }
+            }
           } else {
             eligible = false;
-            details.push(`Aggregate: ${aggregatePoints}/${requirement.aggregatePoints} (too high)`);
+            const bestAvailable = allAggregateCombinations[0];
+            details.push(`Aggregate: ${bestAvailable.aggregate}/${requirement.aggregatePoints} (too high)`);
           }
-        } else if (requirement.aggregatePoints) {
-          details.push(`Aggregate: ✓ ${aggregatePoints}/${requirement.aggregatePoints}`);
         }
 
         // Determine final status
@@ -339,11 +437,16 @@ export async function checkEligibilityOffline(grades: WassceeGrades): Promise<El
         }
       }
 
-      // Calculate match score for sorting
-      const matchScore = status === 'eligible' ? 100 
-        : status === 'multiple_tracks' ? 95
-        : status === 'borderline' ? 70 
-        : 30;
+      // Calculate match score for sorting - prioritize best aggregate combinations
+      let matchScore = 30; // Default for not_eligible
+      
+      if (status === 'eligible') {
+        matchScore = combinationFromBest ? 100 : 90; // Best combo gets highest score
+      } else if (status === 'multiple_tracks') {
+        matchScore = 95;
+      } else if (status === 'borderline') {
+        matchScore = combinationFromBest ? 70 : 60; // Best combo gets higher score even for borderline
+      }
 
       results.push({
         programId: program.id,
@@ -359,7 +462,9 @@ export async function checkEligibilityOffline(grades: WassceeGrades): Promise<El
         employmentRate: program.employmentRate,
         admissionTracks,
         bestTrackMatch,
-        requirementComplexity: requirement.requirementComplexity
+        requirementComplexity: requirement.requirementComplexity,
+        usedCombination,
+        combinationFromBest
       });
     }
 

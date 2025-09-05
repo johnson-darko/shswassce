@@ -149,11 +149,25 @@ export type UserPreferences = z.infer<typeof userPreferencesSchema>;
 export type ToggleFavorite = z.infer<typeof toggleFavoriteSchema>;
 export type ExportRequest = z.infer<typeof exportRequestSchema>;
 
+// Admission track types
+export interface AdmissionTrack {
+  name: string;
+  description: string;
+  electiveOptions: Array<{
+    subjects: string[];
+    minGrades: Record<string, string>;
+    additionalRules?: string[];
+  }>;
+  additionalRequirements: string[];
+  status: 'eligible' | 'borderline' | 'not_eligible';
+  matchDetails: string[];
+}
+
 // Eligibility result types
 export interface EligibilityResult {
   programId: string;
   programName: string;
-  universityId: string;
+  universityId?: string;
   universityName: string;
   status: 'eligible' | 'borderline' | 'not_eligible' | 'multiple_tracks';
   message: string;
@@ -163,6 +177,11 @@ export interface EligibilityResult {
   coreRequirementsMet?: number;
   electiveRequirementsMet?: number;
   aggregateScore?: number;
+  admissionTracks?: AdmissionTrack[];
+  bestTrackMatch?: string;
+  requirementComplexity?: string;
+  usedCombination?: string;
+  combinationFromBest?: boolean;
   tracks?: Array<{
     name: string;
     status: 'eligible' | 'borderline' | 'not_eligible';
