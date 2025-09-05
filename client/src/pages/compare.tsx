@@ -6,26 +6,19 @@ import { University } from "@shared/schema";
 import { useComparison } from "@/hooks/use-comparison";
 import { Link } from "wouter";
 import { ExternalLink, GraduationCap, DollarSign, TrendingUp, Users, X } from "lucide-react";
+import { localDataService } from "@/lib/local-data-service";
 
 export default function ComparePage() {
   const { selectedUniversities, universityDetails, removeFromComparison, clearComparison } = useComparison();
 
   const { data: universities = [], isLoading, error } = useQuery({
-    queryKey: ['/api/universities/compare', Array.from(selectedUniversities)],
+    queryKey: ['offline-universities-compare', Array.from(selectedUniversities)],
     queryFn: async () => {
       if (selectedUniversities.size === 0) return [];
+      console.log('Loading comparison data offline');
       
-      const response = await fetch('/api/universities/compare', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ universityIds: Array.from(selectedUniversities) }),
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch universities for comparison');
-      }
-      
-      return response.json() as Promise<University[]>;
+      const universityIds = Array.from(selectedUniversities);
+      return await localDataService.getUniversitiesByIds(universityIds);
     },
     enabled: selectedUniversities.size > 0,
   });

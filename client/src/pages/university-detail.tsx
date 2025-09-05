@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { University, Program, Requirement } from "@shared/schema";
 import { useComparison } from "@/hooks/use-comparison";
 import { Link, useParams } from "wouter";
+import { localDataService } from "@/lib/local-data-service";
 import { 
   ArrowLeft, 
   Check, 
@@ -25,53 +26,47 @@ export default function UniversityDetailPage() {
   const { addToComparison, removeFromComparison, isSelected, selectedUniversities } = useComparison();
 
   const { data: university, isLoading: universityLoading, error: universityError } = useQuery({
-    queryKey: ['/api/universities', id],
+    queryKey: ['offline-university', id],
     queryFn: async () => {
-      const response = await fetch(`/api/universities/${id}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch university');
-      }
-      return response.json() as Promise<University>;
+      if (!id) throw new Error('No university ID provided');
+      console.log('Loading university details offline:', id);
+      return await localDataService.getUniversityById(id);
     },
     enabled: !!id,
   });
 
   const { data: programs = [], isLoading: programsLoading } = useQuery({
-    queryKey: ['/api/universities', id, 'programs'],
+    queryKey: ['offline-university-programs', id],
     queryFn: async () => {
-      const response = await fetch(`/api/universities/${id}/programs`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch programs');
-      }
-      return response.json() as Promise<Program[]>;
+      if (!id) return [];
+      console.log('Loading university programs offline:', id);
+      return await localDataService.getProgramsByUniversity(id);
     },
     enabled: !!id,
   });
 
   const { data: scholarships = [] } = useQuery({
-    queryKey: ['/api/universities', id, 'scholarships'],
+    queryKey: ['offline-university-scholarships', id],
     queryFn: async () => {
-      const response = await fetch(`/api/universities/${id}/scholarships`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch scholarships');
-      }
-      return response.json();
+      if (!id) return [];
+      console.log('Loading university scholarships offline:', id);
+      return await localDataService.getScholarshipsByUniversity(id);
     },
     enabled: !!id,
   });
 
   // Fetch requirements for each program
   const { data: allRequirements = new Map() } = useQuery({
-    queryKey: ['/api/programs/requirements', programs.map(p => p.id)],
+    queryKey: ['offline-programs-requirements', programs.map(p => p.id)],
     queryFn: async () => {
       const requirementsMap = new Map<string, Requirement[]>();
+      console.log('Loading program requirements offline for', programs.length, 'programs');
       
       await Promise.all(
         programs.map(async (program) => {
           try {
-            const response = await fetch(`/api/programs/${program.id}/requirements`);
-            if (response.ok) {
-              const requirements = await response.json();
+            const requirements = await localDataService.getRequirementsByProgram(program.id);
+            if (requirements.length > 0) {
               requirementsMap.set(program.id, requirements);
             }
           } catch (error) {

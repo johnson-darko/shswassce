@@ -125,6 +125,36 @@ class LocalDataService {
     const data = await this.loadData();
     return data.universities.filter(uni => universityIds.includes(uni.id));
   }
+
+  // Additional methods needed by components
+  async getUniversitiesByIds(universityIds: string[]) {
+    const data = await this.loadData();
+    return data.universities.filter(uni => universityIds.includes(uni.id));
+  }
+
+  async getUniversityById(universityId: string) {
+    const data = await this.loadData();
+    const university = data.universities.find(uni => uni.id === universityId);
+    if (!university) {
+      throw new Error('University not found');
+    }
+    return university;
+  }
+
+  async getProgramsByUniversity(universityId: string) {
+    const data = await this.loadData();
+    return data.programs.filter(program => program.universityId === universityId);
+  }
+
+  async getScholarshipsByUniversity(universityId: string) {
+    const data = await this.loadData();
+    return data.scholarships.filter(scholarship => scholarship.universityId === universityId);
+  }
+
+  async getRequirementsByProgram(programId: string) {
+    const data = await this.loadData();
+    return data.requirements.filter(req => req.programId === programId);
+  }
 }
 
 // Singleton instance
