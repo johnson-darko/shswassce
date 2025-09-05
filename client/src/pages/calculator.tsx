@@ -221,12 +221,24 @@ export default function Calculator() {
       return null;
     }
 
-    // Sort by grade value (lower is better)
-    const sortedCore = validCoreGrades.sort((a, b) => gradeValues[a.grade] - gradeValues[b.grade]);
-    const sortedElectives = validElectiveGrades.sort((a, b) => gradeValues[a.grade] - gradeValues[b.grade]);
+    // English and Mathematics (Core) are mandatory - always include them
+    const englishCore = validCoreGrades.find(item => item.subject === 'English Language');
+    const mathCore = validCoreGrades.find(item => item.subject === 'Mathematics');
+    
+    if (!englishCore || !mathCore) {
+      return null; // Must have both English and Math
+    }
 
-    // Pick best 3 core and best 3 electives
-    const bestCore = sortedCore.slice(0, 3);
+    // Sort remaining core subjects (Science and Social Studies) by grade
+    const otherCoreSubjects = validCoreGrades.filter(
+      item => item.subject !== 'English Language' && item.subject !== 'Mathematics'
+    ).sort((a, b) => gradeValues[a.grade] - gradeValues[b.grade]);
+
+    // Best core: English + Math + best of remaining core subjects
+    const bestCore = [englishCore, mathCore, ...otherCoreSubjects.slice(0, 1)];
+    
+    // Sort electives by grade value (lower is better)
+    const sortedElectives = validElectiveGrades.sort((a, b) => gradeValues[a.grade] - gradeValues[b.grade]);
     const bestElectives = sortedElectives.slice(0, 3);
 
     const coreTotal = bestCore.reduce((sum, item) => sum + gradeValues[item.grade], 0);
@@ -259,20 +271,34 @@ export default function Calculator() {
       aggregate: number
     }> = [];
 
-    // Generate different combinations of 3 core and 3 electives
+    // English and Math are always required
+    const englishCore = validCore.find(item => item.subject === 'English Language')!;
+    const mathCore = validCore.find(item => item.subject === 'Mathematics')!;
+    
+    // Get other core subjects (Science and Social Studies)
+    const otherCoreSubjects = validCore.filter(
+      item => item.subject !== 'English Language' && item.subject !== 'Mathematics'
+    );
+
+    // Generate different combinations for the third core subject
     const getCombinations = (arr: any[], size: number) => {
-      if (size === 1) return arr.map(el => [el]);
-      return arr.flatMap((el, i) => 
-        getCombinations(arr.slice(i + 1), size - 1).map(combo => [el, ...combo])
+      if (size === 1) return arr.map((el: any) => [el]);
+      return arr.flatMap((el: any, i: number) => 
+        getCombinations(arr.slice(i + 1), size - 1).map((combo: any) => [el, ...combo])
       );
     };
 
-    const coreCombinations = getCombinations(validCore, 3);
+    // Generate elective combinations (3 out of available)
     const electiveCombinations = getCombinations(validElectives, 3);
 
     let altCount = 1;
-    for (const coreCombo of coreCombinations.slice(0, 6)) { // Limit to 6 alternatives
-      for (const electiveCombo of electiveCombinations.slice(0, 2)) {
+    
+    // For each possible third core subject
+    for (const thirdCore of otherCoreSubjects) {
+      const coreCombo = [englishCore, mathCore, thirdCore];
+      
+      // For each elective combination
+      for (const electiveCombo of electiveCombinations.slice(0, 3)) { // Limit alternatives
         const coreTotal = coreCombo.reduce((sum: number, item: any) => sum + gradeValues[item.grade], 0);
         const electiveTotal = electiveCombo.reduce((sum: number, item: any) => sum + gradeValues[item.grade], 0);
         const aggregate = coreTotal + electiveTotal;
@@ -482,13 +508,13 @@ export default function Calculator() {
                       <div className="text-sm text-slate-300 mb-2">Subjects:</div>
                       <div className="flex flex-wrap gap-2">
                         {result.bestCore.map((item, index) => (
-                          <span key={index} className="bg-slate-600 px-3 py-1 rounded-full text-sm">
-                            {item.subject}
+                          <span key={index} className="bg-blue-600 px-3 py-1 rounded-full text-sm">
+                            {item.subject} (Core)
                           </span>
                         ))}
                         {result.bestElectives.map((item, index) => (
-                          <span key={index} className="bg-slate-600 px-3 py-1 rounded-full text-sm">
-                            {item.subject}
+                          <span key={index} className="bg-teal-600 px-3 py-1 rounded-full text-sm">
+                            {item.subject} (Elective)
                           </span>
                         ))}
                       </div>
@@ -520,13 +546,13 @@ export default function Calculator() {
                         <div className="text-xs text-gray-600 mb-1">Subjects:</div>
                         <div className="space-y-1">
                           {alt.core.map((item, idx) => (
-                            <div key={idx} className="text-sm text-gray-700">
-                              {item.subject}
+                            <div key={idx} className="text-sm text-blue-700 font-medium">
+                              {item.subject} (Core)
                             </div>
                           ))}
                           {alt.electives.map((item, idx) => (
-                            <div key={idx} className="text-sm text-gray-700">
-                              {item.subject}
+                            <div key={idx} className="text-sm text-teal-700 font-medium">
+                              {item.subject} (Elective)
                             </div>
                           ))}
                         </div>
