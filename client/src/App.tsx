@@ -10,6 +10,7 @@ import Compare from "@/pages/compare";
 import Eligibility from "@/pages/eligibility-new";
 import UniversityDetail from "@/pages/university-detail";
 import PDFAdmin from "@/pages/pdf-admin";
+import Calculator from "@/pages/calculator";
 import Header from "@/components/header";
 import ComparisonBar from "@/components/comparison-bar";
 import { ComparisonProvider } from "@/hooks/use-comparison";
@@ -21,6 +22,7 @@ function Router() {
       <Route path="/search" component={Search} />
       <Route path="/compare" component={Compare} />
       <Route path="/eligibility" component={Eligibility} />
+      <Route path="/calculator" component={Calculator} />
       <Route path="/university/:id" component={UniversityDetail} />
       <Route path="/admin/pdf" component={PDFAdmin} />
       <Route component={NotFound} />
