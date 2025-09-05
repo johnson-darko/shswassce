@@ -92,20 +92,20 @@ export const searchFiltersSchema = z.object({
 const gradeEnum = z.enum(['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9']);
 
 export const wassceeGradesSchema = z.object({
+  // Core subjects
   english: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
   mathematics: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
   science: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
   social: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
-  electiveMath: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
-  physics: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
-  chemistry: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
-  biology: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
-  economics: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
-  government: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
-  literature: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
-  geography: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
-  history: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
-  businessManagement: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
+  // Elective subjects (flexible up to 4)
+  elective1Subject: z.string().optional(),
+  elective1Grade: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
+  elective2Subject: z.string().optional(), 
+  elective2Grade: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
+  elective3Subject: z.string().optional(),
+  elective3Grade: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
+  elective4Subject: z.string().optional(),
+  elective4Grade: z.string().refine(val => !val || gradeEnum.safeParse(val).success, 'Invalid grade').optional(),
 });
 
 export const programSearchFiltersSchema = z.object({

@@ -1,20 +1,9 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { Search, MapPin, GraduationCap, University } from "lucide-react";
-import { useState } from "react";
+import { Search, GraduationCap, University, Calculator, FileText, BookOpen, Target } from "lucide-react";
 
 export default function Home() {
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const handleSearch = () => {
-    if (searchQuery.trim()) {
-      window.location.href = `/search?query=${encodeURIComponent(searchQuery)}`;
-    } else {
-      window.location.href = `/search`;
-    }
-  };
 
   return (
     <div className="min-h-screen bg-scorecard-bg">
@@ -22,71 +11,104 @@ export default function Home() {
       <section className="bg-gradient-to-br from-scorecard-blue to-scorecard-light-blue py-16" data-testid="hero-section">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Find Your Perfect University
+            Your University Journey Starts Here
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Search and compare universities across Ghana. Check your eligibility and find programs that match your goals.
+            Get all the tools you need to find, compare, and apply to universities across Ghana. Check your eligibility and calculate your aggregate score.
           </p>
-          
-          {/* Main Search Interface */}
-          <Card className="max-w-2xl mx-auto" data-testid="search-card">
-            <CardContent className="p-6 space-y-4">
-              <div className="relative">
-                <Input
-                  type="text"
-                  placeholder="Enter university name or program..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                  className="pr-12"
-                  data-testid="input-search-query"
-                />
-                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-scorecard-gray" />
-              </div>
-              
-              <Button 
-                onClick={handleSearch}
-                className="w-full bg-scorecard-blue hover:bg-blue-900 text-white font-semibold"
-                data-testid="button-search"
-              >
-                <Search className="mr-2 h-4 w-4" />
-                Search Universities
-              </Button>
-            </CardContent>
-          </Card>
+        </div>
+      </section>
 
-          {/* Quick Search Options */}
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link href="/search?near=me">
-              <Button 
-                variant="outline" 
-                className="bg-white/20 text-white border-white/30 hover:bg-white/30"
-                data-testid="button-near-me"
-              >
-                <MapPin className="mr-2 h-4 w-4" />
-                Near Me
-              </Button>
-            </Link>
-            <Link href="/search">
-              <Button 
-                variant="outline" 
-                className="bg-white/20 text-white border-white/30 hover:bg-white/30"
-                data-testid="button-all-universities"
-              >
-                <University className="mr-2 h-4 w-4" />
-                All Universities
-              </Button>
-            </Link>
-            <Link href="/search?category=programs">
-              <Button 
-                variant="outline" 
-                className="bg-white/20 text-white border-white/30 hover:bg-white/30"
-                data-testid="button-programs"
-              >
-                <GraduationCap className="mr-2 h-4 w-4" />
-                Programs
-              </Button>
-            </Link>
+      {/* Quick Tools Section */}
+      <section className="py-12 bg-white" data-testid="quick-tools-section">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-scorecard-blue mb-2">
+              Essential Tools for Students
+            </h3>
+            <p className="text-scorecard-gray">
+              Everything you need in one place
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {/* WASSCE Aggregate Calculator */}
+            <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="card-calculator">
+              <Link href="/calculator">
+                <CardContent className="p-4 text-center">
+                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <Calculator className="h-6 w-6 text-purple-600" />
+                  </div>
+                  <h4 className="text-sm font-semibold text-scorecard-blue mb-1">WASSCE Aggregate Calculator</h4>
+                  <p className="text-xs text-scorecard-gray">Calculate your aggregate score</p>
+                </CardContent>
+              </Link>
+            </Card>
+
+            {/* Check Eligibility */}
+            <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="card-eligibility-small">
+              <Link href="/eligibility">
+                <CardContent className="p-4 text-center">
+                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <Target className="h-6 w-6 text-green-600" />
+                  </div>
+                  <h4 className="text-sm font-semibold text-scorecard-blue mb-1">Check Eligibility</h4>
+                  <p className="text-xs text-scorecard-gray">See which programs you qualify for</p>
+                </CardContent>
+              </Link>
+            </Card>
+
+            {/* Search Universities */}
+            <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="card-search-small">
+              <Link href="/search">
+                <CardContent className="p-4 text-center">
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <Search className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <h4 className="text-sm font-semibold text-scorecard-blue mb-1">Search Universities</h4>
+                  <p className="text-xs text-scorecard-gray">Find universities by location & programs</p>
+                </CardContent>
+              </Link>
+            </Card>
+
+            {/* Compare Universities */}
+            <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="card-compare-small">
+              <Link href="/compare">
+                <CardContent className="p-4 text-center">
+                  <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <GraduationCap className="h-6 w-6 text-orange-600" />
+                  </div>
+                  <h4 className="text-sm font-semibold text-scorecard-blue mb-1">Compare Universities</h4>
+                  <p className="text-xs text-scorecard-gray">Side-by-side comparison</p>
+                </CardContent>
+              </Link>
+            </Card>
+
+            {/* Program Guide */}
+            <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="card-programs-small">
+              <Link href="/programs">
+                <CardContent className="p-4 text-center">
+                  <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <BookOpen className="h-6 w-6 text-teal-600" />
+                  </div>
+                  <h4 className="text-sm font-semibold text-scorecard-blue mb-1">Program Guide</h4>
+                  <p className="text-xs text-scorecard-gray">Explore available programs</p>
+                </CardContent>
+              </Link>
+            </Card>
+
+            {/* Application Guide */}
+            <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="card-guide-small">
+              <Link href="/guide">
+                <CardContent className="p-4 text-center">
+                  <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <FileText className="h-6 w-6 text-indigo-600" />
+                  </div>
+                  <h4 className="text-sm font-semibold text-scorecard-blue mb-1">Application Guide</h4>
+                  <p className="text-xs text-scorecard-gray">Step-by-step application tips</p>
+                </CardContent>
+              </Link>
+            </Card>
           </div>
         </div>
       </section>
