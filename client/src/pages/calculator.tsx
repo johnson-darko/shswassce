@@ -4,9 +4,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { Check, ChevronsUpDown, Calculator as CalculatorIcon } from "lucide-react";
+import { Check, ChevronsUpDown, Calculator as CalculatorIcon, ChevronUp, ChevronDown, GraduationCap, School, CheckCircle, AlertCircle, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 interface CalculatorGrades {
   english: string;
@@ -21,6 +23,24 @@ interface CalculatorGrades {
   elective3Grade: string;
   elective4Subject: string;
   elective4Grade: string;
+}
+
+interface EligibilityResult {
+  programId: string;
+  programName: string;
+  universityId: string;
+  universityName: string;
+  status: 'eligible' | 'borderline' | 'not_eligible' | 'multiple_tracks';
+  message: string;
+  details: string[];
+  recommendations?: string[];
+  matchScore?: number;
+  aggregateScore?: number;
+  level?: string;
+  duration?: number;
+  tuitionLocal?: number;
+  description?: string;
+  careerOutcomes?: string[];
 }
 
 const gradeOptions = ['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9'];
@@ -118,6 +138,12 @@ export default function Calculator() {
   });
   
   const [openPopovers, setOpenPopovers] = useState<Record<number, boolean>>({});
+  
+  // Eligibility checking states
+  const [eligibilityResults, setEligibilityResults] = useState<EligibilityResult[]>([]);
+  const [showEligibility, setShowEligibility] = useState(false);
+  const [isCheckingEligibility, setIsCheckingEligibility] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   // Load grades from localStorage on component mount
   useEffect(() => {
@@ -325,6 +351,76 @@ export default function Calculator() {
     }
 
     return alternatives.sort((a, b) => a.aggregate - b.aggregate);
+  };
+
+  // Function to check program eligibility
+  const checkProgramEligibility = async () => {
+    setIsCheckingEligibility(true);
+    setShowEligibility(true);
+    
+    try {
+      const response = await fetch('/api/programs/eligibility', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          english: grades.english,
+          mathematics: grades.mathematics,
+          science: grades.science,
+          social: grades.social,
+          elective1Subject: grades.elective1Subject,
+          elective1Grade: grades.elective1Grade,
+          elective2Subject: grades.elective2Subject,
+          elective2Grade: grades.elective2Grade,
+          elective3Subject: grades.elective3Subject,
+          elective3Grade: grades.elective3Grade,
+          elective4Subject: grades.elective4Subject,
+          elective4Grade: grades.elective4Grade,
+        }),
+      });
+
+      if (response.ok) {
+        const results = await response.json();
+        setEligibilityResults(results);
+      } else {
+        console.error('Failed to check eligibility');
+      }
+    } catch (error) {
+      console.error('Error checking eligibility:', error);
+    } finally {
+      setIsCheckingEligibility(false);
+    }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'eligible':
+        return <CheckCircle className="h-4 w-4 text-green-600" />;
+      case 'borderline':
+        return <AlertCircle className="h-4 w-4 text-orange-600" />;
+      case 'not_eligible':
+        return <XCircle className="h-4 w-4 text-red-600" />;
+      case 'multiple_tracks':
+        return <CheckCircle className="h-4 w-4 text-blue-600" />;
+      default:
+        return <AlertCircle className="h-4 w-4 text-gray-600" />;
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'eligible':
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'borderline':
+        return 'bg-orange-100 text-orange-800 border-orange-200';
+      case 'not_eligible':
+        return 'bg-red-100 text-red-800 border-red-200';
+      case 'multiple_tracks':
+        return 'bg-blue-100 text-blue-800 border-blue-200';
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200';
+    }
   };
 
   const result = calculateAggregate();
@@ -567,7 +663,199 @@ export default function Calculator() {
                 ))}
               </div>
             </div>
+
+            {/* Check Program Eligibility Button */}
+            <div className="text-center mt-8">
+              <Button 
+                onClick={checkProgramEligibility}
+                disabled={!result || isCheckingEligibility}
+                size="lg"
+                className="bg-slate-700 hover:bg-slate-800 text-white px-8 py-3"
+                data-testid="check-eligibility-btn"
+              >
+                {isCheckingEligibility ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+                    Checking Eligibility...
+                  </>
+                ) : (
+                  <>
+                    <GraduationCap className="h-5 w-5 mr-2" />
+                    Check Program Eligibility
+                  </>
+                )}
+              </Button>
+            </div>
           </>
+        )}
+
+        {/* Program Eligibility Results */}
+        {showEligibility && (
+          <div className="mt-8">
+            <Collapsible open={!isCollapsed} onOpenChange={setIsCollapsed}>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold text-slate-700">Program Eligibility Results</h2>
+                <CollapsibleTrigger asChild>
+                  <Button variant="ghost" size="sm" data-testid="collapse-toggle">
+                    {isCollapsed ? (
+                      <>
+                        <ChevronDown className="h-4 w-4 mr-2" />
+                        Show Calculator
+                      </>
+                    ) : (
+                      <>
+                        <ChevronUp className="h-4 w-4 mr-2" />
+                        Hide Calculator
+                      </>
+                    )}
+                  </Button>
+                </CollapsibleTrigger>
+              </div>
+
+              <CollapsibleContent className="space-y-4">
+                {/* This will collapse the calculator and alternatives sections */}
+              </CollapsibleContent>
+
+              {/* Always visible eligibility results */}
+              {isCheckingEligibility ? (
+                <div className="flex items-center justify-center py-12">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-700 mr-3" />
+                  <span className="text-lg text-slate-600">Checking your eligibility...</span>
+                </div>
+              ) : eligibilityResults.length > 0 ? (
+                <div className="space-y-6">
+                  {/* Eligible Programs */}
+                  {eligibilityResults.filter(r => r.status === 'eligible' || r.status === 'multiple_tracks').length > 0 && (
+                    <div>
+                      <h3 className="text-xl font-semibold text-green-700 mb-4 flex items-center">
+                        <CheckCircle className="h-5 w-5 mr-2" />
+                        Programs You Qualify For ({eligibilityResults.filter(r => r.status === 'eligible' || r.status === 'multiple_tracks').length})
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {eligibilityResults
+                          .filter(r => r.status === 'eligible' || r.status === 'multiple_tracks')
+                          .map((result, index) => (
+                            <Card key={index} className="border-green-200 bg-green-50" data-testid={`eligible-program-${index}`}>
+                              <CardContent className="p-4">
+                                <div className="flex items-start justify-between mb-3">
+                                  <div>
+                                    <h4 className="font-semibold text-green-800">{result.programName}</h4>
+                                    <p className="text-sm text-green-600">{result.universityName}</p>
+                                    {result.level && (
+                                      <Badge variant="secondary" className="mt-1 text-xs">
+                                        {result.level}
+                                      </Badge>
+                                    )}
+                                  </div>
+                                  {getStatusIcon(result.status)}
+                                </div>
+                                <p className="text-sm text-green-700 mb-2">{result.message}</p>
+                                {result.details.length > 0 && (
+                                  <div className="text-xs text-green-600">
+                                    <ul className="list-disc list-inside space-y-1">
+                                      {result.details.map((detail, idx) => (
+                                        <li key={idx}>{detail}</li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
+                              </CardContent>
+                            </Card>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Borderline Programs */}
+                  {eligibilityResults.filter(r => r.status === 'borderline').length > 0 && (
+                    <div>
+                      <h3 className="text-xl font-semibold text-orange-700 mb-4 flex items-center">
+                        <AlertCircle className="h-5 w-5 mr-2" />
+                        Close Matches - Consider Applying ({eligibilityResults.filter(r => r.status === 'borderline').length})
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {eligibilityResults
+                          .filter(r => r.status === 'borderline')
+                          .map((result, index) => (
+                            <Card key={index} className="border-orange-200 bg-orange-50" data-testid={`borderline-program-${index}`}>
+                              <CardContent className="p-4">
+                                <div className="flex items-start justify-between mb-3">
+                                  <div>
+                                    <h4 className="font-semibold text-orange-800">{result.programName}</h4>
+                                    <p className="text-sm text-orange-600">{result.universityName}</p>
+                                    {result.level && (
+                                      <Badge variant="secondary" className="mt-1 text-xs">
+                                        {result.level}
+                                      </Badge>
+                                    )}
+                                  </div>
+                                  {getStatusIcon(result.status)}
+                                </div>
+                                <p className="text-sm text-orange-700 mb-2">{result.message}</p>
+                                {result.recommendations && result.recommendations.length > 0 && (
+                                  <div className="text-xs text-orange-600">
+                                    <strong>Recommendations:</strong>
+                                    <ul className="list-disc list-inside space-y-1 mt-1">
+                                      {result.recommendations.map((rec, idx) => (
+                                        <li key={idx}>{rec}</li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
+                              </CardContent>
+                            </Card>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Not Eligible Programs */}
+                  {eligibilityResults.filter(r => r.status === 'not_eligible').length > 0 && (
+                    <div>
+                      <h3 className="text-xl font-semibold text-red-700 mb-4 flex items-center">
+                        <XCircle className="h-5 w-5 mr-2" />
+                        Programs Not Currently Available ({eligibilityResults.filter(r => r.status === 'not_eligible').length})
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {eligibilityResults
+                          .filter(r => r.status === 'not_eligible')
+                          .slice(0, 6) // Show only first 6 not eligible
+                          .map((result, index) => (
+                            <Card key={index} className="border-red-200 bg-red-50" data-testid={`not-eligible-program-${index}`}>
+                              <CardContent className="p-4">
+                                <div className="flex items-start justify-between mb-3">
+                                  <div>
+                                    <h4 className="font-semibold text-red-800">{result.programName}</h4>
+                                    <p className="text-sm text-red-600">{result.universityName}</p>
+                                  </div>
+                                  {getStatusIcon(result.status)}
+                                </div>
+                                <p className="text-sm text-red-700 mb-2">{result.message}</p>
+                                {result.recommendations && result.recommendations.length > 0 && (
+                                  <div className="text-xs text-red-600">
+                                    <strong>To qualify:</strong>
+                                    <ul className="list-disc list-inside space-y-1 mt-1">
+                                      {result.recommendations.slice(0, 2).map((rec, idx) => (
+                                        <li key={idx}>{rec}</li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
+                              </CardContent>
+                            </Card>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <School className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-600">No eligibility results to display. Click "Check Program Eligibility" to get started.</p>
+                </div>
+              )}
+            </Collapsible>
+          </div>
         )}
 
         {!result && (
