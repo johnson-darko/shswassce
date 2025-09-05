@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Save, XCircle } from "lucide-react";
 import GradeInput from "@/components/grade-input";
 import EligibilityResults from "@/components/eligibility-results";
 import { WassceeGrades, EligibilityResult } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
 
+const GRADES_STORAGE_KEY = 'wassce_grades';
+
 export default function EligibilityPage() {
   const [grades, setGrades] = useState<WassceeGrades>({});
   const [results, setResults] = useState<EligibilityResult[]>([]);
+  const [isSaved, setIsSaved] = useState(false);
 
   const eligibilityMutation = useMutation({
     mutationFn: async (grades: WassceeGrades) => {
@@ -31,6 +34,31 @@ export default function EligibilityPage() {
     },
   });
 
+  // Load saved grades on component mount
+  useEffect(() => {
+    try {
+      const savedGrades = localStorage.getItem(GRADES_STORAGE_KEY);
+      if (savedGrades) {
+        const parsedGrades = JSON.parse(savedGrades) as WassceeGrades;
+        setGrades(parsedGrades);
+      }
+    } catch (error) {
+      console.error('Failed to load saved grades:', error);
+    }
+  }, []);
+
+  const handleSaveGrades = () => {
+    try {
+      localStorage.setItem(GRADES_STORAGE_KEY, JSON.stringify(grades));
+      setIsSaved(true);
+      // Show success message briefly
+      setTimeout(() => setIsSaved(false), 2000);
+    } catch (error) {
+      console.error('Failed to save grades:', error);
+      alert('Failed to save grades. Please try again.');
+    }
+  };
+
   const handleCheckEligibility = () => {
     // Check if at least some core subjects are provided
     const hasGrades = Object.values(grades).some(grade => grade && grade.trim() !== '');
@@ -44,6 +72,7 @@ export default function EligibilityPage() {
   };
 
   const hasResults = results.length > 0;
+  const hasAnyGrades = Object.values(grades).some(grade => grade && grade.trim() !== '');
 
   return (
     <div className="min-h-screen bg-scorecard-bg py-8">
@@ -63,7 +92,20 @@ export default function EligibilityPage() {
         <div className="mb-12" data-testid="grade-input-section">
           <GradeInput grades={grades} onGradesChange={setGrades} />
           
-          <div className="text-center mt-8">
+          <div className="flex justify-center items-center gap-4 mt-8">
+            {/* Save Button */}
+            <Button
+              onClick={handleSaveGrades}
+              disabled={!hasAnyGrades}
+              variant="outline"
+              className="font-semibold py-3 px-6 rounded-lg border-scorecard-blue text-scorecard-blue hover:bg-scorecard-blue hover:text-white"
+              data-testid="button-save-grades"
+            >
+              <Save className="mr-2 h-5 w-5" />
+              Save Grades
+            </Button>
+
+            {/* Check Eligibility Button */}
             <Button
               onClick={handleCheckEligibility}
               disabled={eligibilityMutation.isPending}
@@ -83,6 +125,16 @@ export default function EligibilityPage() {
               )}
             </Button>
           </div>
+
+          {/* Save Success Message */}
+          {isSaved && (
+            <div className="text-center mt-4">
+              <div className="inline-flex items-center px-4 py-2 bg-green-50 border border-green-200 rounded-lg text-green-700">
+                <CheckCircle className="mr-2 h-4 w-4" />
+                Grades saved successfully!
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Error Display */}
