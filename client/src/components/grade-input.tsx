@@ -1,6 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { WassceeGrades } from "@shared/schema";
+import { useState } from "react";
 
 interface GradeInputProps {
   grades: WassceeGrades;
@@ -82,6 +88,8 @@ const electiveSubjectOptions = [
 ].sort();
 
 export default function GradeInput({ grades, onGradesChange }: GradeInputProps) {
+  const [openPopovers, setOpenPopovers] = useState<Record<number, boolean>>({});
+  
   const handleCoreGradeChange = (subject: keyof WassceeGrades, grade: string) => {
     onGradesChange({
       ...grades,
@@ -93,10 +101,41 @@ export default function GradeInput({ grades, onGradesChange }: GradeInputProps) 
     const subjectKey = `elective${electiveNumber}Subject` as keyof WassceeGrades;
     const gradeKey = `elective${electiveNumber}Grade` as keyof WassceeGrades;
     
-    onGradesChange({
-      ...grades,
-      [field === 'Subject' ? subjectKey : gradeKey]: value,
-    });
+    if (field === 'Subject') {
+      // Clear the grade when subject changes
+      onGradesChange({
+        ...grades,
+        [subjectKey]: value,
+        [gradeKey]: '',
+      });
+      // Close the popover
+      setOpenPopovers(prev => ({ ...prev, [electiveNumber]: false }));
+    } else {
+      onGradesChange({
+        ...grades,
+        [gradeKey]: value,
+      });
+    }
+  };
+  
+  const getSelectedSubjects = () => {
+    const selected: string[] = [];
+    for (let i = 1; i <= 4; i++) {
+      const subjectKey = `elective${i}Subject` as keyof WassceeGrades;
+      const subject = grades[subjectKey];
+      if (subject) selected.push(subject);
+    }
+    return selected;
+  };
+  
+  const getAvailableSubjects = (currentElectiveNumber: number) => {
+    const selectedSubjects = getSelectedSubjects();
+    const currentSubjectKey = `elective${currentElectiveNumber}Subject` as keyof WassceeGrades;
+    const currentSubject = grades[currentSubjectKey];
+    
+    return electiveSubjectOptions.filter(subject => 
+      !selectedSubjects.includes(subject) || subject === currentSubject
+    );
   };
 
   const getElectiveCount = () => {
@@ -148,9 +187,30 @@ export default function GradeInput({ grades, onGradesChange }: GradeInputProps) 
         <div data-testid="elective-subjects">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-scorecard-blue">Elective Subjects</h3>
-            <span className="text-sm text-gray-600 bg-blue-100 px-2 py-1 rounded">
-              Selected: {getElectiveCount()} of 4 subjects
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-gray-600 font-medium">
+                {getElectiveCount()} of 4 selected
+              </span>
+              <div className="flex gap-1">
+                {[1, 2, 3, 4].map((num) => {
+                  const subjectKey = `elective${num}Subject` as keyof WassceeGrades;
+                  const hasSubject = !!grades[subjectKey];
+                  return (
+                    <div 
+                      key={num} 
+                      className={cn(
+                        "w-4 h-4 rounded-full border-2 flex items-center justify-center",
+                        hasSubject 
+                          ? "bg-green-500 border-green-500 text-white" 
+                          : "bg-gray-100 border-gray-300"
+                      )}
+                    >
+                      {hasSubject && <Check className="w-3 h-3" />}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -168,24 +228,52 @@ export default function GradeInput({ grades, onGradesChange }: GradeInputProps) 
                   </div>
                   
                   <div className="space-y-3">
-                    {/* Subject Selection */}
+                    {/* Subject Selection - Searchable Combobox */}
                     <div>
-                      <Select 
-                        value={grades[subjectKey] || ""} 
-                        onValueChange={(value) => handleElectiveChange(num, 'Subject', value)}
-                        data-testid={`select-elective-${num}-subject`}
+                      <Popover 
+                        open={openPopovers[num] || false} 
+                        onOpenChange={(open) => setOpenPopovers(prev => ({ ...prev, [num]: open }))}
                       >
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select a subject" />
-                        </SelectTrigger>
-                        <SelectContent className="max-h-60">
-                          {electiveSubjectOptions.map((subject) => (
-                            <SelectItem key={subject} value={subject}>
-                              {subject}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            role="combobox"
+                            aria-expanded={openPopovers[num] || false}
+                            className="w-full justify-between font-normal"
+                            data-testid={`select-elective-${num}-subject`}
+                          >
+                            {grades[subjectKey] || "Select a subject"}
+                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-full p-0" align="start">
+                          <Command>
+                            <CommandInput placeholder="Search subjects..." className="h-9" />
+                            <CommandList>
+                              <CommandEmpty>No subject found.</CommandEmpty>
+                              <CommandGroup>
+                                {getAvailableSubjects(num).map((subject) => (
+                                  <CommandItem
+                                    key={subject}
+                                    value={subject}
+                                    onSelect={() => {
+                                      handleElectiveChange(num, 'Subject', subject);
+                                    }}
+                                  >
+                                    <Check
+                                      className={cn(
+                                        "mr-2 h-4 w-4",
+                                        grades[subjectKey] === subject ? "opacity-100" : "opacity-0"
+                                      )}
+                                    />
+                                    {subject}
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
                     </div>
                     
                     {/* Grade Selection */}
