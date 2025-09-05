@@ -31,16 +31,21 @@ function calculateAggregatePoints(grades: WassceeGrades): number {
     }
   });
 
-  // Add best 3 electives
-  const electiveSubjects = ['electiveMath', 'physics', 'chemistry', 'biology', 'economics', 'government', 'literature', 'geography'];
+  // Add best 3 electives from the new flexible structure
   const electiveGrades: number[] = [];
   
-  electiveSubjects.forEach(subject => {
-    const grade = grades[subject as keyof WassceeGrades];
-    if (grade && grade !== '') {
+  // Check all 4 elective slots
+  for (let i = 1; i <= 4; i++) {
+    const gradeKey = `elective${i}Grade` as keyof WassceeGrades;
+    const subjectKey = `elective${i}Subject` as keyof WassceeGrades;
+    
+    const grade = grades[gradeKey];
+    const subject = grades[subjectKey];
+    
+    if (grade && grade !== '' && subject && subject !== '') {
       electiveGrades.push(gradeToNumber(grade));
     }
-  });
+  }
 
   // Sort electives (best first) and take best 3
   electiveGrades.sort((a, b) => a - b);
@@ -84,19 +89,39 @@ function checkComplexRequirements(grades: WassceeGrades, requirement: any): {
         const subjectKey = subject.toLowerCase().replace(/\s+/g, '').replace('elective', 'elective');
         let studentGrade: string | undefined;
 
-        // Map common subject variations
-        switch (subjectKey) {
-          case 'electivemathematics':
-            studentGrade = grades.electiveMath;
+        // Search through all 4 elective slots to find the matching subject
+        for (let i = 1; i <= 4; i++) {
+          const electiveSubjectKey = `elective${i}Subject` as keyof WassceeGrades;
+          const electiveGradeKey = `elective${i}Grade` as keyof WassceeGrades;
+          
+          const electiveSubject = grades[electiveSubjectKey];
+          const electiveGrade = grades[electiveGradeKey];
+          
+          if (electiveSubject === subject && electiveGrade) {
+            studentGrade = electiveGrade;
             break;
-          case 'integratedscience':
-            studentGrade = grades.science;
+          }
+          
+          // Also check normalized subject names
+          const normalizedElectiveSubject = electiveSubject?.toLowerCase().replace(/\s+/g, '');
+          if (normalizedElectiveSubject === subjectKey && electiveGrade) {
+            studentGrade = electiveGrade;
             break;
-          case 'socialstudies':
-            studentGrade = grades.social;
-            break;
-          default:
-            studentGrade = grades[subjectKey as keyof WassceeGrades];
+          }
+        }
+        
+        // Fallback to core subjects if not found in electives
+        if (!studentGrade) {
+          switch (subjectKey) {
+            case 'integratedscience':
+              studentGrade = grades.science;
+              break;
+            case 'socialstudies':
+              studentGrade = grades.social;
+              break;
+            default:
+              break;
+          }
         }
 
         const requiredGrade = option.minGrades[subject] || 'C6';
@@ -247,23 +272,24 @@ export async function checkEligibilityOffline(grades: WassceeGrades): Promise<El
             const subject = elective.subject.toLowerCase();
             let studentGrade: string | undefined;
 
-            // Handle various elective subject mappings
-            if (subject.includes('elective mathematics')) {
-              studentGrade = grades.electiveMath;
-            } else if (subject.includes('physics')) {
-              studentGrade = grades.physics;
-            } else if (subject.includes('chemistry')) {
-              studentGrade = grades.chemistry;
-            } else if (subject.includes('biology')) {
-              studentGrade = grades.biology;
-            } else if (subject.includes('economics')) {
-              studentGrade = grades.economics;
-            } else if (subject.includes('government')) {
-              studentGrade = grades.government;
-            } else if (subject.includes('literature')) {
-              studentGrade = grades.literature;
-            } else if (subject.includes('geography')) {
-              studentGrade = grades.geography;
+            // Search through all 4 elective slots to find the matching subject
+            for (let i = 1; i <= 4; i++) {
+              const electiveSubjectKey = `elective${i}Subject` as keyof WassceeGrades;
+              const electiveGradeKey = `elective${i}Grade` as keyof WassceeGrades;
+              
+              const electiveSubject = grades[electiveSubjectKey];
+              const electiveGrade = grades[electiveGradeKey];
+              
+              if (electiveSubject && electiveGrade) {
+                const normalizedElectiveSubject = electiveSubject.toLowerCase();
+                
+                if (subject.includes(normalizedElectiveSubject) || 
+                    normalizedElectiveSubject.includes(elective.subject.toLowerCase()) ||
+                    electiveSubject === elective.subject) {
+                  studentGrade = electiveGrade;
+                  break;
+                }
+              }
             }
 
             if (meetsGradeRequirement(studentGrade, elective.min_grade)) {

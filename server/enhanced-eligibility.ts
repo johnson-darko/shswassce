@@ -321,10 +321,20 @@ function checkElectiveSubjects(grades: WassceeGrades, electiveSubjects: Array<{s
   for (const elective of electiveSubjects) {
     if (elective.subject.includes("Any")) {
       // Handle "Any other elective" or "Any TWO from..." cases
-      const electiveGrades = [
-        grades.electiveMath, grades.physics, grades.chemistry, grades.biology,
-        grades.economics, grades.government, grades.literature, grades.geography
-      ].filter(Boolean);
+      const electiveGrades: string[] = [];
+      
+      // Get all elective grades from the new flexible structure
+      for (let i = 1; i <= 4; i++) {
+        const gradeKey = `elective${i}Grade` as keyof WassceeGrades;
+        const subjectKey = `elective${i}Subject` as keyof WassceeGrades;
+        
+        const grade = grades[gradeKey];
+        const subject = grades[subjectKey];
+        
+        if (grade && grade !== '' && subject && subject !== '') {
+          electiveGrades.push(grade);
+        }
+      }
       
       const qualifyingElectives = electiveGrades.filter(grade => 
         gradeValues[grade!] <= gradeValues[elective.min_grade]
@@ -368,24 +378,34 @@ function checkElectiveSubjects(grades: WassceeGrades, electiveSubjects: Array<{s
 }
 
 function getElectiveGrade(grades: WassceeGrades, subject: string): string | undefined {
-  switch (subject) {
-    case "Elective Mathematics":
-      return grades.electiveMath;
-    case "Physics":
-      return grades.physics;
-    case "Chemistry":
-      return grades.chemistry;
-    case "Biology":
-      return grades.biology;
-    case "Economics":
-      return grades.economics;
-    case "Government":
-      return grades.government;
-    case "Literature":
-      return grades.literature;
-    case "Geography":
-      return grades.geography;
-    default:
-      return undefined;
+  // Search through all 4 elective slots to find the matching subject
+  for (let i = 1; i <= 4; i++) {
+    const subjectKey = `elective${i}Subject` as keyof WassceeGrades;
+    const gradeKey = `elective${i}Grade` as keyof WassceeGrades;
+    
+    const studentSubject = grades[subjectKey];
+    const studentGrade = grades[gradeKey];
+    
+    // Check if this elective slot matches the required subject
+    if (studentSubject === subject && studentGrade) {
+      return studentGrade;
+    }
+    
+    // Also check for common subject name variations
+    const normalizedStudentSubject = studentSubject?.toLowerCase().replace(/\s+/g, '');
+    const normalizedRequiredSubject = subject.toLowerCase().replace(/\s+/g, '');
+    
+    if (normalizedStudentSubject === normalizedRequiredSubject && studentGrade) {
+      return studentGrade;
+    }
+    
+    // Handle specific subject mappings
+    if ((subject === "Elective Mathematics" || subject === "Mathematics (Elective)") && 
+        (studentSubject === "Mathematics (Elective)" || studentSubject === "Elective Mathematics") && 
+        studentGrade) {
+      return studentGrade;
+    }
   }
+  
+  return undefined;
 }
