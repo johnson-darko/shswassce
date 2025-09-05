@@ -280,34 +280,39 @@ export default function Calculator() {
       item => item.subject !== 'English Language' && item.subject !== 'Mathematics'
     );
 
-    // Generate different combinations for the third core subject
-    const getCombinations = (arr: any[], size: number) => {
-      if (size === 1) return arr.map((el: any) => [el]);
-      return arr.flatMap((el: any, i: number) => 
-        getCombinations(arr.slice(i + 1), size - 1).map((combo: any) => [el, ...combo])
+    // Generate all combinations of electives (3 out of available)
+    const getCombinations = (arr: Array<{subject: string, grade: string}>, size: number): Array<Array<{subject: string, grade: string}>> => {
+      if (size === 1) return arr.map(el => [el]);
+      return arr.flatMap((el, i) => 
+        getCombinations(arr.slice(i + 1), size - 1).map(combo => [el, ...combo])
       );
     };
 
-    // Generate elective combinations (3 out of available)
     const electiveCombinations = getCombinations(validElectives, 3);
 
     let altCount = 1;
     
-    // For each possible third core subject
+    // Generate ALL possible combinations:
+    // 1. English + Math + Science + different elective combinations  
+    // 2. English + Math + Social Studies + different elective combinations
+    
     for (const thirdCore of otherCoreSubjects) {
       const coreCombo = [englishCore, mathCore, thirdCore];
       
-      // For each elective combination
-      for (const electiveCombo of electiveCombinations.slice(0, 3)) { // Limit alternatives
-        const coreTotal = coreCombo.reduce((sum: number, item: any) => sum + gradeValues[item.grade], 0);
-        const electiveTotal = electiveCombo.reduce((sum: number, item: any) => sum + gradeValues[item.grade], 0);
+      for (const electiveCombo of electiveCombinations) {
+        const coreTotal = coreCombo.reduce((sum, item) => sum + gradeValues[item.grade], 0);
+        const electiveTotal = electiveCombo.reduce((sum, item) => sum + gradeValues[item.grade], 0);
         const aggregate = coreTotal + electiveTotal;
 
         // Skip the best combination (already shown)
-        const isBestCombo = JSON.stringify([...coreCombo, ...electiveCombo].sort()) === 
-                           JSON.stringify([...bestCore, ...bestElectives].sort());
+        const coreSubjects = coreCombo.map(c => c.subject).sort().join(',');
+        const electiveSubjects = electiveCombo.map(e => e.subject).sort().join(',');
+        const bestCoreSubjects = bestCore.map(c => c.subject).sort().join(',');
+        const bestElectiveSubjects = bestElectives.map(e => e.subject).sort().join(',');
         
-        if (!isBestCombo && alternatives.length < 6) {
+        const isBestCombo = coreSubjects === bestCoreSubjects && electiveSubjects === bestElectiveSubjects;
+        
+        if (!isBestCombo) {
           alternatives.push({
             name: `Alternative ${altCount}`,
             core: coreCombo,
