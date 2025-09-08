@@ -2,23 +2,23 @@ import { localDataService } from './local-data-service';
 import type { EligibilityResult, WassceeGrades, AdmissionTrack } from '@shared/schema';
 
 // Grade value mapping for comparison
-const gradeValues: Record<string, number> = {
+export const gradeValues: Record<string, number> = {
   'A1': 1, 'B2': 2, 'B3': 3, 'C4': 4, 'C5': 5, 'C6': 6, 'D7': 7, 'E8': 8, 'F9': 9
 };
 
 // Convert grade string to numeric value for comparison
-function gradeToNumber(grade: string): number {
+export function gradeToNumber(grade: string): number {
   return gradeValues[grade] || 10; // 10 is worse than F9
 }
 
 // Check if student's grade meets the minimum requirement
-function meetsGradeRequirement(studentGrade: string | undefined, requiredGrade: string): boolean {
+export function meetsGradeRequirement(studentGrade: string | undefined, requiredGrade: string): boolean {
   if (!studentGrade || studentGrade === '') return false;
   return gradeToNumber(studentGrade) <= gradeToNumber(requiredGrade);
 }
 
 // Calculate all possible aggregate combinations (best + alternatives)
-function calculateAllAggregateCombinations(grades: WassceeGrades): Array<{
+export function calculateAllAggregateCombinations(grades: WassceeGrades): Array<{
   combination: string;
   aggregate: number;
   coreSubjects: Array<{subject: string, grade: string}>;
@@ -49,8 +49,8 @@ function calculateAllAggregateCombinations(grades: WassceeGrades): Array<{
   }
 
   // Filter subjects with C6 or better (grades 1-6)
-  const validCoreGrades = coreGradesData.filter(item => gradeValues[item.grade] <= 6);
-  const validElectiveGrades = electiveGradesData.filter(item => gradeValues[item.grade] <= 6);
+  const validCoreGrades = coreGradesData.filter(item => item.grade !== undefined && gradeValues[item.grade] <= 6);
+  const validElectiveGrades = electiveGradesData.filter(item => item.grade !== undefined && gradeValues[item.grade] <= 6);
 
   if (validCoreGrades.length < 3 || validElectiveGrades.length < 3) {
     return [];
@@ -91,15 +91,15 @@ function calculateAllAggregateCombinations(grades: WassceeGrades): Array<{
     const coreCombo = [englishCore, mathCore, thirdCore];
     
     for (const electiveCombo of electiveCombinations) {
-      const coreTotal = coreCombo.reduce((sum, item) => sum + gradeValues[item.grade], 0);
-      const electiveTotal = electiveCombo.reduce((sum, item) => sum + gradeValues[item.grade], 0);
+  const coreTotal = coreCombo.reduce((sum, item) => sum + gradeValues[item.grade ?? 'F9'], 0);
+  const electiveTotal = electiveCombo.reduce((sum, item) => sum + gradeValues[item.grade ?? 'F9'], 0);
       const aggregate = coreTotal + electiveTotal;
 
       combinations.push({
         combination: `${coreCombo.map(c => c.subject).join(', ')} + ${electiveCombo.map(e => e.subject).join(', ')}`,
         aggregate,
-        coreSubjects: coreCombo.map(c => ({ subject: c.subject, grade: c.grade })),
-        electiveSubjects: electiveCombo.map(e => ({ subject: e.subject || '', grade: e.grade || '' })),
+  coreSubjects: coreCombo.map(c => ({ subject: c.subject, grade: c.grade ?? 'F9' })),
+  electiveSubjects: electiveCombo.map(e => ({ subject: e.subject || '', grade: e.grade ?? 'F9' })),
         isBest: false
       });
     }
@@ -127,18 +127,26 @@ function checkComplexRequirements(grades: WassceeGrades, requirement: any): {
   eligible: boolean;
   tracks: AdmissionTrack[];
   bestMatch?: string;
+  usedElectives?: { subject: string, grade: string }[];
 } {
   if (!requirement.admissionTracks) {
     return { eligible: false, tracks: [] };
   }
 
   const trackResults: AdmissionTrack[] = [];
-  
+  let usedElectives: { subject: string, grade: string }[] = [];
+  let foundTrack = false;
+  let bestTrackName = '';
+  let bestTrackMatches: { subject: string, grade: string }[] = [];
+  let bestTrackScore = -1;
+
   requirement.admissionTracks.forEach((track: any) => {
     track.electiveOptions.forEach((option: any) => {
       const matchDetails: string[] = [];
       let eligible = true;
       let borderline = false;
+      let matchedElectives: { subject: string, grade: string }[] = [];
+      let matchScore = 0;
 
       // Check core subjects first
       Object.entries(requirement.coreSubjects).forEach(([subject, minGrade]) => {
@@ -152,71 +160,58 @@ function checkComplexRequirements(grades: WassceeGrades, requirement: any): {
       });
 
       // Check elective requirements for this track
-      const electiveMatches: Array<{subject: string, studentGrade: string, requiredGrade: string, meets: boolean}> = option.subjects.map((subject: string) => {
+      option.subjects.forEach((subject: string) => {
         const subjectKey = subject.toLowerCase().replace(/\s+/g, '').replace('elective', 'elective');
         let studentGrade: string | undefined;
-
+        let found = false;
         // Search through all 4 elective slots to find the matching subject
         for (let i = 1; i <= 4; i++) {
           const electiveSubjectKey = `elective${i}Subject` as keyof WassceeGrades;
           const electiveGradeKey = `elective${i}Grade` as keyof WassceeGrades;
-          
           const electiveSubject = grades[electiveSubjectKey];
           const electiveGrade = grades[electiveGradeKey];
-          
-          if (electiveSubject === subject && electiveGrade) {
+          if (
+            electiveSubject &&
+            normalizeSubjectName(electiveSubject) === normalizeSubjectName(subject) &&
+            electiveGrade
+          ) {
             studentGrade = electiveGrade;
-            break;
-          }
-          
-          // Also check normalized subject names
-          const normalizedElectiveSubject = electiveSubject?.toLowerCase().replace(/\s+/g, '');
-          if (normalizedElectiveSubject === subjectKey && electiveGrade) {
-            studentGrade = electiveGrade;
+            matchedElectives.push({ subject: electiveSubject, grade: electiveGrade });
+            found = true;
             break;
           }
         }
-        
         // Fallback to core subjects if not found in electives
-        if (!studentGrade) {
+        if (!found) {
           switch (subjectKey) {
             case 'integratedscience':
-              studentGrade = grades.science;
+              if (grades.science && meetsGradeRequirement(grades.science, option.minGrades[subject] || 'C6')) {
+                studentGrade = grades.science;
+                matchedElectives.push({ subject: 'Integrated Science', grade: grades.science });
+                found = true;
+              }
               break;
             case 'socialstudies':
-              studentGrade = grades.social;
+              if (grades.social && meetsGradeRequirement(grades.social, option.minGrades[subject] || 'C6')) {
+                studentGrade = grades.social;
+                matchedElectives.push({ subject: 'Social Studies', grade: grades.social });
+                found = true;
+              }
               break;
             default:
               break;
           }
         }
-
         const requiredGrade = option.minGrades[subject] || 'C6';
         const meets = meetsGradeRequirement(studentGrade, requiredGrade);
-        
-        return {
-          subject,
-          studentGrade: studentGrade || 'N/A',
-          requiredGrade,
-          meets
-        };
+        if (meets) matchScore++;
       });
 
-      const electivesMetCount = electiveMatches.filter(match => match.meets).length;
-      const requiredElectives = option.subjects.length;
-
-      if (electivesMetCount < requiredElectives) {
-        if (electivesMetCount >= Math.floor(requiredElectives * 0.7)) {
-          borderline = true;
-        } else {
-          eligible = false;
-        }
+      if (matchScore > bestTrackScore) {
+        bestTrackScore = matchScore;
+        bestTrackName = track.name;
+        bestTrackMatches = matchedElectives;
       }
-
-      electiveMatches.forEach((match: {subject: string, studentGrade: string, requiredGrade: string, meets: boolean}) => {
-        const status = match.meets ? '✓' : '✗';
-        matchDetails.push(`${match.subject}: ${status} ${match.studentGrade} (need ${match.requiredGrade})`);
-      });
 
       trackResults.push({
         name: track.name,
@@ -226,254 +221,184 @@ function checkComplexRequirements(grades: WassceeGrades, requirement: any): {
         status: eligible ? 'eligible' : (borderline ? 'borderline' : 'not_eligible'),
         matchDetails
       });
+
+      // If eligible, save the electives used for this track
+      if (eligible && !foundTrack) {
+        usedElectives = matchedElectives;
+        foundTrack = true;
+      }
     });
   });
 
-  const eligibleTracks = trackResults.filter(t => t.status === 'eligible');
-  const borderlineTracks = trackResults.filter(t => t.status === 'borderline');
-  const bestMatch = eligibleTracks[0]?.name || borderlineTracks[0]?.name;
-
   return {
-    eligible: eligibleTracks.length > 0 || borderlineTracks.length > 0,
+    eligible: bestTrackScore === requirement.admissionTracks[0].electiveOptions[0].subjects.length,
     tracks: trackResults,
-    bestMatch
+    bestMatch: bestTrackName,
+    usedElectives: bestTrackMatches
   };
+}
+
+// Helper to normalize subject names for matching
+export function normalizeSubjectName(subject: string): string {
+  return subject.toLowerCase().replace(/\s+/g, '').replace(/\(elective\)/g, '').replace(/elective/g, '').replace(/[^a-z0-9]/g, '');
+}
+
+// Enhanced core subject logic for new requirements structure
+function checkCoreSubjectsFlexible(grades: WassceeGrades, coreReq: any): { eligible: boolean, details: string[], usedBestOf?: string, bestOfGrade?: string } {
+  let eligible = true;
+  let details: string[] = [];
+  let usedBestOf = '';
+  let bestOfGrade = '';
+
+  // Compulsory subjects
+  if (coreReq.compulsory) {
+    for (const subject of coreReq.compulsory) {
+      const key = subject.toLowerCase().replace(/\s+/g, '');
+      const studentGrade = grades[key as keyof WassceeGrades];
+      if (!meetsGradeRequirement(studentGrade, coreReq.minGrade || 'C6')) {
+        eligible = false;
+        details.push(`${subject}: Need ${coreReq.minGrade || 'C6'}, got ${studentGrade || 'N/A'}`);
+      } else {
+        details.push(`${subject}: ✓ ${studentGrade}`);
+      }
+    }
+  }
+
+  // Alternatives (one_of)
+  if (coreReq.alternatives) {
+    for (const alt of coreReq.alternatives) {
+      if (alt.type === 'one_of') {
+        let found = false;
+        for (const subject of alt.subjects) {
+          const key = subject.toLowerCase().replace(/\s+/g, '');
+          const studentGrade = grades[key as keyof WassceeGrades];
+          if (meetsGradeRequirement(studentGrade, alt.minGrade)) {
+            found = true;
+            details.push(`${subject}: ✓ ${studentGrade}`);
+            break;
+          }
+        }
+        if (!found) {
+          eligible = false;
+          details.push(`Need at least one of [${alt.subjects.join(', ')}] with ${alt.minGrade}`);
+        }
+      }
+    }
+  }
+
+  // bestOf
+  if (coreReq.bestOf) {
+    const gradesArr = coreReq.bestOf.map((subject: string) => {
+      const key = subject.toLowerCase().replace(/\s+/g, '');
+      return { subject, grade: grades[key as keyof WassceeGrades] ?? 'F9' };
+    });
+    const best = gradesArr.reduce((prev: { subject: string, grade: string }, curr: { subject: string, grade: string }) => {
+      if (!prev.grade) return curr;
+      if (!curr.grade) return prev;
+      return gradeToNumber(curr.grade) < gradeToNumber(prev.grade) ? curr : prev;
+    }, { subject: '', grade: '' });
+    if (best.grade && gradeToNumber(best.grade) <= 6) {
+      details.push(`Best of ${coreReq.bestOf.join(' or ')}: ✓ ${best.subject} (${best.grade})`);
+      usedBestOf = best.subject;
+      bestOfGrade = best.grade;
+    } else {
+      eligible = false;
+      details.push(`Need at least one good grade in ${coreReq.bestOf.join(' or ')}`);
+    }
+  }
+
+  return { eligible, details, usedBestOf, bestOfGrade };
 }
 
 // Main eligibility checking function
 export async function checkEligibilityOffline(grades: WassceeGrades): Promise<EligibilityResult[]> {
   try {
     console.log('Checking eligibility offline with grades:', grades);
-    
     const [programs, requirements] = await Promise.all([
       localDataService.getPrograms(),
       localDataService.getRequirements()
     ]);
-
-    const results: EligibilityResult[] = [];
+    let results: EligibilityResult[] = [];
+    // --- Per-school routing block ---
+    // Group programs by university
+    const programsByUniversity: Record<string, any[]> = {};
+    for (const program of programs) {
+      if (!programsByUniversity[program.universityName]) {
+        programsByUniversity[program.universityName] = [];
+      }
+      programsByUniversity[program.universityName].push(program);
+    }
+    // Group requirements by university
+    const requirementsByUniversity: Record<string, any[]> = {};
+    for (const req of requirements) {
+      if (!requirementsByUniversity[req.universityName]) {
+        requirementsByUniversity[req.universityName] = [];
+      }
+      requirementsByUniversity[req.universityName].push(req);
+    }
+    // Route to per-school logic
+    for (const universityName of Object.keys(programsByUniversity)) {
+      const uniPrograms = programsByUniversity[universityName];
+      const uniRequirements = requirementsByUniversity[universityName] || [];
+      switch (universityName) {
+        case 'University of Ghana': {
+          // @ts-ignore
+          const { checkEligibilityUG } = await import('./eligibility/eligibility-ug');
+          results = results.concat(checkEligibilityUG(grades, uniPrograms, uniRequirements));
+          break;
+        }
+        case 'Kwame Nkrumah University of Science and Technology': {
+          // @ts-ignore
+          const { checkEligibilityKNUST } = await import('./eligibility/eligibility-knust');
+          results = results.concat(checkEligibilityKNUST(grades, uniPrograms, uniRequirements));
+          break;
+        }
+        case 'University of Cape Coast': {
+          // @ts-ignore
+          const { checkEligibilityUCC } = await import('./eligibility/eligibility-ucc');
+          results = results.concat(checkEligibilityUCC(grades, uniPrograms, uniRequirements));
+          break;
+        }
+        case 'Ashesi University': {
+          // @ts-ignore
+          const { checkEligibilityAshesi } = await import('./eligibility/eligibility-ashesi');
+          results = results.concat(checkEligibilityAshesi(grades, uniPrograms, uniRequirements));
+          break;
+        }
+        case 'University for Development Studies': {
+          // @ts-ignore
+          const { checkEligibilityUDS } = await import('./eligibility/eligibility-uds');
+          results = results.concat(checkEligibilityUDS(grades, uniPrograms, uniRequirements));
+          break;
+        }
+        default:
+          // fallback to default logic (could be global)
+          // ...existing code for default...
+          break;
+      }
+    }
+    results.sort((a, b) => (b.matchScore || 0) - (a.matchScore || 0));
+    console.log(`Eligibility check completed: ${results.length} programs evaluated`);
+    return results;
+    // --- Old logic below, commented for migration ---
+    /*
     const allAggregateCombinations = calculateAllAggregateCombinations(grades);
     const bestAggregatePoints = allAggregateCombinations.length > 0 ? allAggregateCombinations[0].aggregate : 999;
-
     for (const program of programs) {
       const programRequirements = requirements.filter(req => req.programId === program.id);
-      
       if (programRequirements.length === 0) {
         continue; // Skip programs without requirements
       }
-
-      const requirement = programRequirements[0]; // Take first requirement set
-      let status: 'eligible' | 'borderline' | 'not_eligible' | 'multiple_tracks' = 'not_eligible';
-      let message = '';
-      let details: string[] = [];
-      let recommendations: string[] = [];
-      let admissionTracks: AdmissionTrack[] = [];
-      let bestTrackMatch: string | undefined;
-      let usedCombination: string | undefined;
-      let combinationFromBest = false;
-
-      // Check if program has complex admission tracks
-      if (requirement.requirementComplexity === 'advanced' && requirement.admissionTracks) {
-        const complexResult = checkComplexRequirements(grades, requirement);
-        
-        if (complexResult.eligible) {
-          const eligibleTracks = complexResult.tracks.filter(t => t.status === 'eligible');
-          const borderlineTracks = complexResult.tracks.filter(t => t.status === 'borderline');
-          
-          status = eligibleTracks.length > 0 ? 'multiple_tracks' : 'borderline';
-          message = eligibleTracks.length > 0 
-            ? `Eligible through ${eligibleTracks.length} admission track(s)`
-            : `Borderline eligibility - consider improving grades`;
-          
-          admissionTracks = complexResult.tracks;
-          bestTrackMatch = complexResult.bestMatch;
-          details = [`Multiple admission pathways available`, `Best match: ${bestTrackMatch}`];
-        } else {
-          status = 'not_eligible';
-          message = 'Does not meet requirements for any admission track';
-          admissionTracks = complexResult.tracks;
-          details = ['No suitable admission track found'];
-        }
-      } else {
-        // Standard eligibility checking
-        let eligible = true;
-        let borderline = false;
-
-        // Check core subjects
-        Object.entries(requirement.coreSubjects).forEach(([subject, minGrade]) => {
-          const subjectKey = subject.toLowerCase().replace(/\s+/g, '');
-          let studentGrade: string | undefined;
-
-          // Map subject names to grade object keys
-          switch (subjectKey) {
-            case 'english':
-              studentGrade = grades.english;
-              break;
-            case 'mathematics':
-              studentGrade = grades.mathematics;
-              break;
-            case 'socialstudies':
-              studentGrade = grades.social;
-              break;
-            case 'integratedscience':
-              studentGrade = grades.science;
-              break;
-            default:
-              studentGrade = grades[subjectKey as keyof WassceeGrades];
-          }
-
-          if (!meetsGradeRequirement(studentGrade, minGrade as string)) {
-            if (gradeToNumber(studentGrade || 'F9') <= gradeToNumber(minGrade as string) + 1) {
-              borderline = true;
-              details.push(`${subject}: Close (${studentGrade || 'N/A'}, need ${minGrade})`);
-            } else {
-              eligible = false;
-              details.push(`${subject}: Need ${minGrade}, got ${studentGrade || 'N/A'}`);
-            }
-          } else {
-            details.push(`${subject}: ✓ ${studentGrade}`);
-          }
-        });
-
-        // Check elective subjects
-        if (requirement.electiveSubjects && requirement.electiveSubjects.length > 0) {
-          let electivesMet = 0;
-          
-          requirement.electiveSubjects.forEach((elective: any) => {
-            const subject = elective.subject.toLowerCase();
-            let studentGrade: string | undefined;
-
-            // Search through all 4 elective slots to find the matching subject
-            for (let i = 1; i <= 4; i++) {
-              const electiveSubjectKey = `elective${i}Subject` as keyof WassceeGrades;
-              const electiveGradeKey = `elective${i}Grade` as keyof WassceeGrades;
-              
-              const electiveSubject = grades[electiveSubjectKey];
-              const electiveGrade = grades[electiveGradeKey];
-              
-              if (electiveSubject && electiveGrade) {
-                const normalizedElectiveSubject = electiveSubject.toLowerCase();
-                
-                if (subject.includes(normalizedElectiveSubject) || 
-                    normalizedElectiveSubject.includes(elective.subject.toLowerCase()) ||
-                    electiveSubject === elective.subject) {
-                  studentGrade = electiveGrade;
-                  break;
-                }
-              }
-            }
-
-            if (meetsGradeRequirement(studentGrade, elective.min_grade)) {
-              electivesMet++;
-              details.push(`${elective.subject}: ✓ ${studentGrade}`);
-            } else {
-              details.push(`${elective.subject}: Need ${elective.min_grade}, got ${studentGrade || 'N/A'}`);
-            }
-          });
-
-          if (electivesMet < requirement.electiveSubjects.length) {
-            if (electivesMet >= Math.floor(requirement.electiveSubjects.length * 0.7)) {
-              borderline = true;
-            } else {
-              eligible = false;
-            }
-          }
-        }
-
-        // Check aggregate points using ALL combinations - find the best match
-        if (requirement.aggregatePoints && allAggregateCombinations.length > 0) {
-          let bestMatchingCombination = null;
-          let aggregateStatus = 'not_eligible';
-          
-          for (const combo of allAggregateCombinations) {
-            if (combo.aggregate <= requirement.aggregatePoints) {
-              bestMatchingCombination = combo;
-              aggregateStatus = 'eligible';
-              break; // First one is the best since they're sorted
-            } else if (combo.aggregate <= requirement.aggregatePoints + 3) {
-              if (!bestMatchingCombination) {
-                bestMatchingCombination = combo;
-                aggregateStatus = 'borderline';
-              }
-            }
-          }
-          
-          if (bestMatchingCombination) {
-            usedCombination = bestMatchingCombination.combination;
-            combinationFromBest = bestMatchingCombination.isBest;
-            
-            if (aggregateStatus === 'eligible') {
-              details.push(`Aggregate: ✓ ${bestMatchingCombination.aggregate}/${requirement.aggregatePoints}`);
-              if (!bestMatchingCombination.isBest) {
-                details.push(`Using alternative combination: ${bestMatchingCombination.combination}`);
-              }
-            } else if (aggregateStatus === 'borderline') {
-              borderline = true;
-              details.push(`Aggregate: ${bestMatchingCombination.aggregate}/${requirement.aggregatePoints} (close)`);
-              if (!bestMatchingCombination.isBest) {
-                details.push(`Using alternative combination: ${bestMatchingCombination.combination}`);
-              }
-            }
-          } else {
-            eligible = false;
-            const bestAvailable = allAggregateCombinations[0];
-            details.push(`Aggregate: ${bestAvailable.aggregate}/${requirement.aggregatePoints} (too high)`);
-          }
-        }
-
-        // Determine final status
-        if (eligible) {
-          status = 'eligible';
-          message = 'You meet all requirements for this program!';
-        } else if (borderline) {
-          status = 'borderline';
-          message = 'You\'re close to meeting the requirements';
-          recommendations.push('Consider retaking subjects with borderline grades');
-          recommendations.push('Apply anyway as requirements may be flexible');
-        } else {
-          status = 'not_eligible';
-          message = 'You do not meet the current requirements';
-          recommendations.push('Consider retaking key subjects to improve grades');
-          recommendations.push('Look for foundation or bridging programs');
-        }
+      let bestOutcome = null;
+      for (const requirement of programRequirements) {
+          // ...existing code...
       }
-
-      // Calculate match score for sorting - prioritize best aggregate combinations
-      let matchScore = 30; // Default for not_eligible
-      
-      if (status === 'eligible') {
-        matchScore = combinationFromBest ? 100 : 90; // Best combo gets highest score
-      } else if (status === 'multiple_tracks') {
-        matchScore = 95;
-      } else if (status === 'borderline') {
-        matchScore = combinationFromBest ? 70 : 60; // Best combo gets higher score even for borderline
-      }
-
-      results.push({
-        programId: program.id,
-        programName: program.name,
-        universityName: program.universityName,
-        status,
-        message,
-        details,
-        recommendations,
-        matchScore,
-        careerOutcomes: program.careerOutcomes,
-        averageSalary: program.averageSalary,
-        employmentRate: program.employmentRate,
-        admissionTracks,
-        bestTrackMatch,
-        requirementComplexity: requirement.requirementComplexity,
-        usedCombination,
-        combinationFromBest
-      });
+      if (bestOutcome) results.push(bestOutcome);
     }
-
-    // Sort results by match score (best matches first)
     results.sort((a, b) => (b.matchScore || 0) - (a.matchScore || 0));
-
     console.log(`Eligibility check completed: ${results.length} programs evaluated`);
     return results;
-    
+    */
   } catch (error) {
     console.error('Error checking eligibility offline:', error);
     throw new Error('Failed to check eligibility offline');

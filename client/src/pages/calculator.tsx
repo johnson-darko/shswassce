@@ -10,6 +10,8 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
+import { checkEligibilityOffline } from '../lib/offline-eligibility-engine';
+
 interface CalculatorGrades {
   english: string;
   mathematics: string;
@@ -105,7 +107,7 @@ const gradeValues: Record<string, number> = {
   'A1': 1, 'B2': 2, 'B3': 3, 'C4': 4, 'C5': 5, 'C6': 6, 'D7': 7, 'E8': 8, 'F9': 9
 };
 
-export default function Calculator() {
+export default function CalculatorPage() {
   const [grades, setGrades] = useState<CalculatorGrades>({
     english: '',
     mathematics: '',
@@ -129,6 +131,19 @@ export default function Calculator() {
   const [isCheckingEligibility, setIsCheckingEligibility] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
+  // Program and university filter states
+  const [programs, setPrograms] = useState<string[]>([]);
+  const [universities, setUniversities] = useState<string[]>([]);
+  const [selectedProgram, setSelectedProgram] = useState('');
+  const [selectedUniversity, setSelectedUniversity] = useState('');
+  const [filteredResult, setFilteredResult] = useState<EligibilityResult | null>(null);
+  const [alternatives, setAlternatives] = useState<EligibilityResult[]>([]);
+  const [relatedPrograms, setRelatedPrograms] = useState<EligibilityResult[]>([]);
+  const [otherQualifying, setOtherQualifying] = useState<EligibilityResult[]>([]);
+
+  // Track saved program IDs
+  const [savedIds, setSavedIds] = useState<string[]>([]);
+
   // Load grades from localStorage on component mount
   useEffect(() => {
     const savedGrades = localStorage.getItem('calculatorGrades');
@@ -145,6 +160,23 @@ export default function Calculator() {
   useEffect(() => {
     localStorage.setItem('calculatorGrades', JSON.stringify(grades));
   }, [grades]);
+
+  // Fetch all programs and universities for filter dropdowns
+  useEffect(() => {
+    async function fetchPrograms() {
+      const allResults = await checkEligibilityOffline(grades); // grades from form
+      setEligibilityResults(allResults);
+      setPrograms([...new Set(allResults.map(r => r.programName))]);
+      setUniversities([...new Set(allResults.map(r => r.universityName))]);
+      setOtherQualifying(allResults.filter(r => r.status === 'eligible'));
+    }
+    fetchPrograms();
+  }, [grades]);
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('savedPrograms') || '[]');
+    setSavedIds(saved.map((p: EligibilityResult) => p.programId + '|' + p.universityName));
+  }, [eligibilityResults]);
 
   const handleCoreGradeChange = (subject: keyof CalculatorGrades, grade: string) => {
     setGrades({
@@ -398,6 +430,68 @@ export default function Calculator() {
 
   const result = calculateAggregate();
 
+  // Handler for filter
+  function handleFilter() {
+    if (selectedProgram && !selectedUniversity) {
+      // Show all universities that offer the selected program
+      const filtered = eligibilityResults.filter(r => r.programName === selectedProgram);
+      setFilteredResult(filtered);
+      setAlternatives([]);
+      setRelatedPrograms([]);
+      return;
+    }
+    let filtered = null;
+    if (selectedProgram && selectedUniversity) {
+      filtered = eligibilityResults.find(r =>
+        r.programName === selectedProgram && r.universityName === selectedUniversity
+      );
+      if (!filtered) {
+        setFilteredResult({
+          programName: selectedProgram,
+          universityName: selectedUniversity,
+          status: 'not_offered',
+          message: 'This university does not offer the selected program.',
+          details: [],
+          recommendations: [],
+        } as any);
+        setAlternatives(
+          eligibilityResults.filter(r =>
+            r.programName === selectedProgram && r.universityName !== selectedUniversity
+          )
+        );
+        setRelatedPrograms([]);
+        return;
+      }
+    } else if (selectedProgram) {
+      filtered = eligibilityResults.find(r => r.programName === selectedProgram);
+    }
+    setFilteredResult(filtered);
+    setAlternatives(
+      eligibilityResults.filter(r =>
+        r.programName === selectedProgram && (!selectedUniversity || r.universityName !== selectedUniversity) && r.status === 'eligible'
+      )
+    );
+    setRelatedPrograms(
+      eligibilityResults.filter(r =>
+        (selectedUniversity ? r.universityName === selectedUniversity : true) &&
+        r.status === 'eligible' &&
+        r.programName !== selectedProgram &&
+        r.faculty === filtered?.faculty
+      )
+    );
+  }
+
+  // Add save logic
+  function saveProgram(program: EligibilityResult) {
+    const saved = JSON.parse(localStorage.getItem('savedPrograms') || '[]');
+    const id = program.programId + '|' + program.universityName;
+    if (!saved.some((p: EligibilityResult) => p.programId === program.programId && p.universityName === program.universityName)) {
+      saved.push(program);
+      localStorage.setItem('savedPrograms', JSON.stringify(saved));
+      setSavedIds(prev => [...prev, id]);
+    }
+  }
+
   return (
     <div className="container mx-auto px-4 py-8" data-testid="calculator">
       <div className="max-w-4xl mx-auto">
@@ -481,7 +575,7 @@ export default function Calculator() {
                 {[1, 2, 3, 4].map((num) => {
                   const subjectKey = `elective${num}Subject` as keyof CalculatorGrades;
                   const gradeKey = `elective${num}Grade` as keyof CalculatorGrades;
-                  
+                  const datalistId = `elective-subjects-list-${num}`;
                   return (
                     <div key={num} className="border-2 border-blue-200 rounded-lg p-4 bg-white shadow-sm">
                       <div className="flex items-center justify-between mb-3">
@@ -490,75 +584,41 @@ export default function Calculator() {
                           ELECTIVE
                         </span>
                       </div>
-                      
                       <div className="space-y-3">
-                        {/* Subject Selection - Searchable Combobox */}
+                        {/* Subject Selection - HTML Searchable Input with Datalist */}
                         <div>
-                          <Popover 
-                            open={openPopovers[num] || false} 
-                            onOpenChange={(open) => setOpenPopovers(prev => ({ ...prev, [num]: open }))}
-                          >
-                            <PopoverTrigger asChild>
-                              <Button
-                                variant="outline"
-                                role="combobox"
-                                aria-expanded={openPopovers[num] || false}
-                                className="w-full justify-between font-normal h-11"
-                                data-testid={`select-elective-${num}-subject`}
-                              >
-                                {grades[subjectKey] || "Select a subject"}
-                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-80 p-0" align="start">
-                              <Command>
-                                <CommandInput placeholder="Search subjects..." className="h-9" />
-                                <CommandList>
-                                  <CommandEmpty>No subject found.</CommandEmpty>
-                                  <CommandGroup>
-                                    {getAvailableSubjects(num).map((subject) => (
-                                      <CommandItem
-                                        key={subject}
-                                        value={subject}
-                                        onSelect={() => {
-                                          handleElectiveChange(num, 'Subject', subject);
-                                        }}
-                                      >
-                                        <Check
-                                          className={cn(
-                                            "mr-2 h-4 w-4",
-                                            grades[subjectKey] === subject ? "opacity-100" : "opacity-0"
-                                          )}
-                                        />
-                                        {subject}
-                                      </CommandItem>
-                                    ))}
-                                  </CommandGroup>
-                                </CommandList>
-                              </Command>
-                            </PopoverContent>
-                          </Popover>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Select a subject</label>
+                          <input
+                            type="search"
+                            className="w-full h-11 border rounded px-2"
+                            list={datalistId}
+                            value={grades[subjectKey] || ""}
+                            onChange={e => handleElectiveChange(num, 'Subject', e.target.value)}
+                            data-testid={`select-elective-${num}-subject`}
+                            placeholder="Type or select a subject"
+                            autoComplete="off"
+                          />
+                          <datalist id={datalistId}>
+                            {getAvailableSubjects(num).map(subject => (
+                              <option key={subject} value={subject} />
+                            ))}
+                          </datalist>
                         </div>
-                        
                         {/* Grade Selection */}
                         <div>
-                          <Select 
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Select Grade</label>
+                          <select
+                            className="w-full h-11 border rounded px-2"
                             value={grades[gradeKey] || ""} 
-                            onValueChange={(value) => handleElectiveChange(num, 'Grade', value)}
+                            onChange={e => handleElectiveChange(num, 'Grade', e.target.value)}
                             data-testid={`select-elective-${num}-grade`}
                             disabled={!grades[subjectKey]}
                           >
-                            <SelectTrigger className="w-full h-11">
-                              <SelectValue placeholder="Select Grade" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {gradeOptions.map((grade) => (
-                                <SelectItem key={grade} value={grade}>
-                                  {grade}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
+                            <option value="">Select Grade</option>
+                            {gradeOptions.map(grade => (
+                              <option key={grade} value={grade}>{grade}</option>
+                            ))}
+                          </select>
                         </div>
                       </div>
                     </div>
@@ -720,7 +780,18 @@ export default function Calculator() {
                                       </Badge>
                                     )}
                                   </div>
-                                  {getStatusIcon(result.status)}
+                                  <div className="flex flex-col items-end gap-2">
+                                    {getStatusIcon(result.status)}
+                                    <Button
+                                      size="sm"
+                                      variant={savedIds.includes(result.programId + '|' + result.universityName) ? 'default' : 'outline'}
+                                      className={savedIds.includes(result.programId + '|' + result.universityName) ? 'bg-green-600 text-white' : ''}
+                                      onClick={() => saveProgram(result)}
+                                      disabled={savedIds.includes(result.programId + '|' + result.universityName)}
+                                    >
+                                      {savedIds.includes(result.programId + '|' + result.universityName) ? 'Saved' : 'Save'}
+                                    </Button>
+                                  </div>
                                 </div>
                                 <p className="text-sm text-green-700 mb-2">{result.message}</p>
                                 {result.details.length > 0 && (
@@ -765,6 +836,16 @@ export default function Calculator() {
                                   {getStatusIcon(result.status)}
                                 </div>
                                 <p className="text-sm text-orange-700 mb-2">{result.message}</p>
+                                {result.details && result.details.length > 0 && (
+                                  <div className="text-xs text-orange-700 mb-2">
+                                    <strong>Why you're close, and what you need for full eligibility:</strong>
+                                    <ul className="list-disc list-inside space-y-1 mt-1">
+                                      {result.details.map((detail, idx) => (
+                                        <li key={idx}>{detail}</li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
                                 {result.recommendations && result.recommendations.length > 0 && (
                                   <div className="text-xs text-orange-600">
                                     <strong>Recommendations:</strong>
@@ -830,6 +911,204 @@ export default function Calculator() {
             </Collapsible>
           </div>
         )}
+
+        {/* Step 1: Broad eligibility summary */}
+        {/*
+        <div className="mb-8">
+          <h2 className="text-xl font-bold text-slate-700 mb-4">Broad Eligibility Results</h2>
+          <ul className="space-y-2">
+            {eligibilityResults.slice(0, 5).map(r => (
+              <li key={r.programId} className="flex items-center justify-between p-3 rounded-lg bg-slate-50">
+                <div className="flex-1">
+                  <div className="text-sm font-medium text-slate-700">{r.programName}</div>
+                  <div className="text-xs text-slate-500">{r.universityName}</div>
+                </div>
+                <div className="text-sm">
+                  {r.status === 'eligible' ? (
+                    <span className="text-green-600 font-semibold">✅ Eligible</span>
+                  ) : r.status === 'borderline' ? (
+                    <span className="text-orange-600 font-semibold">⚠️ Borderline</span>
+                  ) : (
+                    <span className="text-red-600 font-semibold">❌ Not Eligible</span>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        */}
+
+        {/* Step 2: Check Specific Program */}
+        <div className="mb-8">
+          <h2 className="text-xl font-bold text-slate-700 mb-4">Check Specific Program</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Searchable Program Combobox */}
+            <Popover open={openPopovers[100] || false} onOpenChange={open => setOpenPopovers(prev => ({ ...prev, 100: open }))}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={openPopovers[100] || false}
+                  className="w-full justify-between font-normal h-11"
+                >
+                  {selectedProgram || "Select a program"}
+                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-96 p-0" align="start">
+                <Command>
+                  <CommandInput placeholder="Search programs..." className="h-9" />
+                  <CommandList>
+                    <CommandEmpty>No program found.</CommandEmpty>
+                    <CommandGroup>
+                      {programs.map((program) => (
+                        <CommandItem
+                          key={program}
+                          value={program}
+                          onSelect={() => {
+                            setSelectedProgram(program);
+                            setSelectedUniversity('');
+                            setOpenPopovers(prev => ({ ...prev, 100: false }));
+                          }}
+                        >
+                          <Check className={cn("mr-2 h-4 w-4", selectedProgram === program ? "opacity-100" : "opacity-0")} />
+                          {program}
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+            {/* Searchable University Combobox */}
+            <Popover open={openPopovers[200] || false} onOpenChange={open => setOpenPopovers(prev => ({ ...prev, 200: open }))}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={openPopovers[200] || false}
+                  className="w-full justify-between font-normal h-11"
+                >
+                  {selectedUniversity || "Select a university"}
+                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-96 p-0" align="start">
+                <Command>
+                  <CommandInput placeholder="Search universities..." className="h-9" />
+                  <CommandList>
+                    <CommandEmpty>No university found.</CommandEmpty>
+                    <CommandGroup>
+                      <CommandItem
+                        key="all-universities"
+                        value="Select All Universities"
+                        onSelect={() => {
+                          setSelectedUniversity('');
+                          setOpenPopovers(prev => ({ ...prev, 200: false }));
+                        }}
+                      >
+                        <Check className={cn("mr-2 h-4 w-4", selectedUniversity === '' ? "opacity-100" : "opacity-0")} />
+                        Select All Universities
+                      </CommandItem>
+                      {universities.map((university) => (
+                        <CommandItem
+                          key={university}
+                          value={university}
+                          onSelect={() => {
+                            setSelectedUniversity(university);
+                            setOpenPopovers(prev => ({ ...prev, 200: false }));
+                          }}
+                        >
+                          <Check className={cn("mr-2 h-4 w-4", selectedUniversity === university ? "opacity-100" : "opacity-0")} />
+                          {university}
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+          </div>
+          <div className="mt-4">
+            <Button 
+              onClick={handleFilter}
+              disabled={!selectedProgram}
+              className="bg-blue-600 hover:bg-blue-700 text-white w-full"
+            >
+              Check
+            </Button>
+          </div>
+          {Array.isArray(filteredResult) ? (
+            <div className="mt-6 p-4 rounded-lg bg-slate-50 border">
+              <h3 className="text-lg font-semibold text-slate-700">{selectedProgram} - Universities Offering This Program</h3>
+              <ul className="list-disc list-inside space-y-2 text-sm text-slate-700">
+                {filteredResult.map((res: EligibilityResult, i: number) => (
+                  <li key={i}>
+                    <span className="font-semibold">{res.universityName}</span>: {res.status === 'eligible' ? '✅ Eligible' : res.status === 'borderline' ? '⚠️ Borderline' : '❌ Not Eligible'}
+                    <ul className="ml-4 list-disc">
+                      {res.details?.map((d, idx) => <li key={idx}>{d}</li>)}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : filteredResult && (
+            <div className="mt-6 p-4 rounded-lg bg-slate-50 border">
+              <h3 className="text-lg font-semibold text-slate-700">{filteredResult.programName} at {filteredResult.universityName}</h3>
+              <div className="text-sm text-slate-500 mb-2">
+                {filteredResult.status === 'eligible' ? '✅ Eligible' : '❌ This university does not offer the selected program.'}
+              </div>
+              <ul className="list-disc list-inside space-y-1 text-sm text-slate-700">
+                {filteredResult.details?.map((d, i) => <li key={i}>{d}</li>)}
+              </ul>
+            </div>
+          )}
+          {filteredResult && filteredResult.status === 'not_offered' && (
+            <div className="mt-6 p-4 rounded-lg bg-yellow-50 border border-yellow-300">
+              <div className="mb-2 text-sm text-yellow-700">Other universities that offer this program:</div>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                {alternatives.map(a => (
+                  <li key={a.programId}>
+                    {a.programName} at {a.universityName}: {a.status === 'eligible' ? '✅ Eligible' : a.status === 'borderline' ? '⚠️ Borderline' : '❌ Not Eligible'}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        {/* Step 3: Alternatives if not eligible */}
+        {filteredResult && filteredResult.status !== 'eligible' && (
+          <div className="mb-8">
+            <h4 className="text-lg font-semibold text-slate-700 mb-2">Alternatives</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <strong>Same program at other universities:</strong>
+                <ul className="list-disc list-inside space-y-1 text-sm text-slate-700">
+                  {alternatives.map(a => <li key={a.programId}>{a.programName} at {a.universityName}</li>)}
+                </ul>
+              </div>
+              <div>
+                <strong>Related programs in same faculty:</strong>
+                <ul className="list-disc list-inside space-y-1 text-sm text-slate-700">
+                  {relatedPrograms.map(r => <li key={r.programId}>{r.programName} at {r.universityName}</li>)}
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Step 4: Bonus Discovery */}
+         {/*
+        <div>
+          <h2 className="text-xl font-bold text-slate-700 mb-4">You also qualify for these other programs</h2>
+          <ul className="list-disc list-inside space-y-1 text-sm text-slate-700">
+            {otherQualifying.filter(r => r.programName !== selectedProgram).slice(0, 5).map(r => (
+              <li key={r.programId}>{r.programName} at {r.universityName}</li>
+            ))}
+          </ul>
+        </div>
+        */}
 
         {!result && (
           <Card className="bg-gray-50 border-gray-200" data-testid="calculator-instructions">

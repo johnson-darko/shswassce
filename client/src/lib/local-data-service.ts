@@ -17,36 +17,45 @@ class LocalDataService {
 
     try {
       console.log('Loading local data files...');
-      
-      const [universitiesRes, programsRes, requirementsRes, scholarshipsRes] = await Promise.all([
+      const [universitiesRes, programsIndexRes, requirementsRes, scholarshipsRes] = await Promise.all([
         fetch('/data/universities.json'),
         fetch('/data/programs.json'),
         fetch('/data/requirements.json'),
         fetch('/data/scholarships.json')
       ]);
 
-      const [universities, programs, requirements, scholarships] = await Promise.all([
+      const [universities, programsIndex, requirements, scholarships] = await Promise.all([
         universitiesRes.json(),
-        programsRes.json(),
+        programsIndexRes.json(),
         requirementsRes.json(),
         scholarshipsRes.json()
       ]);
 
+      // Load and combine all referenced program files
+      let allPrograms: any[] = [];
+      for (const uni of programsIndex) {
+        try {
+          const res = await fetch(`/data/${uni.programsFile}`);
+          const programs = await res.json();
+          allPrograms = allPrograms.concat(programs);
+        } catch (e) {
+          // Ignore missing files
+        }
+      }
+
       this.data = {
         universities,
-        programs,
+        programs: allPrograms,
         requirements,
         scholarships
       };
-      
       this.isLoaded = true;
       console.log('Local data loaded successfully:', {
         universities: universities.length,
-        programs: programs.length,
+        programs: allPrograms.length,
         requirements: requirements.length,
         scholarships: scholarships.length
       });
-      
       return this.data;
     } catch (error) {
       console.error('Failed to load local data:', error);
@@ -105,12 +114,17 @@ class LocalDataService {
     return programs;
   }
 
-  async getRequirements(programId?: string) {
-    const data = await this.loadData();
-    if (programId) {
-      return data.requirements.filter(req => req.programId === programId);
+  // Update getRequirements to load and merge all requirements files listed in requirements.json
+  async getRequirements() {
+    const indexRes = await fetch('/data/requirements.json');
+    const files: string[] = await indexRes.json();
+    let allRequirements: any[] = [];
+    for (const file of files) {
+      const res = await fetch(`/data/${file}`);
+      const reqs = await res.json();
+      allRequirements = allRequirements.concat(reqs);
     }
-    return data.requirements;
+    return allRequirements;
   }
 
   async getScholarships(universityId?: string) {

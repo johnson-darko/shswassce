@@ -1,0 +1,31 @@
+[
+  {
+    "id": "req-004",
+    "programId": "prog-004",
+    "coreSubjects": {"compulsory": ["English", "Mathematics"], "bestOf": ["Integrated Science", "Social Studies"]},
+    "electiveSubjects": [
+  {"type": "single", "subject": "Elective Mathematics", "min_grade": "C6"},
+  {"type": "any", "count": 2, "subjects": ["Biology", "Chemistry", "Geography", "Government", "Economics", "French", "Literature", "History", "Business Management", "Accounting", "Costing", "Elective Mathematics", "Physics"], "min_grade": "C6"}
+    ],
+    "additionalRequirements": "Teaching aptitude test required",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Mathematics",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-007",
+    "programId": "prog-007",
+    "coreSubjects": {"English": "C6", "Mathematics": "C6", "Social Studies": "C6", "Integrated Science": "C6"},
+    "electiveSubjects": [
+  {"type": "single", "subject": "Biology", "min_grade": "C6"},
+  {"type": "single", "subject": "Chemistry", "min_grade": "C6"},
+  {"type": "any", "count": 1, "subjects": ["Geography", "French", "Literature", "History", "Business Management", "Accounting", "Costing", "Elective Mathematics", "Physics", "Biology", "Chemistry"], "min_grade": "C6"}
+    ],
+    "additionalRequirements": "Medical fitness certificate and interview required",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "Diploma in Nursing",
+    "universityName": "University of Cape Coast"
+  }
+]

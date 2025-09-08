@@ -1,0 +1,622 @@
+[
+  {
+    "id": "req-001",
+    "programId": "prog-001",
+    "faculty": "Faculty of Agriculture",
+    "programName": "B.Sc. Agriculture",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+  {"type": "single", "subject": "Chemistry", "min_grade": "C6"},
+  {"type": "any", "count": 2, "subjects": ["Physics", "Mathematics", "Biology", "General Agriculture", "Animal Husbandry", "Crop Husbandry", "Horticulture"], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in Chemistry and any TWO (2) from Physics or Mathematics, Biology or General Agriculture or Animal Husbandry or Crop Husbandry or Horticulture."
+  },
+  {
+    "id": "req-002",
+    "programId": "prog-002",
+    "faculty": "Faculty of Agriculture",
+    "programName": "B.Sc. Agricultural Biotechnology",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+  {"type": "single", "subject": "Chemistry", "min_grade": "C6"},
+  {"type": "any", "count": 2, "subjects": ["Physics", "Mathematics", "Biology", "General Agriculture", "Animal Husbandry", "Crop Husbandry", "Horticulture"], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in Chemistry and any TWO (2) from Physics or Mathematics, Biology or General Agriculture or Animal Husbandry or Crop Husbandry or Horticulture."
+  },
+  {
+    "id": "req-003",
+    "programId": "prog-003",
+    "faculty": "Faculty of Agriculture",
+    "programName": "B.Sc. Agribusiness Management",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "any", "count": 3, "subjects": [
+        "Chemistry", "Physics", "Biology", "General Agriculture", "Economics", "Accounting", "Business Management", "Business Mathematics", "Costing", "Elective Mathematics", "Geography", "Crop Husbandry", "Horticulture", "Technical Drawing", "General Knowledge in Art", "Graphic Design", "Picture Making", "Painting", "Sculpture"
+      ], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE subjects from Science, Business, General Arts, or General Agriculture elective options."
+  },
+  {
+    "id": "req-004",
+    "programId": "prog-004",
+    "faculty": "Faculty of Agriculture",
+    "programName": "B.Sc. Landscape Design and Management",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "any", "count": 3, "subjects": [
+        "Chemistry", "Physics", "Mathematics", "Crop Husbandry", "Biology", "General Agriculture", "Geography", "Economics", "Technical Drawing", "General Knowledge in Art", "Graphic Design", "Picture Making", "Painting", "Sculpture"
+      ], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE subjects from Science, General Arts, or Visual Art elective options."
+  },
+  {
+    "id": "req-005",
+    "programId": "prog-005",
+    "faculty": "Faculty of Natural Resource Management",
+    "programName": "BSc. Natural Resource Management",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "single", "subject": "Chemistry", "min_grade": "C6"},
+      {"type": "any", "count": 1, "subjects": ["Physics", "Mathematics"], "min_grade": "C6"},
+      {"type": "any", "count": 1, "subjects": ["Biology", "General Agriculture"], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in Chemistry, Physics or Mathematics, and Biology or General Agriculture."
+  },
+  {
+    "id": "req-006",
+    "programId": "prog-006",
+    "faculty": "Faculty of Natural Resource Management",
+    "programName": "BSc. Forest Resource Technology",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "single", "subject": "Chemistry", "min_grade": "C6"},
+      {"type": "any", "count": 1, "subjects": ["Physics", "Mathematics"], "min_grade": "C6"},
+      {"type": "any", "count": 1, "subjects": ["Biology", "General Agriculture"], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in Chemistry, Physics or Mathematics, and Biology or General Agriculture."
+  },
+  {
+    "id": "req-007",
+    "programId": "prog-007",
+    "faculty": "Faculty of Natural Resource Management",
+    "programName": "BSc. Aquaculture and Water Resource Management",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "single", "subject": "Chemistry", "min_grade": "C6"},
+      {"type": "any", "count": 1, "subjects": ["Physics", "Mathematics"], "min_grade": "C6"},
+      {"type": "any", "count": 1, "subjects": ["Biology", "General Agriculture"], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in Chemistry, Physics or Mathematics, and Biology or General Agriculture."
+  },
+  {
+    "id": "req-008",
+    "programId": "prog-008",
+    "faculty": "Faculty of Natural Resource Management",
+    "programName": "BSc. Packaging Technology",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "any", "count": 3, "subjects": ["Science", "General Arts", "Visual Art", "Technical", "Home Economics"], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE (3) from any of Science, General Arts, Visual Art, Technical and Home Economics."
+  },
+  {
+    "id": "req-009",
+    "programId": "prog-009",
+    "faculty": "Faculty of Built Environment",
+    "programName": "BSc. Architecture",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "single", "subject": "Mathematics", "min_grade": "C6"},
+      {"type": "any", "count": 2, "subjects": [
+        "Technical Drawing", "Engineering Science", "Woodwork", "Metalwork", "Building Construction",
+        "Biology", "Chemistry", "Physics",
+        "General Knowledge in Art", "Graphic Design", "Picture Making",
+        "Economics", "Geography", "Government", "History"
+      ], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in Mathematics and any TWO from Technical (Technical Drawing, Engineering Science, Woodwork, Metalwork, Building Construction), General Science (Biology, Chemistry, Physics), Visual Art (General Knowledge in Art, Graphic Design, Picture Making), or General Arts (Economics, Geography, Government, History)."
+  },
+  {
+    "id": "req-010",
+    "programId": "prog-010",
+    "faculty": "Faculty of Built Environment",
+    "programName": "BSc. Construction Technology and Management (Building Technology)",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "single", "subject": "Mathematics", "min_grade": "C6"},
+      {"type": "any", "count": 2, "subjects": [
+        "Technical Drawing", "Engineering Science", "Woodwork", "Building Construction", "Metalwork",
+        "Chemistry", "Physics",
+        "Economics", "Geography"
+      ], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in Mathematics and any TWO from Technical (Technical Drawing, Engineering Science, Woodwork, Building Construction, Metalwork), Science (Chemistry, Physics), or General Art (Economics, Geography)."
+  },
+  {
+    "id": "req-011",
+    "programId": "prog-011",
+    "faculty": "Faculty of Built Environment",
+    "programName": "BSc. Quantity Surveying and Construction Economics (Building Technology)",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "single", "subject": "Mathematics", "min_grade": "C6"},
+      {"type": "any", "count": 2, "subjects": [
+        "Chemistry", "Economics", "Geography", "Technical Drawing", "Building Construction", "Physics"
+      ], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in Mathematics and any TWO from Chemistry, Economics, Geography, Technical Drawing, Building Construction, and Physics."
+  },
+  {
+    "id": "req-012",
+    "programId": "prog-012",
+    "faculty": "Faculty of Built Environment",
+    "programName": "BSc. Development Planning",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {
+        "group": "Any 3 electives from Arts, Business, or Science",
+        "subjects": [
+          { "name": "Geography", "minGrade": "C6" },
+          { "name": "Economics", "minGrade": "C6" },
+          { "name": "Government", "minGrade": "C6" },
+          { "name": "History", "minGrade": "C6" },
+          { "name": "Business Management", "minGrade": "C6" },
+          { "name": "Accounting", "minGrade": "C6" },
+          { "name": "Mathematics (Elective)", "minGrade": "C6" },
+          { "name": "Biology", "minGrade": "C6" },
+          { "name": "Chemistry", "minGrade": "C6" },
+          { "name": "Physics", "minGrade": "C6" }
+        ],
+        "minCount": 3,
+        "strict": false
+      }
+    ],
+    "aggregatePoints": 24,
+    "notes": "Any combination of three electives from Arts, Business, or Science is accepted. Minimum grade for all subjects is C6."
+  },
+  {
+    "id": "req-013",
+    "programId": "prog-013",
+    "faculty": "Faculty of Built Environment",
+    "programName": "BSc. Human Settlement Planning",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": [
+      { "name": "English Language", "minGrade": "C6" },
+      { "name": "Mathematics (Core)", "minGrade": "C6" },
+      { "name": "Integrated Science", "minGrade": "C6" }
+    ],
+    "electiveSubjects": [
+      {
+        "group": "Group A",
+        "subjects": [
+          { "name": "Economics", "minGrade": "C6" },
+          { "name": "Introduction to Business Management", "minGrade": "C6" },
+          { "name": "Geography", "minGrade": "C6" },
+          { "name": "Government", "minGrade": "C6" },
+          { "name": "Mathematics (Elective)", "minGrade": "C6" },
+          { "name": "Financial Accounting", "minGrade": "C6" },
+          { "name": "Cost Accounting", "minGrade": "C6" },
+          { "name": "Graphic Design", "minGrade": "C6" }
+        ],
+        "minCount": 3,
+        "strict": false
+      },
+      {
+        "group": "Group B",
+        "subjects": [
+          { "name": "Accounting", "minGrade": "C6" },
+          { "name": "Technical Drawing", "minGrade": "C6" },
+          { "name": "Graphic Design", "minGrade": "C6" },
+          { "name": "Picture Making", "minGrade": "C6" },
+          { "name": "Sculpture", "minGrade": "C6" },
+          { "name": "Physics", "minGrade": "C6" },
+          { "name": "Painting", "minGrade": "C6" },
+          { "name": "History", "minGrade": "C6" },
+          { "name": "Building Technology", "minGrade": "C6" },
+          { "name": "Woodwork", "minGrade": "C6" },
+          { "name": "Metalwork", "minGrade": "C6" },
+          { "name": "General Knowledge in Art", "minGrade": "C6" }
+        ],
+        "minCount": 1,
+        "strict": false
+      }
+    ],
+    "aggregatePoints": 24,
+    "notes": "EITHER: Credit passes in THREE (3) Group A subjects including Geography OR TWO (2) Group A subjects including Geography and ONE (1) Group B subject. Minimum grade for all subjects is C6."
+  },
+  {
+    "id": "req-014",
+    "programId": "prog-014",
+    "faculty": "Faculty of Built Environment",
+    "programName": "BSc. Land Economy",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": [
+      { "name": "English Language", "minGrade": "C6" },
+      { "name": "Mathematics (Core)", "minGrade": "C6" },
+      { "name": "Integrated Science", "minGrade": "C6" }
+    ],
+    "electiveSubjects": [
+      {
+        "group": "Option A",
+        "subjects": [
+          { "name": "Economics", "minGrade": "C6" },
+          { "name": "Geography", "minGrade": "C6" },
+          { "name": "Accounting", "minGrade": "C6" },
+          { "name": "Business Management", "minGrade": "C6" },
+          { "name": "Government", "minGrade": "C6" },
+          { "name": "Business Mathematics", "minGrade": "C6" },
+          { "name": "French", "minGrade": "C6" },
+          { "name": "Literature in English", "minGrade": "C6" },
+          { "name": "History", "minGrade": "C6" },
+          { "name": "Building Construction", "minGrade": "C6" },
+          { "name": "Technical Drawing", "minGrade": "C6" },
+          { "name": "Mathematics (Elective)", "minGrade": "C6" }
+        ],
+        "minCount": 3,
+        "strict": false
+      },
+      {
+        "group": "Option B",
+        "subjects": [
+          { "name": "Economics", "minGrade": "C6" },
+          { "name": "Elective Mathematics", "minGrade": "C6" },
+          { "name": "Geography", "minGrade": "C6" },
+          { "name": "Accounting", "minGrade": "C6" },
+          { "name": "Business Management", "minGrade": "C6" },
+          { "name": "Business Mathematics", "minGrade": "C6" },
+          { "name": "Government", "minGrade": "C6" },
+          { "name": "French", "minGrade": "C6" },
+          { "name": "Building Construction", "minGrade": "C6" },
+          { "name": "Technical Drawing", "minGrade": "C6" },
+          { "name": "General Knowledge in Art", "minGrade": "C6" }
+        ],
+        "minCount": 3,
+        "strict": false
+      }
+    ],
+    "aggregatePoints": 24,
+    "notes": "EITHER: Credit passes in Economics, Geography, and a third relevant subject OR Economics and two other subjects from the list. Minimum grade for all subjects is C6."
+  },
+  {
+    "id": "req-015",
+    "programId": "prog-015",
+    "faculty": "Faculty of Built Environment",
+    "programName": "BSc. Real Estate",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": [
+      { "name": "English Language", "minGrade": "C6" },
+      { "name": "Mathematics (Core)", "minGrade": "C6" },
+      { "name": "Integrated Science", "minGrade": "C6" }
+    ],
+    "electiveSubjects": [
+      {
+        "group": "Option A",
+        "subjects": [
+          { "name": "Economics", "minGrade": "C6" },
+          { "name": "Geography", "minGrade": "C6" },
+          { "name": "Accounting", "minGrade": "C6" },
+          { "name": "Business Management", "minGrade": "C6" },
+          { "name": "Government", "minGrade": "C6" },
+          { "name": "Business Mathematics", "minGrade": "C6" },
+          { "name": "French", "minGrade": "C6" },
+          { "name": "Literature in English", "minGrade": "C6" },
+          { "name": "History", "minGrade": "C6" },
+          { "name": "Building Construction", "minGrade": "C6" },
+          { "name": "Technical Drawing", "minGrade": "C6" },
+          { "name": "Mathematics (Elective)", "minGrade": "C6" }
+        ],
+        "minCount": 3,
+        "strict": false
+      },
+      {
+        "group": "Option B",
+        "subjects": [
+          { "name": "Economics", "minGrade": "C6" },
+          { "name": "Elective Mathematics", "minGrade": "C6" },
+          { "name": "Geography", "minGrade": "C6" },
+          { "name": "Accounting", "minGrade": "C6" },
+          { "name": "Business Management", "minGrade": "C6" },
+          { "name": "Business Mathematics", "minGrade": "C6" },
+          { "name": "Government", "minGrade": "C6" },
+          { "name": "French", "minGrade": "C6" },
+          { "name": "Building Construction", "minGrade": "C6" },
+          { "name": "Technical Drawing", "minGrade": "C6" },
+          { "name": "General Knowledge in Art", "minGrade": "C6" }
+        ],
+        "minCount": 3,
+        "strict": false
+      }
+    ],
+    "aggregatePoints": 24,
+    "notes": "EITHER: Credit passes in Economics, Geography, and a third relevant subject OR Economics and two other subjects from the list. Minimum grade for all subjects is C6."
+  },
+  {
+    "id": "req-016",
+    "programId": "prog-016",
+    "faculty": "Faculty of Art",
+    "programName": "BFA. Fine Art & Curatorial Practice",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "single", "subject": "General Knowledge in Art", "min_grade": "C6"},
+      {"type": "any", "count": 2, "groups": [
+        {"name": "Visual Art", "subjects": ["Graphic Design", "Picture Making", "Sculpture", "Painting", "Textiles", "Ceramics", "Leatherwork", "Photography"]},
+        {"name": "Home Economics", "subjects": ["Management in Living", "Food and Nutrition", "Clothing and Textiles"]},
+        {"name": "Technical", "subjects": ["Technical Drawing", "Building Construction", "Woodwork", "Metalwork", "Electronics", "Auto Mechanics", "Applied Electricity"]},
+        {"name": "Science", "subjects": ["Biology", "Chemistry", "Physics", "Mathematics (Elective)"]},
+        {"name": "General Arts", "subjects": ["Literature in English", "Government", "History", "Geography", "Economics", "French", "Christian Religious Studies", "Islamic Religious Studies"]},
+        {"name": "Business", "subjects": ["Business Management", "Financial Accounting", "Cost Accounting", "Economics", "Principles of Costing", "Office Practice", "Typewriting"]}
+      ], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit pass in General Knowledge in Art and any TWO (2) electives from one group: Visual Art, Home Economics, Technical, Science, General Arts, or Business. Minimum grade for all subjects is C6."
+  },
+  {
+    "id": "req-017",
+    "programId": "prog-017",
+    "faculty": "Faculty of Art",
+    "programName": "BA. Communication Design (Graphic Design)",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "single", "subject": "Graphic Design", "min_grade": "C6"},
+      {"type": "single", "subject": "General Knowledge in Art", "min_grade": "C6"},
+      {"type": "single", "subject": "ICT", "min_grade": "C6"},
+      {"type": "any", "count": 1, "subjects": [
+        "Picture Making", "Sculpture", "Painting", "Textiles", "Ceramics", "Photography", "Technical Drawing", "Management in Living", "Food and Nutrition", "Clothing and Textiles", "Literature in English", "Government", "History", "Geography", "Economics", "French", "Christian Religious Studies", "Islamic Religious Studies", "Business Management", "Financial Accounting", "Cost Accounting", "Principles of Costing", "Office Practice", "Typewriting"
+      ], "min_grade": "C6", "exclude": ["Leatherwork", "Basketry", "Bead making"]}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in Graphic Design, General Knowledge in Art, ICT, and any other Visual Arts elective subject excluding Leatherwork, Basketry, and Bead making. Minimum grade for all subjects is C6."
+  },
+  {
+    "id": "req-018",
+    "programId": "prog-018",
+    "faculty": "Faculty of Art",
+    "programName": "BA. Integrated Rural Art and Industry",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "any", "count": 3, "subjects": [
+        "Picture Making", "Leatherwork", "Graphic Design", "Textiles", "Jewellery", "Basketry", "Sculpture", "Ceramics", "General Knowledge in Art", "Management in Living", "Clothing & Textiles", "Food and Nutrition", "Physics", "Chemistry", "Mathematics (Elective)", "Biology", "Religious Studies", "Construction", "Economics", "History", "Akan", "Geography", "Literature in English", "Business Management", "Accounting", "Costing", "ICT"
+      ], "min_grade": "C6"},
+      {"type": "any", "count": 3, "subjects": [
+        "Welding and Fabrication Technology", "Digital Design Technology", "Industrial Mechanics", "Wood Construction Technology", "Furniture Design and Construction", "Creative Art Technology", "Building Construction Technology", "General Textiles", "Fashion Design Technology", "Visual Communication Technology"
+      ], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE (3) electives from Group A or THREE (3) technical subjects from Group B. Minimum grade for all subjects is C6."
+  },
+  {
+    "id": "req-019",
+    "programId": "prog-019",
+    "faculty": "Faculty of Art",
+    "programName": "BA. Publishing Studies",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "grouped", "groups": [
+        {
+          "name": "Visual Arts",
+          "required": ["General Knowledge in Art"],
+          "one_of": ["Picture Making", "Graphic Design"],
+          "plus_one_of": ["Textiles", "Sculpture", "Leatherwork"]
+        },
+        {
+          "name": "General Arts",
+          "any": ["Geography", "Economics", "Government", "English Language", "History", "Religious Studies", "French", "Ghanaian Languages"]
+        },
+        {
+          "name": "Business",
+          "any": ["Economics", "Accounting", "Introduction to Business Management", "Business Mathematics", "Principles of Costing", "Mathematics (Elective)"]
+        },
+        {
+          "name": "Vocational/Home Economics",
+          "required": ["General Knowledge in Art", "Management in Living"],
+          "plus_one_of": ["Food and Nutrition", "Clothing and Textiles"]
+        },
+        {
+          "name": "Science",
+          "required": ["Biology", "Chemistry"],
+          "plus_one_of": ["Mathematics (Elective)", "Physics"]
+        }
+      ], "min_count": 3, "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE (3) electives from any one group: Visual Arts, General Arts, Business, Vocational/Home Economics, or Science. Minimum grade for all subjects is C6."
+  },
+  {
+    "id": "req-020",
+    "programId": "prog-020",
+    "faculty": "Faculty of Art",
+    "programName": "BA. Metal Product Design Technology",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "any", "count": 3, "groups": [
+      {"name": "Visual Art"},
+      {"name": "Home Economics"},
+      {"name": "Technical"},
+      {"name": "Science"}
+    ], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE (3) electives from Visual Art, Home Economics, Technical, or Science. Minimum grade for all subjects is C6."
+  },
+  {
+    "id": "req-021",
+    "programId": "prog-021",
+    "faculty": "Faculty of Art",
+    "programName": "BSc. Textile Design and Technology",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "any", "count": 3, "groups": [
+        {"name": "Visual Art"},
+        {"name": "Home Economics"},
+        {"name": "Technical"},
+        {"name": "Science"},
+        {"name": "General Arts"},
+        {"name": "Business"}
+      ], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE (3) electives from Visual Art, Home Economics, Technical, Science, General Arts, or Business. Minimum grade for all subjects is C6."
+  },
+  {
+    "id": "req-022",
+    "programId": "prog-022",
+    "faculty": "Faculty of Art",
+    "programName": "BSc. Fashion Design",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "any", "count": 3, "groups": [
+        {"name": "Visual Art"},
+        {"name": "Home Economics"},
+        {"name": "Technical"},
+        {"name": "Science"},
+        {"name": "General Arts"},
+        {"name": "Business"}
+      ], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE (3) electives from Visual Art, Home Economics, Technical, Science, General Arts, or Business. Minimum grade for all subjects is C6."
+  },
+  {
+    "id": "req-023",
+    "programId": "prog-023",
+    "faculty": "Faculty of Art",
+    "programName": "BFA. Ceramics",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "any", "count": 3, "groups": [
+        {"name": "Visual Art"},
+        {"name": "Home Economics"},
+        {"name": "General Arts"}
+      ], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE (3) electives from Visual Art, Home Economics, or General Arts. Minimum grade for all subjects is C6."
+  },
+  {
+    "id": "req-024",
+    "programId": "prog-024",
+    "faculty": "Faculty of Art",
+    "programName": "BSc. Ceramic Technology",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {
+        "type": "grouped",
+        "groups": [
+          {
+            "name": "Visual Art",
+            "required": ["Ceramics", "General Knowledge in Art"],
+            "plus_one_of": ["Chemistry", "Mathematics (Elective)", "Physics"]
+          },
+          {
+            "name": "Science",
+            "required": ["Mathematics (Elective)", "Chemistry"],
+            "plus_one_of": ["Physics", "Biology"]
+          },
+          {
+            "name": "Technical",
+            "any": ["Technical Drawing", "Building Construction", "Applied Electricity", "Auto Mechanics", "Electronics", "Physics"],
+            "min_count": 3
+          }
+        ],
+        "min_count": 3,
+        "min_grade": "C6"
+      }
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in any THREE (3) electives from any ONE group: Visual Art (Ceramics, General Knowledge in Art, and Chemistry or Mathematics (Elective) or Physics), Science (Mathematics (Elective), Chemistry, Physics or Biology), or Technical (Technical Drawing, Building Construction, Applied Electricity, Auto Mechanics, Electronics, Physics). Minimum grade for all subjects is C6."
+  }
+]

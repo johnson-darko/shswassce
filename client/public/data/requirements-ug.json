@@ -1,0 +1,32 @@
+[
+  {
+    "id": "req-001",
+    "programId": "prog-001",
+    "coreSubjects": {"compulsory": ["English", "Mathematics"], "alternatives": [{"type": "one_of", "subjects": ["Integrated Science", "Social Studies"], "minGrade": "C6"}]},
+    "electiveSubjects": [
+  {"type": "single", "subject": "Elective Mathematics", "min_grade": "B3"},
+  {"type": "single", "subject": "Physics", "min_grade": "C6"},
+  {"type": "any", "count": 1, "subjects": ["Biology", "Chemistry", "Geography", "Government", "Economics", "French", "Literature", "History", "Business Management", "Accounting", "Costing", "Elective Mathematics", "Physics"], "min_grade": "C6"}
+    ],
+    "additionalRequirements": "Strong performance in mathematics required",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "B.Sc. Computer Science",
+    "universityName": "University of Ghana"
+  },
+  {
+    "id": "req-002",
+    "programId": "prog-002",
+    "coreSubjects": {"English": "C6", "Mathematics": "C6", "Social Studies": "C6", "Integrated Science": "C6"},
+    "electiveSubjects": [
+  {"type": "single", "subject": "Economics", "min_grade": "C6"},
+  {"type": "single", "subject": "Government", "min_grade": "C6"},
+  {"type": "any", "count": 1, "subjects": ["Geography", "French", "Literature", "History", "Business Management", "Accounting", "Costing", "Elective Mathematics", "Physics", "Biology", "Chemistry"], "min_grade": "C6"}
+    ],
+    "additionalRequirements": "Good performance in social sciences preferred",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "B.A. Economics",
+    "universityName": "University of Ghana"
+  }
+]

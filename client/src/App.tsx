@@ -14,6 +14,7 @@ import Calculator from "@/pages/calculator";
 import Header from "@/components/header";
 import ComparisonBar from "@/components/comparison-bar";
 import { ComparisonProvider } from "@/hooks/use-comparison";
+import SavedProgramsPage from "./pages/saved-programs";
 
 function Router() {
   return (
@@ -25,6 +26,7 @@ function Router() {
       <Route path="/calculator" component={Calculator} />
       <Route path="/university/:id" component={UniversityDetail} />
       <Route path="/admin/pdf" component={PDFAdmin} />
+      <Route path="/saved-programs" component={SavedProgramsPage} />
       <Route component={NotFound} />
     </Switch>
   );
