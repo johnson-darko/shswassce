@@ -1,0 +1,34 @@
+[
+  {
+    "id": "prog-001",
+    "universityId": "ug-001",
+    "name": "B.Sc. Computer Science",
+    "level": "Bachelor's",
+    "durationMonths": 48,
+    "tuitionLocal": 15000,
+    "tuitionInternational": 25000,
+    "currency": "GHS",
+    "description": "Comprehensive computer science program with industry focus",
+    "careerOutcomes": ["Software Developer", "Data Scientist", "IT Consultant", "Systems Analyst", "Cybersecurity Specialist"],
+    "averageSalary": 55000,
+    "employmentRate": 90,
+    "universityName": "University of Ghana",
+    "universityRegion": "Greater Accra"
+  },
+  {
+    "id": "prog-002",
+    "universityId": "ug-001",
+    "name": "B.A. Economics",
+    "level": "Bachelor's",
+    "durationMonths": 36,
+    "tuitionLocal": 12000,
+    "tuitionInternational": 20000,
+    "currency": "GHS",
+    "description": "Economics program with policy and development focus",
+    "careerOutcomes": ["Economic Analyst", "Policy Advisor", "Financial Consultant", "Development Officer", "Research Economist"],
+    "averageSalary": 42000,
+    "employmentRate": 85,
+    "universityName": "University of Ghana",
+    "universityRegion": "Greater Accra"
+  }
+]

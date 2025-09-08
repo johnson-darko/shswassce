@@ -1,0 +1,18 @@
+[
+  {
+    "id": "prog-005",
+    "universityId": "ashesi-001",
+    "name": "B.Sc. Business Administration",
+    "level": "Bachelor's",
+    "durationMonths": 48,
+    "tuitionLocal": 45000,
+    "tuitionInternational": 45000,
+    "currency": "GHS",
+    "description": "Liberal arts business program with leadership focus",
+    "careerOutcomes": ["Business Manager", "Entrepreneur", "Management Consultant", "Marketing Manager", "Operations Manager"],
+    "averageSalary": 75000,
+    "employmentRate": 95,
+    "universityName": "Ashesi University",
+    "universityRegion": "Eastern"
+  }
+]

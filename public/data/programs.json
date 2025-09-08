@@ -1,0 +1,27 @@
+[
+  {
+    "universityId": "knust-001",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "programsFile": "programs-knust.json"
+  },
+  {
+    "universityId": "ug-001",
+    "universityName": "University of Ghana",
+    "programsFile": "programs-ug.json"
+  },
+  {
+    "universityId": "ucc-001",
+    "universityName": "University of Cape Coast",
+    "programsFile": "programs-ucc.json"
+  },
+  {
+    "universityId": "ashesi-001",
+    "universityName": "Ashesi University",
+    "programsFile": "programs-ashesi.json"
+  },
+  {
+    "universityId": "uds-001",
+    "universityName": "University for Development Studies",
+    "programsFile": "programs-uds.json"
+  }
+]

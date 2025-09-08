@@ -1,0 +1,34 @@
+[
+  {
+    "id": "prog-004",
+    "universityId": "ucc-001",
+    "name": "B.Ed. Mathematics",
+    "level": "Bachelor's",
+    "durationMonths": 48,
+    "tuitionLocal": 11000,
+    "tuitionInternational": 18000,
+    "currency": "GHS",
+    "description": "Teacher training program for mathematics education",
+    "careerOutcomes": ["Mathematics Teacher", "Education Officer", "Curriculum Developer", "Educational Consultant", "School Administrator"],
+    "averageSalary": 35000,
+    "employmentRate": 88,
+    "universityName": "University of Cape Coast",
+    "universityRegion": "Central"
+  },
+  {
+    "id": "prog-007",
+    "universityId": "ucc-001",
+    "name": "Diploma in Nursing",
+    "level": "Diploma",
+    "durationMonths": 36,
+    "tuitionLocal": 8000,
+    "tuitionInternational": 15000,
+    "currency": "GHS",
+    "description": "Professional nursing program with clinical practice",
+    "careerOutcomes": ["Registered Nurse", "Community Health Nurse", "Hospital Nurse", "Public Health Officer", "Nursing Supervisor"],
+    "averageSalary": 32000,
+    "employmentRate": 94,
+    "universityName": "University of Cape Coast",
+    "universityRegion": "Central"
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "id": "sch-001",
+    "universityId": "ug-001",
+    "programId": null,
+    "name": "UG Merit Scholarship",
+    "amount": 5000,
+    "eligibilityText": "Merit-based scholarship for academic excellence. Minimum aggregate of 12 points, leadership experience required",
+    "link": "https://ug.edu.gh/scholarships",
+    "universityName": "University of Ghana",
+    "programName": null
+  },
+  {
+    "id": "sch-002",
+    "universityId": "knust-001",
+    "programId": null,
+    "name": "KNUST Engineering Excellence Award",
+    "amount": 8000,
+    "eligibilityText": "Scholarship for outstanding engineering students. Excellent performance in mathematics and physics required",
+    "link": "https://knust.edu.gh/scholarships",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "programName": null
+  },
+  {
+    "id": "sch-003",
+    "universityId": "ucc-001",
+    "programId": null,
+    "name": "UCC Teacher Training Support",
+    "amount": 6000,
+    "eligibilityText": "Support for future educators. Commitment to teach for 2 years after graduation",
+    "link": "https://ucc.edu.gh/scholarships",
+    "universityName": "University of Cape Coast",
+    "programName": null
+  },
+  {
+    "id": "sch-004",
+    "universityId": "ashesi-001",
+    "programId": null,
+    "name": "Ashesi Leadership Scholarship",
+    "amount": 20000,
+    "eligibilityText": "Full scholarship for exceptional leaders. Demonstrated leadership, community service, essay required",
+    "link": "https://ashesi.edu.gh/scholarships",
+    "universityName": "Ashesi University",
+    "programName": null
+  },
+  {
+    "id": "sch-005",
+    "universityId": "uds-001",
+    "programId": null,
+    "name": "Northern Development Scholarship",
+    "amount": 4000,
+    "eligibilityText": "Supporting students from northern regions. Resident of Northern Ghana, financial need demonstrated",
+    "link": "https://uds.edu.gh/scholarships",
+    "universityName": "University for Development Studies",
+    "programName": null
+  }
+]

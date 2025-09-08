@@ -1,0 +1,17 @@
+[
+  {
+    "id": "req-008",
+    "programId": "prog-008",
+    "coreSubjects": {"English": "C6", "Mathematics": "C6", "Social Studies": "C6", "Integrated Science": "C6"},
+    "electiveSubjects": [
+  {"type": "single", "subject": "Biology", "min_grade": "C6"},
+  {"type": "single", "subject": "Chemistry", "min_grade": "C6"},
+  {"type": "any", "count": 1, "subjects": ["Geography", "French", "Literature", "History", "Business Management", "Accounting", "Costing", "Elective Mathematics", "Physics", "Biology", "Chemistry"], "min_grade": "C6"}
+    ],
+    "additionalRequirements": "Interest in sustainable agriculture practices",
+    "aggregatePoints": 30,
+    "requirementComplexity": "basic",
+    "programName": "B.Sc. Agriculture",
+    "universityName": "University for Development Studies"
+  }
+]

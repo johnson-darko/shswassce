@@ -1,0 +1,16 @@
+[
+  {
+    "id": "req-005",
+    "programId": "prog-005",
+    "coreSubjects": {"English": "B3", "Mathematics": "C6", "Social Studies": "C6", "Integrated Science": "C6"},
+    "electiveSubjects": [
+  {"type": "single", "subject": "Economics", "min_grade": "B3"},
+  {"type": "any", "count": 2, "subjects": ["Geography", "French", "Literature", "History", "Business Management", "Accounting", "Costing", "Elective Mathematics", "Physics", "Biology", "Chemistry"], "min_grade": "C6"}
+    ],
+    "additionalRequirements": "Interview and essay required for admission",
+    "aggregatePoints": 18,
+    "requirementComplexity": "basic",
+    "programName": "B.Sc. Business Administration",
+    "universityName": "Ashesi University"
+  }
+]

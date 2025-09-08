@@ -1,0 +1,18 @@
+[
+  {
+    "id": "prog-008",
+    "universityId": "uds-001",
+    "name": "B.Sc. Agriculture",
+    "level": "Bachelor's",
+    "durationMonths": 48,
+    "tuitionLocal": 9500,
+    "tuitionInternational": 16000,
+    "currency": "GHS",
+    "description": "Modern agriculture with sustainable farming practices",
+    "careerOutcomes": ["Agricultural Officer", "Farm Manager", "Agricultural Consultant", "Extension Officer", "Agribusiness Manager"],
+    "averageSalary": 38000,
+    "employmentRate": 82,
+    "universityName": "University for Development Studies",
+    "universityRegion": "Northern"
+  }
+]
