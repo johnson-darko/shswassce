@@ -618,5 +618,62 @@
     "aggregatePoints": 24,
     "requirementComplexity": "basic",
     "additionalRequirements": "Credit passes in any THREE (3) electives from any ONE group: Visual Art (Ceramics, General Knowledge in Art, and Chemistry or Mathematics (Elective) or Physics), Science (Mathematics (Elective), Chemistry, Physics or Biology), or Technical (Technical Drawing, Building Construction, Applied Electricity, Auto Mechanics, Electronics, Physics). Minimum grade for all subjects is C6."
+  },
+  {
+    "id": "req-025",
+    "programId": "prog-025",
+    "faculty": "Faculty of Educational Studies",
+    "programName": "B.Ed. Junior High School Education",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {
+        "type": "grouped",
+        "groups": [
+          {
+            "name": "Science/General Agriculture/ICT",
+            "min_count": 3,
+            "subjects": ["Science", "General Agriculture", "ICT"]
+          },
+          {
+            "name": "Visual Art",
+            "min_count": 3,
+            "subjects": ["Visual Art"]
+          },
+          {
+            "name": "General Arts (History/Geography)",
+            "min_count": 3,
+            "subjects": ["General Arts", "History", "Geography"]
+          }
+        ]
+      }
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "custom",
+    "additionalRequirements": "To be fully eligible: If you want to teach Science, you must have studied the Science program in SHS and passed 3 Science electives. If you want to teach Visual Art, you must have studied Visual Art in SHS and passed 3 Visual Art electives. If you want to teach History or Geography, you must have studied General Arts in SHS and passed 3 General Arts electives (including History or Geography)."
+  },
+    {
+    "id": "req-026",
+    "programId": "prog-026",
+    "faculty": "Faculty of Art",
+    "programName": "B.Ed. (Art and Design Technology)",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      {"type": "any", "count": 3, "groups": [
+        {"name": "Visual Art"},
+        {"name": "Vocational"},
+        {"name": "Science"},
+        {"name": "Technical"},
+        {"name": "General Arts"}
+      ], "min_grade": "C6"}
+    ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE (3) electives from Visual Art, Home Economics, or General Arts. Minimum grade for all subjects is C6."
   }
 ]

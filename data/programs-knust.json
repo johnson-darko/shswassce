@@ -372,5 +372,39 @@
     "averageSalary": null,
     "employmentRate": null,
     "universityRegion": "Ashanti"
+  },
+  {
+    "id": "prog-025",
+    "universityId": "knust-001",
+    "name": "B.Ed. Junior High School Education",
+    "level": "Bachelor's",
+    "durationMonths": 48,
+    "tuitionLocal": 13000,
+    "tuitionInternational": 21000,
+    "currency": "GHS",
+    "description": "Teacher education program for Junior High School with options in Mathematics, Science, ICT, Agricultural Science, Visual Art, History, and Geography.",
+    "careerOutcomes": [
+      "Junior High School Teacher",
+      "Subject Specialist",
+      "Education Administrator",
+      "Curriculum Developer",
+      "Education Consultant"
+    ],
+    "averageSalary": 25000,
+    "employmentRate": 92,
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "universityRegion": "Ashanti"
+  },
+
+    {
+    "id": "prog-026",
+    "name": "B.Ed. (Art and Design Technology)",
+    "faculty": "Faculty of Art",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "description": "A program focused on the art, design, and technology of ceramics, preparing students for careers in ceramic art, production, and related industries.",
+    "careerOutcomes": ["Ceramic Artist", "Ceramic Designer", "Production Manager", "Art Educator", "Studio Technician"],
+    "averageSalary": null,
+    "employmentRate": null,
+    "universityRegion": "Ashanti"
   }
 ]
