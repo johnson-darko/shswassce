@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Routes, Route } from "react-router-dom";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -16,22 +16,6 @@ import ComparisonBar from "@/components/comparison-bar";
 import { ComparisonProvider } from "@/hooks/use-comparison";
 import SavedProgramsPage from "./pages/saved-programs";
 
-function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/search" component={Search} />
-      <Route path="/compare" component={Compare} />
-      <Route path="/eligibility" component={Eligibility} />
-      <Route path="/calculator" component={Calculator} />
-      <Route path="/university/:id" component={UniversityDetail} />
-      <Route path="/admin/pdf" component={PDFAdmin} />
-      <Route path="/saved-programs" component={SavedProgramsPage} />
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
-
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -39,7 +23,17 @@ function App() {
         <ComparisonProvider>
           <div className="min-h-screen bg-scorecard-bg">
             <Header />
-            <Router />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/compare" element={<Compare />} />
+              <Route path="/eligibility" element={<Eligibility />} />
+              <Route path="/calculator" element={<Calculator />} />
+              <Route path="/university/:id" element={<UniversityDetail />} />
+              <Route path="/admin/pdf" element={<PDFAdmin />} />
+              <Route path="/saved-programs" element={<SavedProgramsPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
             <ComparisonBar />
           </div>
           <Toaster />

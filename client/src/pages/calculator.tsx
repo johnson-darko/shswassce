@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 import { checkEligibilityOffline } from '../lib/offline-eligibility-engine';
+import { useLocation } from "wouter";
 
 interface CalculatorGrades {
   english: string;
@@ -108,6 +109,8 @@ const gradeValues: Record<string, number> = {
 };
 
 export default function CalculatorPage() {
+  // Listen for route changes to trigger re-render
+  const [location] = useLocation();
   const [grades, setGrades] = useState<CalculatorGrades>({
     english: '',
     mathematics: '',

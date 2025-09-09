@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Search, GraduationCap, University, Calculator, FileText, BookOpen, Target } from "lucide-react";
@@ -33,8 +33,8 @@ export default function Home() {
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {/* WASSCE Aggregate Calculator */}
-            <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="card-calculator">
-              <Link href="/calculator">
+            <Link to="/calculator" className="block">
+              <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="card-calculator">
                 <CardContent className="p-4 text-center">
                   <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-3">
                     <Calculator className="h-6 w-6 text-purple-600" />
@@ -42,12 +42,12 @@ export default function Home() {
                   <h4 className="text-sm font-semibold text-scorecard-blue mb-1">WASSCE Aggregate Calculator</h4>
                   <p className="text-xs text-scorecard-gray">Calculate your aggregate score</p>
                 </CardContent>
-              </Link>
-            </Card>
+              </Card>
+            </Link>
 
             {/* Check Eligibility */}
-            <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="card-eligibility-small">
-              <Link href="/eligibility">
+            <Link to="/eligibility" className="block">
+              <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="card-eligibility-small">
                 <CardContent className="p-4 text-center">
                   <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-3">
                     <Target className="h-6 w-6 text-green-600" />
@@ -55,12 +55,12 @@ export default function Home() {
                   <h4 className="text-sm font-semibold text-scorecard-blue mb-1">Check Eligibility</h4>
                   <p className="text-xs text-scorecard-gray">See which programs you qualify for</p>
                 </CardContent>
-              </Link>
-            </Card>
+              </Card>
+            </Link>
 
             {/* Search Universities */}
             <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="card-search-small">
-              <Link href="/search">
+              <Link to="/search">
                 <CardContent className="p-4 text-center">
                   <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3">
                     <Search className="h-6 w-6 text-blue-600" />
@@ -73,7 +73,7 @@ export default function Home() {
 
             {/* Compare Universities */}
             <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="card-compare-small">
-              <Link href="/compare">
+              <Link to="/compare">
                 <CardContent className="p-4 text-center">
                   <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-3">
                     <GraduationCap className="h-6 w-6 text-orange-600" />
@@ -86,7 +86,7 @@ export default function Home() {
 
             {/* Program Guide */}
             <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="card-programs-small">
-              <Link href="/programs">
+              <Link to="/programs">
                 <CardContent className="p-4 text-center">
                   <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mx-auto mb-3">
                     <BookOpen className="h-6 w-6 text-teal-600" />
@@ -99,7 +99,7 @@ export default function Home() {
 
             {/* Application Guide */}
             <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="card-guide-small">
-              <Link href="/guide">
+              <Link to="/guide">
                 <CardContent className="p-4 text-center">
                   <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mx-auto mb-3">
                     <FileText className="h-6 w-6 text-indigo-600" />
@@ -135,7 +135,7 @@ export default function Home() {
                 <p className="text-scorecard-gray">
                   Find universities by location, program type, cost, and more with our advanced search filters.
                 </p>
-                <Link href="/search">
+                <Link to="/search">
                   <Button className="mt-4 bg-scorecard-blue hover:bg-blue-900" data-testid="button-start-search">
                     Start Your Search
                   </Button>
@@ -152,7 +152,7 @@ export default function Home() {
                 <p className="text-scorecard-gray">
                   Compare up to 10 universities side by side. See costs, graduation rates, and program offerings.
                 </p>
-                <Link href="/compare">
+                <Link to="/compare">
                   <Button variant="outline" className="mt-4 border-scorecard-blue text-scorecard-blue hover:bg-scorecard-blue hover:text-white" data-testid="button-compare">
                     Compare Now
                   </Button>
@@ -169,7 +169,7 @@ export default function Home() {
                 <p className="text-scorecard-gray">
                   Enter your WASSCE grades to see which programs you qualify for and get personalized recommendations.
                 </p>
-                <Link href="/eligibility">
+                <Link to="/eligibility">
                   <Button variant="outline" className="mt-4 border-green-600 text-green-600 hover:bg-green-600 hover:text-white" data-testid="button-check-eligibility">
                     Check Eligibility
                   </Button>
@@ -215,9 +215,9 @@ export default function Home() {
             <div>
               <h4 className="font-semibold mb-4">Search & Compare</h4>
               <ul className="space-y-2 text-blue-100">
-                <li><Link href="/search" className="hover:text-white">Search Universities</Link></li>
-                <li><Link href="/compare" className="hover:text-white">Compare Programs</Link></li>
-                <li><Link href="/eligibility" className="hover:text-white">Check Eligibility</Link></li>
+                <li><Link to="/search" className="hover:text-white">Search Universities</Link></li>
+                <li><Link to="/compare" className="hover:text-white">Compare Programs</Link></li>
+                <li><Link to="/eligibility" className="hover:text-white">Check Eligibility</Link></li>
               </ul>
             </div>
             <div>
