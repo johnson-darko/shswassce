@@ -799,6 +799,17 @@ export default function CalculatorPage() {
                                     </ul>
                                   </div>
                                 )}
+                                {result.careerOutcomes && result.careerOutcomes.length > 0 && (
+                                  <div className="mt-2 text-xs text-green-700">
+                                    <strong>Career Outcomes:</strong>
+                                    <ul className="list-disc list-inside space-y-1">
+                                      {result.careerOutcomes.map((career, idx) => (
+                                        <li key={idx}>{career}</li>
+                                      ))}
+                                    </ul>
+                                    And Many More...
+                                  </div>
+                                )}
                               </CardContent>
                             </Card>
                         ))}
