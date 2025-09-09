@@ -1,3 +1,90 @@
+// Shared logic for Group 1 KNUST programs
+function checkGroup1Eligibility(combo: any, requirement: any, programName: string): { eligible: boolean, details: string[] } {
+  // Core: English, Mathematics, Integrated Science
+  const coreSubjects = combo.coreSubjects.map((s: any) => s.subject.trim().toLowerCase());
+  const hasEnglish = coreSubjects.includes('english language');
+  const hasMath = coreSubjects.includes('mathematics');
+  const hasScience = coreSubjects.includes('integrated science');
+  let coreEligible = hasEnglish && hasMath && hasScience;
+  let coreDetails: string[] = [];
+  if (!coreEligible) {
+    coreDetails.push('Missing required core subjects: English, Mathematics, Integrated Science');
+  }
+
+  // Elective logic
+  const electives = combo.electiveSubjects.filter((e: any) => gradeToNumber(e.grade) <= 6);
+  let electivesEligible = false;
+  let electivesDetails: string[] = [];
+
+  // Define eligible groups for each program
+  const group1Map: Record<string, { groups: string[], message: string }> = {
+    'BSC. PACKAGING TECHNOLOGY': {
+      groups: ['Science', 'General Arts', 'Visual Art', 'Technical', 'Home Economics'],
+      message: 'Before you apply for this program, make sure you have 3 passed electives and has to be a student from Science, General Arts, Visual Art, Technical or Home Economics.'
+    },
+    'BA. METAL PRODUCT DESIGN TECHNOLOGY': {
+      groups: ['Visual Art', 'Home Economics', 'Technical', 'Science'],
+      message: 'Before you apply for this program, make sure you have 3 passed electives and has to be a student from Visual Art, Home Economics, Technical or Science.'
+    },
+    'BSC. TEXTILE DESIGN AND TECHNOLOGY': {
+      groups: ['Visual Art', 'Home Economics', 'Technical', 'Science', 'General Arts', 'Business'],
+      message: 'Before you apply for this program, make sure you have 3 passed electives and has to be a student from Visual Art, Home Economics, Technical, Science, General Arts or Business.'
+    },
+    'BSC. FASHION DESIGN': {
+      groups: ['Visual Art', 'Home Economics', 'Technical', 'Science', 'General Arts', 'Business'],
+      message: 'Before you apply for this program, make sure you have 3 passed electives and has to be a student from Visual Art, Home Economics, Technical, Science, General Arts or Business.'
+    },
+    'BFA. CERAMICS': {
+      groups: ['Visual Art', 'Home Economics', 'General Arts'],
+      message: 'Before you apply for this program, make sure you have 3 passed electives and has to be a student from Visual Art, Home Economics or General Arts.'
+    },
+    'B.ED. (ART AND DESIGN TECHNOLOGY)': {
+      groups: ['Visual Arts', 'Vocational', 'Science', 'Technical', 'General Arts'],
+      message: 'Before you apply for this program, make sure you have 3 passed electives and has to be a student from Visual Arts, Vocational, Science, Technical or General Arts.'
+    },
+  };
+
+  // For BA. Integrated Rural Art and Industry, use a large subject list (Group A/B)
+  if (programName === 'BA. INTEGRATED RURAL ART AND INDUSTRY') {
+    const groupA = [
+      'picture making', 'leatherwork', 'graphic design', 'textiles', 'jewellery', 'basketry', 'sculpture', 'ceramics', 'general knowledge in art', 'management in living', 'clothing & textiles', 'food and nutrition', 'physics', 'chemistry', 'mathematics (elective)', 'biology', 'religious studies', 'construction', 'economics', 'history', 'akan', 'geography', 'literature in english', 'business management', 'accounting', 'costing', 'ict'
+    ];
+    const groupB = [
+      'welding and fabrication technology', 'digital design technology', 'industrial mechanics', 'wood construction technology', 'furniture design and construction', 'creative art technology', 'building construction technology', 'general textiles', 'fashion design technology', 'visual communication technology'
+    ];
+    const groupAElig = electives.filter(e => groupA.includes(e.subject.trim().toLowerCase()));
+    const groupBElig = electives.filter(e => groupB.includes(e.subject.trim().toLowerCase()));
+    electivesEligible = groupAElig.length >= 3 || groupBElig.length >= 3;
+    electivesDetails.push(`Group A passes: ${groupAElig.length}, Group B passes: ${groupBElig.length}`);
+    if (electivesEligible) {
+      electivesDetails.push(groupAElig.length >= 3 ? 'You qualify via Group A.' : 'You qualify via Group B.');
+    } else {
+      electivesDetails.push('You need at least 3 passes from Group A or Group B subjects.');
+    }
+  } else {
+    // For other programs, just check count of eligible electives
+    const groupInfo = group1Map[programName];
+    electivesEligible = electives.length >= 3;
+    if (groupInfo) {
+      electivesDetails.push(groupInfo.message);
+      electivesDetails.push(`Eligible electives: ${electives.length}`);
+      if (!electivesEligible) {
+        electivesDetails.push('You need at least 3 passes from eligible electives.');
+      }
+    } else {
+      electivesDetails.push(`Eligible electives: ${electives.length}`);
+      if (!electivesEligible) {
+        electivesDetails.push('You need at least 3 passes from eligible electives.');
+      }
+    }
+  }
+
+  let aggregateEligible = !requirement.aggregatePoints || combo.aggregate <= requirement.aggregatePoints;
+  return {
+    eligible: coreEligible && electivesEligible && aggregateEligible,
+    details: [...coreDetails, ...electivesDetails]
+  };
+}
 import type { EligibilityResult, WassceeGrades } from '@shared/schema';
 import { gradeToNumber, meetsGradeRequirement, calculateAllAggregateCombinations, normalizeSubjectName } from '../offline-eligibility-engine';
 // import requirements from '../../public/data/requirements-knust.json';
@@ -65,40 +152,24 @@ export function checkEligibilityKNUST(grades: WassceeGrades, programs: any[], re
           }
         }
       }
-      // Flexible matching for BSc Packaging Technology
-      else if (program.name.trim().toUpperCase() === 'BSC. PACKAGING TECHNOLOGY') {
+      // Group 1 shared eligibility logic
+      else if ([
+        'BSC. PACKAGING TECHNOLOGY',
+        'BA. METAL PRODUCT DESIGN TECHNOLOGY',
+        'BSC. TEXTILE DESIGN AND TECHNOLOGY',
+        'BSC. FASHION DESIGN',
+        'BFA. CERAMICS',
+        'B.ED. (ART AND DESIGN TECHNOLOGY)',
+        'BA. INTEGRATED RURAL ART AND INDUSTRY'
+      ].includes(program.name.trim().toUpperCase())) {
         for (const combo of allAggregateCombinations) {
-          // Core: English, Mathematics, Integrated Science
-          const coreSubjects = combo.coreSubjects.map(s => s.subject.trim().toLowerCase());
-          const hasEnglish = coreSubjects.includes('english language');
-          const hasMath = coreSubjects.includes('mathematics');
-          const hasScience = coreSubjects.includes('integrated science');
-          let coreEligible = hasEnglish && hasMath && hasScience;
-          let coreDetails: string[] = [];
-          if (!coreEligible) {
-            coreDetails.push('Missing required core subjects: English, Mathematics, Integrated Science');
-          }
-          // Electives: SHS program group, not subject names
-          let countC6 = 0;
-          for (const e of combo.electiveSubjects) {
-            if (gradeToNumber(e.grade) <= 6) countC6++;
-          }
-          let aggregateEligible = !requirement.aggregatePoints || combo.aggregate <= requirement.aggregatePoints;
-          // If core eligible, but not 3 electives with C6, show as borderline with explanation
-          if (coreEligible && countC6 >= 3 && aggregateEligible) {
-            eligibleCombo = { combo, coreDetails, electivesDetails: [
-              'Before you apply for this program, make sure you have to be a Science, General Arts, Visual Art, Technical, or Home Economics student and have 3 electives with minimum grade C6.'
-            ] };
-            break;
-          } else if (coreEligible && aggregateEligible) {
-            borderlineCombo = { combo, coreDetails, electivesDetails: [
-              'You meet the core subject requirements. Before you apply for this program, make sure you have to be a Science, General Arts, Visual Art, Technical, or Home Economics student and have 3 electives with minimum grade C6.'
-            ] };
-            // Do not mark as not eligible if core is met
+          const group1Result = checkGroup1Eligibility(combo, requirement, program.name.trim().toUpperCase());
+          if (group1Result.eligible) {
+            eligibleCombo = { combo, coreDetails: [], electivesDetails: group1Result.details };
             break;
           }
         }
-        }
+      }
         // Flexible matching for BSc Development Planning
         // Flexible matching for BSc Human Settlement Planning
         // Custom logic for BSc Land Economy and BSc Real Estate
@@ -451,41 +522,6 @@ export function checkEligibilityKNUST(grades: WassceeGrades, programs: any[], re
         }
       }
       // Default logic for other programs
-      else if (program.name.trim().toUpperCase() === 'BA. INTEGRATED RURAL ART AND INDUSTRY') {
-        for (const combo of allAggregateCombinations) {
-          // Core: English, Mathematics, Integrated Science
-          const coreSubjects = combo.coreSubjects.map(s => s.subject.trim().toLowerCase());
-          const hasEnglish = coreSubjects.includes('english language');
-          const hasMath = coreSubjects.includes('mathematics');
-          const hasScience = coreSubjects.includes('integrated science');
-          let coreEligible = hasEnglish && hasMath && hasScience;
-          let coreDetails: string[] = [];
-          if (!coreEligible) {
-            coreDetails.push('Missing required core subjects: English, Mathematics, Integrated Science');
-          }
-          // Electives: Group A or Group B (at least 3 with C6 or better)
-          const groupA = [
-            'picture making', 'leatherwork', 'graphic design', 'textiles', 'jewellery', 'basketry', 'sculpture', 'ceramics', 'general knowledge in art', 'management in living', 'clothing & textiles', 'food and nutrition', 'physics', 'chemistry', 'mathematics (elective)', 'biology', 'religious studies', 'construction', 'economics', 'history', 'akan', 'geography', 'literature in english', 'business management', 'accounting', 'costing', 'ict'
-          ];
-          const groupB = [
-            'welding and fabrication technology', 'digital design technology', 'industrial mechanics', 'wood construction technology', 'furniture design and construction', 'creative art technology', 'building construction technology', 'general textiles', 'fashion design technology', 'visual communication technology'
-          ];
-          const electives = combo.electiveSubjects.filter(e => gradeToNumber(e.grade) <= 6);
-          const groupAElig = electives.filter(e => groupA.includes(e.subject.trim().toLowerCase()));
-          const groupBElig = electives.filter(e => groupB.includes(e.subject.trim().toLowerCase()));
-          let aggregateEligible = !requirement.aggregatePoints || combo.aggregate <= requirement.aggregatePoints;
-          if (coreEligible && aggregateEligible && (groupAElig.length >= 3 || groupBElig.length >= 3)) {
-            eligibleCombo = { combo, coreDetails, electivesDetails: [
-              'You meet all requirements for this program!',
-              electives.map(e => `${e.subject} (${e.grade})`).join(', '),
-              groupAElig.length >= 3 ? 'You qualify via Group A.' : 'You qualify via Group B.',
-             
-            ] };
-            break;
-          }
-        }
-      }
-      // Default logic for other programs
       else if (program.name.trim().toUpperCase() === 'BA. PUBLISHING STUDIES') {
         for (const combo of allAggregateCombinations) {
           // Core: English, Mathematics, Integrated Science
@@ -546,30 +582,12 @@ export function checkEligibilityKNUST(grades: WassceeGrades, programs: any[], re
         }
       }
       // Default logic for other programs
-      else if (program.name.trim().toUpperCase() === 'BA. METAL PRODUCT DESIGN TECHNOLOGY') {
-        for (const combo of allAggregateCombinations) {
-          // Core: English, Mathematics, Integrated Science
-          const coreSubjects = combo.coreSubjects.map(s => s.subject.trim().toLowerCase());
-          const hasEnglish = coreSubjects.includes('english language');
-          const hasMath = coreSubjects.includes('mathematics');
-          const hasScience = coreSubjects.includes('integrated science');
-          let coreEligible = hasEnglish && hasMath && hasScience;
-          let coreDetails: string[] = [];
-          if (!coreEligible) {
-            coreDetails.push('Missing required core subjects: English, Mathematics, Integrated Science');
-          }
-          let aggregateEligible = !requirement.aggregatePoints || combo.aggregate <= requirement.aggregatePoints;
-          if (coreEligible && aggregateEligible) {
-            eligibleCombo = { combo, coreDetails, electivesDetails: [
-              'Before you apply for this program, make sure you have 3 electives from Visual Art, Home Economics, Technical, or Science with at least C6.',
-              
-            ] };
-            break;
-          }
-        }
-        }
-        // Simple eligibility for BSc Textile Design and Technology
-        else if (program.name.trim().toUpperCase() === 'BSC. TEXTILE DESIGN AND TECHNOLOGY') {
+      
+        // Simple eligibility for B.Ed. Junior High School Education
+        else if ([
+          'B.ED. JUNIOR HIGH SCHOOL EDUCATION',
+          'BED JUNIOR HIGH SCHOOL EDUCATION'
+        ].includes(program.name.trim().toUpperCase())) {
           for (const combo of allAggregateCombinations) {
             const coreSubjects = combo.coreSubjects.map(s => s.subject.trim().toLowerCase());
             const hasEnglish = coreSubjects.includes('english language');
@@ -580,57 +598,25 @@ export function checkEligibilityKNUST(grades: WassceeGrades, programs: any[], re
             if (!coreEligible) {
               coreDetails.push('Missing required core subjects: English, Mathematics, Integrated Science');
             }
+            // Any 3 electives with C6 or better
+            const electives = combo.electiveSubjects.filter(e => gradeToNumber(e.grade) <= 6);
             let aggregateEligible = !requirement.aggregatePoints || combo.aggregate <= requirement.aggregatePoints;
-            if (coreEligible && aggregateEligible) {
+            const allTeachingOptions = [
+              'To be Fully Eligible for Mathematics, Science, ICT, or Agricultural Science: You must be a Science, General Agriculture, or ICT student with 3 passes in your electives.',
+              'To be Fully Eligible for Visual Art: You must be a Visual Art student with 3 passes in your electives.',
+              'To be Fully Eligible for History: You must be a General Arts student (including History) with 3 passes in your electives.',
+              'To be Fully Eligible for Geography: You must be a General Arts student (including Geography) with 3 passes in your electives.'
+            ];
+            if (coreEligible && electives.length >= 3 && aggregateEligible) {
               eligibleCombo = { combo, coreDetails, electivesDetails: [
-                'Before you apply for this program, make sure you have 3 electives from Visual Art, Home Economics, Technical, Science, General Arts, or Business with at least C6.',
+                ...allTeachingOptions,
+               
               ] };
               break;
             }
           }
         }
-        // Simple eligibility for BSc Fashion Design
-        else if (program.name.trim().toUpperCase() === 'BSC. FASHION DESIGN') {
-          for (const combo of allAggregateCombinations) {
-            const coreSubjects = combo.coreSubjects.map(s => s.subject.trim().toLowerCase());
-            const hasEnglish = coreSubjects.includes('english language');
-            const hasMath = coreSubjects.includes('mathematics');
-            const hasScience = coreSubjects.includes('integrated science');
-            let coreEligible = hasEnglish && hasMath && hasScience;
-            let coreDetails: string[] = [];
-            if (!coreEligible) {
-              coreDetails.push('Missing required core subjects: English, Mathematics, Integrated Science');
-            }
-            let aggregateEligible = !requirement.aggregatePoints || combo.aggregate <= requirement.aggregatePoints;
-            if (coreEligible && aggregateEligible) {
-              eligibleCombo = { combo, coreDetails, electivesDetails: [
-                'Before you apply for this program, make sure you have 3 electives from Visual Art, Home Economics, Technical, Science, General Arts, or Business with at least C6.',
-              ] };
-              break;
-            }
-          }
-          }
-          // Simple eligibility for BFA Ceramics
-          else if (program.name.trim().toUpperCase() === 'BFA. CERAMICS') {
-            for (const combo of allAggregateCombinations) {
-              const coreSubjects = combo.coreSubjects.map(s => s.subject.trim().toLowerCase());
-              const hasEnglish = coreSubjects.includes('english language');
-              const hasMath = coreSubjects.includes('mathematics');
-              const hasScience = coreSubjects.includes('integrated science');
-              let coreEligible = hasEnglish && hasMath && hasScience;
-              let coreDetails: string[] = [];
-              if (!coreEligible) {
-                coreDetails.push('Missing required core subjects: English, Mathematics, Integrated Science');
-              }
-              let aggregateEligible = !requirement.aggregatePoints || combo.aggregate <= requirement.aggregatePoints;
-              if (coreEligible && aggregateEligible) {
-                eligibleCombo = { combo, coreDetails, electivesDetails: [
-                  'Before you apply for this program, make sure you have 3 electives from Visual Art, Home Economics, or General Arts with at least C6.',
-                ] };
-                break;
-              }
-            }
-            }
+
             // Grouped eligibility for BSc Ceramic Technology
             else if (program.name.trim().toUpperCase() === 'BSC. CERAMIC TECHNOLOGY') {
               for (const combo of allAggregateCombinations) {
