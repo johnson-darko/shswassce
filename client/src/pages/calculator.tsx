@@ -147,6 +147,9 @@ export default function CalculatorPage() {
   // Track saved program IDs
   const [savedIds, setSavedIds] = useState<string[]>([]);
 
+  // State to control visibility of the calculator section
+  const [showCalculator, setShowCalculator] = useState(true);
+
   // Load grades from localStorage on component mount
   useEffect(() => {
     const savedGrades = localStorage.getItem('calculatorGrades');
@@ -376,6 +379,7 @@ export default function CalculatorPage() {
   const checkProgramEligibility = async () => {
     setIsCheckingEligibility(true);
     setShowEligibility(true);
+    setShowCalculator(false); // Hide calculator section
     
     try {
       const { checkEligibilityOffline } = await import('@/lib/offline-eligibility-engine');
@@ -498,230 +502,233 @@ export default function CalculatorPage() {
   return (
     <div className="container mx-auto px-4 py-8" data-testid="calculator">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <CalculatorIcon className="h-8 w-8 text-scorecard-blue" />
-            <h1 className="text-3xl font-bold text-scorecard-blue">WASSCE Aggregate Calculator</h1>
-          </div>
-          <p className="text-gray-600">
-            Calculate your aggregate score based on your WASSCE grades. 
-            Your aggregate is calculated using all 4 core subjects + your best 3 elective subjects.
-          </p>
-        </div>
-
-        <Card className="w-full bg-scorecard-bg mb-6" data-testid="calculator-input">
-          <CardHeader>
-            <CardTitle className="text-center text-scorecard-blue">Enter Your WASSCE Grades</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {/* Core Subjects */}
-            <div className="mb-8" data-testid="core-subjects">
-              <h3 className="font-semibold text-scorecard-blue mb-4">Core Subjects (All Required)</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {subjects.core.map(({ key, label }) => (
-                  <div key={key}>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      {label}
-                    </label>
-                    <Select 
-                      value={grades[key] || ""} 
-                      onValueChange={(value) => handleCoreGradeChange(key, value)}
-                      data-testid={`select-${key}`}
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select Grade" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {gradeOptions.map((grade) => (
-                          <SelectItem key={grade} value={grade}>
-                            {grade}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                ))}
+        {showCalculator && (
+          <>
+            <div className="text-center mb-8">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <CalculatorIcon className="h-8 w-8 text-scorecard-blue" />
+                <h1 className="text-3xl font-bold text-scorecard-blue">WASSCE Aggregate Calculator</h1>
               </div>
+              <p className="text-gray-600">
+                Calculate your aggregate score based on your WASSCE grades. 
+                Your aggregate is calculated using all 4 core subjects + your best 3 elective subjects.
+              </p>
             </div>
+            <Card className="w-full bg-scorecard-bg mb-6" data-testid="calculator-input">
+              <CardHeader>
+                <CardTitle className="text-center text-scorecard-blue">Enter Your WASSCE Grades</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {/* Core Subjects */}
+                <div className="mb-8" data-testid="core-subjects">
+                  <h3 className="font-semibold text-scorecard-blue mb-4">Core Subjects (All Required)</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {subjects.core.map(({ key, label }) => (
+                      <div key={key}>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          {label}
+                        </label>
+                        <Select 
+                          value={grades[key] || ""} 
+                          onValueChange={(value) => handleCoreGradeChange(key, value)}
+                          data-testid={`select-${key}`}
+                        >
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select Grade" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {gradeOptions.map((grade) => (
+                              <SelectItem key={grade} value={grade}>
+                                {grade}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-            {/* Elective Subjects */}
-            <div data-testid="elective-subjects">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="font-semibold text-scorecard-blue">Elective Subjects</h3>
-                <div className="flex items-center gap-3 bg-blue-50 px-4 py-2 rounded-lg">
-                  <span className="text-sm text-gray-700 font-medium">
-                    Selected: {getElectiveCount()} of 4 subjects
-                  </span>
-                  <div className="flex gap-1">
+                {/* Elective Subjects */}
+                <div data-testid="elective-subjects">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="font-semibold text-scorecard-blue">Elective Subjects</h3>
+                    <div className="flex items-center gap-3 bg-blue-50 px-4 py-2 rounded-lg">
+                      <span className="text-sm text-gray-700 font-medium">
+                        Selected: {getElectiveCount()} of 4 subjects
+                      </span>
+                      <div className="flex gap-1">
+                        {[1, 2, 3, 4].map((num) => {
+                          const subjectKey = `elective${num}Subject` as keyof CalculatorGrades;
+                          const hasSubject = !!grades[subjectKey];
+                          return (
+                            <div 
+                              key={num} 
+                              className={cn(
+                                "w-6 h-6 rounded-full border-2 flex items-center justify-center text-xs font-medium",
+                                hasSubject 
+                                  ? "bg-green-500 border-green-500 text-white" 
+                                  : "bg-white border-gray-300 text-gray-400"
+                              )}
+                            >
+                              {hasSubject ? <Check className="w-4 h-4" /> : num}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {[1, 2, 3, 4].map((num) => {
                       const subjectKey = `elective${num}Subject` as keyof CalculatorGrades;
-                      const hasSubject = !!grades[subjectKey];
+                      const gradeKey = `elective${num}Grade` as keyof CalculatorGrades;
+                      const datalistId = `elective-subjects-list-${num}`;
                       return (
-                        <div 
-                          key={num} 
-                          className={cn(
-                            "w-6 h-6 rounded-full border-2 flex items-center justify-center text-xs font-medium",
-                            hasSubject 
-                              ? "bg-green-500 border-green-500 text-white" 
-                              : "bg-white border-gray-300 text-gray-400"
-                          )}
-                        >
-                          {hasSubject ? <Check className="w-4 h-4" /> : num}
+                        <div key={num} className="border-2 border-blue-200 rounded-lg p-4 bg-white shadow-sm">
+                          <div className="flex items-center justify-between mb-3">
+                            <h4 className="font-medium text-gray-700 italic">Elective Subject {num}</h4>
+                            <span className="text-xs bg-teal-600 text-white px-2 py-1 rounded uppercase font-medium">
+                              ELECTIVE
+                            </span>
+                          </div>
+                          <div className="space-y-3">
+                            {/* Subject Selection - HTML Searchable Input with Datalist */}
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-2">Select a subject</label>
+                              <input
+                                type="search"
+                                className="w-full h-11 border rounded px-2"
+                                list={datalistId}
+                                value={grades[subjectKey] || ""}
+                                onChange={e => handleElectiveChange(num, 'Subject', e.target.value)}
+                                data-testid={`select-elective-${num}-subject`}
+                                placeholder="Type or select a subject"
+                                autoComplete="off"
+                              />
+                              <datalist id={datalistId}>
+                                {getAvailableSubjects(num).map(subject => (
+                                  <option key={subject} value={subject} />
+                                ))}
+                              </datalist>
+                            </div>
+                            {/* Grade Selection */}
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-2">Select Grade</label>
+                              <select
+                                className="w-full h-11 border rounded px-2"
+                                value={grades[gradeKey] || ""} 
+                                onChange={e => handleElectiveChange(num, 'Grade', e.target.value)}
+                                data-testid={`select-elective-${num}-grade`}
+                                disabled={!grades[subjectKey]}
+                              >
+                                <option value="">Select Grade</option>
+                                {gradeOptions.map(grade => (
+                                  <option key={grade} value={grade}>{grade}</option>
+                                ))}
+                              </select>
+                            </div>
+                          </div>
                         </div>
                       );
                     })}
                   </div>
                 </div>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {[1, 2, 3, 4].map((num) => {
-                  const subjectKey = `elective${num}Subject` as keyof CalculatorGrades;
-                  const gradeKey = `elective${num}Grade` as keyof CalculatorGrades;
-                  const datalistId = `elective-subjects-list-${num}`;
-                  return (
-                    <div key={num} className="border-2 border-blue-200 rounded-lg p-4 bg-white shadow-sm">
-                      <div className="flex items-center justify-between mb-3">
-                        <h4 className="font-medium text-gray-700 italic">Elective Subject {num}</h4>
-                        <span className="text-xs bg-teal-600 text-white px-2 py-1 rounded uppercase font-medium">
-                          ELECTIVE
-                        </span>
-                      </div>
-                      <div className="space-y-3">
-                        {/* Subject Selection - HTML Searchable Input with Datalist */}
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">Select a subject</label>
-                          <input
-                            type="search"
-                            className="w-full h-11 border rounded px-2"
-                            list={datalistId}
-                            value={grades[subjectKey] || ""}
-                            onChange={e => handleElectiveChange(num, 'Subject', e.target.value)}
-                            data-testid={`select-elective-${num}-subject`}
-                            placeholder="Type or select a subject"
-                            autoComplete="off"
-                          />
-                          <datalist id={datalistId}>
-                            {getAvailableSubjects(num).map(subject => (
-                              <option key={subject} value={subject} />
-                            ))}
-                          </datalist>
-                        </div>
-                        {/* Grade Selection */}
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">Select Grade</label>
-                          <select
-                            className="w-full h-11 border rounded px-2"
-                            value={grades[gradeKey] || ""} 
-                            onChange={e => handleElectiveChange(num, 'Grade', e.target.value)}
-                            data-testid={`select-elective-${num}-grade`}
-                            disabled={!grades[subjectKey]}
-                          >
-                            <option value="">Select Grade</option>
-                            {gradeOptions.map(grade => (
-                              <option key={grade} value={grade}>{grade}</option>
-                            ))}
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Best Score Results Section */}
-        {result && (
-          <>
-            <Card className="bg-slate-700 text-white mb-6" data-testid="calculator-result">
-              <CardContent className="p-6">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <div className="text-sm text-slate-300 mb-1">Best Score</div>
-                    <h2 className="text-2xl font-bold mb-4">Your Best Aggregate Score</h2>
-                    <div className="mb-4">
-                      <div className="text-sm text-slate-300 mb-2">Subjects:</div>
-                      <div className="flex flex-wrap gap-2">
-                        {result.bestCore.map((item, index) => (
-                          <span key={index} className="bg-blue-600 px-3 py-1 rounded-full text-sm">
-                            {item.subject} (Core)
-                          </span>
-                        ))}
-                        {result.bestElectives.map((item, index) => (
-                          <span key={index} className="bg-teal-600 px-3 py-1 rounded-full text-sm">
-                            {item.subject} (Elective)
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-6xl font-bold">{result.aggregate}</div>
-                  </div>
-                </div>
               </CardContent>
             </Card>
 
-            {/* Alternative Combinations Section */}
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold text-slate-700 mb-2">Alternative Combinations</h2>
-              <p className="text-gray-600 mb-6">These are other valid subject combinations and their aggregate scores:</p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {result.alternatives.map((alt, index) => (
-                  <Card key={index} className="border-slate-200" data-testid={`alternative-${index + 1}`}>
-                    <CardContent className="p-4">
-                      <div className="flex items-center justify-between mb-3">
-                        <h3 className="font-semibold text-slate-700">{alt.name}</h3>
-                        <div className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full font-bold">
-                          {alt.aggregate}
+            {/* Best Score Results Section */}
+            {result && (
+              <>
+                <Card className="bg-slate-700 text-white mb-6" data-testid="calculator-result">
+                  <CardContent className="p-6">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <div className="text-sm text-slate-300 mb-1">Best Score</div>
+                        <h2 className="text-2xl font-bold mb-4">Your Best Aggregate Score</h2>
+                        <div className="mb-4">
+                          <div className="text-sm text-slate-300 mb-2">Subjects:</div>
+                          <div className="flex flex-wrap gap-2">
+                            {result.bestCore.map((item, index) => (
+                              <span key={index} className="bg-blue-600 px-3 py-1 rounded-full text-sm">
+                                {item.subject} (Core)
+                              </span>
+                            ))}
+                            {result.bestElectives.map((item, index) => (
+                              <span key={index} className="bg-teal-600 px-3 py-1 rounded-full text-sm">
+                                {item.subject} (Elective)
+                              </span>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                      <div className="mb-3">
-                        <div className="text-xs text-gray-600 mb-1">Subjects:</div>
-                        <div className="space-y-1">
-                          {alt.core.map((item, idx) => (
-                            <div key={idx} className="text-sm text-blue-700 font-medium">
-                              {item.subject} (Core)
-                            </div>
-                          ))}
-                          {alt.electives.map((item, idx) => (
-                            <div key={idx} className="text-sm text-teal-700 font-medium">
-                              {item.subject} (Elective)
-                            </div>
-                          ))}
-                        </div>
+                      <div className="text-right">
+                        <div className="text-6xl font-bold">{result.aggregate}</div>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
+                    </div>
+                  </CardContent>
+                </Card>
 
-            {/* Check Program Eligibility Button */}
-            <div className="text-center mt-8">
-              <Button 
-                onClick={checkProgramEligibility}
-                disabled={!result || isCheckingEligibility}
-                size="lg"
-                className="bg-slate-700 hover:bg-slate-800 text-white px-8 py-3"
-                data-testid="check-eligibility-btn"
-              >
-                {isCheckingEligibility ? (
-                  <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
-                    Checking Eligibility...
-                  </>
-                ) : (
-                  <>
-                    <GraduationCap className="h-5 w-5 mr-2" />
-                    Check Program Eligibility
-                  </>
-                )}
-              </Button>
-            </div>
+                {/* Alternative Combinations Section */}
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold text-slate-700 mb-2">Alternative Combinations</h2>
+                  <p className="text-gray-600 mb-6">These are other valid subject combinations and their aggregate scores:</p>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {result.alternatives.map((alt, index) => (
+                      <Card key={index} className="border-slate-200" data-testid={`alternative-${index + 1}`}>
+                        <CardContent className="p-4">
+                          <div className="flex items-center justify-between mb-3">
+                            <h3 className="font-semibold text-slate-700">{alt.name}</h3>
+                            <div className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full font-bold">
+                              {alt.aggregate}
+                            </div>
+                          </div>
+                          <div className="mb-3">
+                            <div className="text-xs text-gray-600 mb-1">Subjects:</div>
+                            <div className="space-y-1">
+                              {alt.core.map((item, idx) => (
+                                <div key={idx} className="text-sm text-blue-700 font-medium">
+                                  {item.subject} (Core)
+                                </div>
+                              ))}
+                              {alt.electives.map((item, idx) => (
+                                <div key={idx} className="text-sm text-teal-700 font-medium">
+                                  {item.subject} (Elective)
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Check Program Eligibility Button */}
+                <div className="text-center mt-8">
+                  <Button 
+                    onClick={checkProgramEligibility}
+                    disabled={!result || isCheckingEligibility}
+                    size="lg"
+                    className="bg-slate-700 hover:bg-slate-800 text-white px-8 py-3"
+                    data-testid="check-eligibility-btn"
+                  >
+                    {isCheckingEligibility ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+                        Checking Eligibility...
+                      </>
+                    ) : (
+                      <>
+                        <GraduationCap className="h-5 w-5 mr-2" />
+                        Check Program Eligibility
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </>
+            )}
           </>
         )}
 
@@ -731,21 +738,7 @@ export default function CalculatorPage() {
             <Collapsible open={!isCollapsed} onOpenChange={setIsCollapsed}>
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-slate-700">Program Eligibility Results</h2>
-                <CollapsibleTrigger asChild>
-                  <Button variant="ghost" size="sm" data-testid="collapse-toggle">
-                    {isCollapsed ? (
-                      <>
-                        <ChevronDown className="h-4 w-4 mr-2" />
-                        Show Calculator
-                      </>
-                    ) : (
-                      <>
-                        <ChevronUp className="h-4 w-4 mr-2" />
-                        Hide Calculator
-                      </>
-                    )}
-                  </Button>
-                </CollapsibleTrigger>
+                {/* Hide Calculator button removed */}
               </div>
 
               <CollapsibleContent className="space-y-4">

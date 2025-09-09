@@ -32,6 +32,18 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {/* Saved Programs Eligibility */}
+            <Link to="/saved-programs" className="block">
+              <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="card-saved-programs">
+                <CardContent className="p-4 text-center">
+                  <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <FileText className="h-6 w-6 text-yellow-600" />
+                  </div>
+                  <h4 className="text-sm font-semibold text-scorecard-blue mb-1">Saved Program Eligibility</h4>
+                  <p className="text-xs text-scorecard-gray">View all your saved eligible programs</p>
+                </CardContent>
+              </Card>
+            </Link>
             {/* WASSCE Aggregate Calculator */}
             <Link to="/calculator" className="block">
               <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="card-calculator">
