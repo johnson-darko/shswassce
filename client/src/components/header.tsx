@@ -1,20 +1,14 @@
-import { Link, useLocation } from "wouter";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export default function Header() {
-  const [location] = useLocation();
-
   const navigation = [
-    { name: "Search Colleges", href: "/search", current: location === "/search" },
-    { name: "Compare", href: "/compare", current: location === "/compare" },
-    { name: "Check Eligibility", href: "/eligibility", current: location === "/eligibility" },
-    { name: "PDF Parser", href: "/admin/pdf", current: location === "/admin/pdf" },
+    { name: "Search Colleges", to: "/search" },
+    { name: "Compare", to: "/compare" },
+    { name: "Check Eligibility", to: "/eligibility" },
+    { name: "PDF Parser", to: "/admin/pdf" },
   ];
 
   return (
@@ -22,7 +16,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Link href="/" data-testid="link-home">
+            <Link to="/" data-testid="link-home">
               <h1 className="text-2xl font-bold text-scorecard-blue">MyCampusMingle</h1>
             </Link>
           </div>
@@ -32,16 +26,12 @@ export default function Header() {
             {navigation.map((item) => (
               <Link
                 key={item.name}
-                href={item.href}
+                to={item.to}
                 data-testid={`link-${item.name.toLowerCase().replace(/\s+/g, '-')}`}
               >
                 <Button
                   variant="ghost"
-                  className={`font-medium ${
-                    item.current
-                      ? "text-scorecard-blue"
-                      : "text-scorecard-gray hover:text-scorecard-blue"
-                  }`}
+                  className="font-medium text-scorecard-gray hover:text-scorecard-blue"
                 >
                   {item.name}
                 </Button>
@@ -62,16 +52,12 @@ export default function Header() {
                   {navigation.map((item) => (
                     <Link
                       key={item.name}
-                      href={item.href}
+                      to={item.to}
                       data-testid={`mobile-link-${item.name.toLowerCase().replace(/\s+/g, '-')}`}
                     >
                       <Button
                         variant="ghost"
-                        className={`w-full justify-start font-medium ${
-                          item.current
-                            ? "text-scorecard-blue"
-                            : "text-scorecard-gray hover:text-scorecard-blue"
-                        }`}
+                        className="w-full justify-start font-medium text-scorecard-gray hover:text-scorecard-blue"
                       >
                         {item.name}
                       </Button>
