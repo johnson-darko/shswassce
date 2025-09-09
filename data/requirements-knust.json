@@ -675,5 +675,114 @@
     "aggregatePoints": 24,
     "requirementComplexity": "basic",
     "additionalRequirements": "Credit passes in THREE (3) electives from Visual Art, Home Economics, or General Arts. Minimum grade for all subjects is C6."
+ },
+  {
+    "id": "req-027",
+    "programId": "prog-027",
+    "faculty": "College of Health Sciences",
+    "programName": "BSc. Disability and Rehabilitation Studies",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [ {"type": "any", "count": 3, "groups": ["General Science", "General Arts", "Business", "Visual Art", "Home Economics"], "min_grade": "C6"} ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE (3) electives from General Science, General Arts, Business, Visual Art or Home Economics."
+  },
+  {
+    "id": "req-028",
+    "programId": "prog-028",
+    "faculty": "Faculty of Social Sciences",
+    "programName": "Bachelor of Public Administration",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [ {"type": "any", "count": 3, "groups": ["General Arts", "Business", "General Science", "Home Economics", "Visual Art"], "min_grade": "C6"} ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE (3) electives from General Arts, Business, General Science, Home Economics or Visual Art."
+  },
+  {
+    "id": "req-029",
+    "programId": "prog-029",
+    "faculty": "Faculty of Social Sciences",
+    "programName": "BA. Religion and Human Development",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [ {"type": "any", "count": 3, "groups": ["General Arts"], "min_grade": "C6", "must_include": ["Christian Religious Studies", "Islamic Religious Studies"]} ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "custom",
+    "additionalRequirements": "Credit passes in THREE (3) General Arts subjects, including Christian Religious Studies (CRS) or Islamic Religious Studies (IRS)."
+  },
+  {
+    "id": "req-030",
+    "programId": "prog-030",
+    "faculty": "Faculty of Law",
+    "programName": "Bachelor of Law (LLB)",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [ {"type": "any", "count": 3, "groups": ["General Arts", "Business", "Visual Art", "General Science"], "min_grade": "C6"} ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE (3) electives from General Arts, Business, Visual Art or General Science."
+  },
+  {
+    "id": "req-031",
+    "programId": "prog-031",
+    "faculty": "KNUST School of Business",
+    "programName": "BSc. Business Administration (Human Resource Management/Management)",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [ {"type": "any", "count": 3, "groups": ["Business", "General Arts", "General Science", "Vocational/Home Economics"], "min_grade": "C6"} ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE (3) electives from Business, General Arts, General Science, or Vocational/Home Economics."
+  },
+  {
+    "id": "req-032",
+    "programId": "prog-032",
+    "faculty": "KNUST School of Business",
+    "programName": "BSc. Business Administration (Marketing/International Business)",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [ {"type": "any", "count": 3, "groups": ["Business", "General Arts", "General Science", "Vocational/Home Economics"], "min_grade": "C6"} ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE (3) electives from Business, General Arts, General Science, or Vocational/Home Economics."
+  },
+  {
+    "id": "req-033",
+    "programId": "prog-033",
+    "faculty": "KNUST School of Business",
+    "programName": "BSc. Hospitality and Tourism Management",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [ {"type": "any", "count": 3, "groups": ["Business", "General Arts", "General Science", "Vocational/Home Economics"], "min_grade": "C6"} ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE (3) electives from Business, General Arts, General Science, or Vocational/Home Economics."
+  },
+  {
+    "id": "req-034",
+    "programId": "prog-034",
+    "faculty": "KNUST School of Business",
+    "programName": "BSc. Business Administration (Accounting/Banking and Finance)",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [ {"type": "any", "count": 3, "groups": ["Business", "General Arts", "General Science"], "min_grade": "C6"} ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE (3) electives from Business, General Arts, or General Science."
+  },
+  {
+    "id": "req-035",
+    "programId": "prog-035",
+    "faculty": "KNUST School of Business",
+    "programName": "BSc. Business Administration (Logistics and Supply Chain Management/Business Information Technology)",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [ {"type": "any", "count": 3, "groups": ["Business", "General Arts", "General Science"], "min_grade": "C6"} ],
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "additionalRequirements": "Credit passes in THREE (3) electives from Business, General Arts, or General Science."
   }
+
 ]

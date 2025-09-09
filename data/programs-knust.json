@@ -406,5 +406,106 @@
     "averageSalary": null,
     "employmentRate": null,
     "universityRegion": "Ashanti"
+     },
+
+  {
+    "id": "prog-027",
+    "name": "BSc. Disability and Rehabilitation Studies",
+    "faculty": "College of Health Sciences",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "description": "Focuses on disability studies and rehabilitation, open to Science, Arts, Business, Visual Art, and Home Economics backgrounds.",
+    "careerOutcomes": ["Rehabilitation Specialist", "Disability Advocate", "Social Worker", "Therapist"],
+    "averageSalary": null,
+    "employmentRate": null,
+    "universityRegion": "Ashanti"
+  },
+  {
+    "id": "prog-028",
+    "name": "Bachelor of Public Administration",
+    "faculty": "Faculty of Social Sciences",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "description": "Public administration program for General Arts, Business, Science, Home Economics, and Visual Art backgrounds.",
+    "careerOutcomes": ["Public Administrator", "Policy Analyst", "Government Officer", "NGO Manager"],
+    "averageSalary": null,
+    "employmentRate": null,
+    "universityRegion": "Ashanti"
+  },
+  {
+    "id": "prog-029",
+    "name": "BA. Religion and Human Development",
+    "faculty": "Faculty of Social Sciences",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "description": "Program focused on religion and human development, requires General Arts background with CRS or IRS.",
+    "careerOutcomes": ["Religious Educator", "Community Worker", "NGO Specialist", "Social Policy Analyst"],
+    "averageSalary": null,
+    "employmentRate": null,
+    "universityRegion": "Ashanti"
+  },
+  {
+    "id": "prog-030",
+    "name": "Bachelor of Law (LLB)",
+    "faculty": "Faculty of Law",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "description": "Law program for General Arts, Business, Visual Art, and Science backgrounds.",
+    "careerOutcomes": ["Lawyer", "Legal Consultant", "Judge", "Legal Officer"],
+    "averageSalary": null,
+    "employmentRate": null,
+    "universityRegion": "Ashanti"
+  },
+  {
+    "id": "prog-031",
+    "name": "BSc. Business Administration (Human Resource Management/Management)",
+    "faculty": "KNUST School of Business",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "description": "Business administration program for HR and Management, open to Business, Arts, Science, and Vocational/Home Economics backgrounds.",
+    "careerOutcomes": ["HR Manager", "Business Manager", "Entrepreneur", "Consultant"],
+    "averageSalary": null,
+    "employmentRate": null,
+    "universityRegion": "Ashanti"
+  },
+  {
+    "id": "prog-032",
+    "name": "BSc. Business Administration (Marketing/International Business)",
+    "faculty": "KNUST School of Business",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "description": "Business administration program for Marketing and International Business, open to Business, Arts, Science, and Vocational/Home Economics backgrounds.",
+    "careerOutcomes": ["Marketing Manager", "International Business Specialist", "Sales Director", "Business Consultant"],
+    "averageSalary": null,
+    "employmentRate": null,
+    "universityRegion": "Ashanti"
+  },
+  {
+    "id": "prog-033",
+    "name": "BSc. Hospitality and Tourism Management",
+    "faculty": "KNUST School of Business",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "description": "Hospitality and tourism program for Business, Arts, Science, and Vocational/Home Economics backgrounds.",
+    "careerOutcomes": ["Hotel Manager", "Tourism Officer", "Event Planner", "Travel Consultant"],
+    "averageSalary": null,
+    "employmentRate": null,
+    "universityRegion": "Ashanti"
+  },
+  {
+    "id": "prog-034",
+    "name": "BSc. Business Administration (Accounting/Banking and Finance)",
+    "faculty": "KNUST School of Business",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "description": "Business administration program for Accounting and Banking/Finance, open to Business, Arts, and Science backgrounds.",
+    "careerOutcomes": ["Accountant", "Banker", "Finance Manager", "Auditor"],
+    "averageSalary": null,
+    "employmentRate": null,
+    "universityRegion": "Ashanti"
+  },
+  {
+    "id": "prog-035",
+    "name": "BSc. Business Administration (Logistics and Supply Chain Management/Business Information Technology)",
+    "faculty": "KNUST School of Business",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "description": "Business administration program for Logistics/Supply Chain and Business IT, open to Business, Arts, and Science backgrounds.",
+    "careerOutcomes": ["Logistics Manager", "Supply Chain Analyst", "IT Business Analyst", "Operations Manager"],
+    "averageSalary": null,
+    "employmentRate": null,
+    "universityRegion": "Ashanti"
   }
+
 ]
