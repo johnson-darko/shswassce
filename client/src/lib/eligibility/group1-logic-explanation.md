@@ -1,4 +1,11 @@
 # Group A Eligibility Logic for KNUST Programs
+yellow highlight in pdf
+// To add a new program to Group 1:
+  // 1. Confirm the program's requirements match the Group 1 pattern (core subjects: English, Mathematics, Integrated Science; electives:or any 3 from the allowed groups or technical list).
+  // 2. Add the program name and its eligible groups/message to the group1Map below, using UPPERCASE for the key.
+  // 3. Reference the program name in the main eligibility logic so it uses checkGroup1Eligibility.
+  // 4. No need to duplicate logic—just update group1Map and ensure the main file routes the program to this function.
+   // 5. Add it to the program and requirements, append to it
 
 This document explains which programs and requirements can be grouped under the shared Group A eligibility logic, as implemented in `checkGroup1Eligibility` in `eligibility-knust.ts`.
 

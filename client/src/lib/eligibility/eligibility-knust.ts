@@ -1,90 +1,6 @@
-// Shared logic for Group 1 KNUST programs
-function checkGroup1Eligibility(combo: any, requirement: any, programName: string): { eligible: boolean, details: string[] } {
-  // Core: English, Mathematics, Integrated Science
-  const coreSubjects = combo.coreSubjects.map((s: any) => s.subject.trim().toLowerCase());
-  const hasEnglish = coreSubjects.includes('english language');
-  const hasMath = coreSubjects.includes('mathematics');
-  const hasScience = coreSubjects.includes('integrated science');
-  let coreEligible = hasEnglish && hasMath && hasScience;
-  let coreDetails: string[] = [];
-  if (!coreEligible) {
-    coreDetails.push('Missing required core subjects: English, Mathematics, Integrated Science');
-  }
-
-  // Elective logic
-  const electives = combo.electiveSubjects.filter((e: any) => gradeToNumber(e.grade) <= 6);
-  let electivesEligible = false;
-  let electivesDetails: string[] = [];
-
-  // Define eligible groups for each program
-  const group1Map: Record<string, { groups: string[], message: string }> = {
-    'BSC. PACKAGING TECHNOLOGY': {
-      groups: ['Science', 'General Arts', 'Visual Art', 'Technical', 'Home Economics'],
-      message: 'Before you apply for this program, make sure you have 3 passed electives and has to be a student from Science, General Arts, Visual Art, Technical or Home Economics.'
-    },
-    'BA. METAL PRODUCT DESIGN TECHNOLOGY': {
-      groups: ['Visual Art', 'Home Economics', 'Technical', 'Science'],
-      message: 'Before you apply for this program, make sure you have 3 passed electives and has to be a student from Visual Art, Home Economics, Technical or Science.'
-    },
-    'BSC. TEXTILE DESIGN AND TECHNOLOGY': {
-      groups: ['Visual Art', 'Home Economics', 'Technical', 'Science', 'General Arts', 'Business'],
-      message: 'Before you apply for this program, make sure you have 3 passed electives and has to be a student from Visual Art, Home Economics, Technical, Science, General Arts or Business.'
-    },
-    'BSC. FASHION DESIGN': {
-      groups: ['Visual Art', 'Home Economics', 'Technical', 'Science', 'General Arts', 'Business'],
-      message: 'Before you apply for this program, make sure you have 3 passed electives and has to be a student from Visual Art, Home Economics, Technical, Science, General Arts or Business.'
-    },
-    'BFA. CERAMICS': {
-      groups: ['Visual Art', 'Home Economics', 'General Arts'],
-      message: 'Before you apply for this program, make sure you have 3 passed electives and has to be a student from Visual Art, Home Economics or General Arts.'
-    },
-    'B.ED. (ART AND DESIGN TECHNOLOGY)': {
-      groups: ['Visual Arts', 'Vocational', 'Science', 'Technical', 'General Arts'],
-      message: 'Before you apply for this program, make sure you have 3 passed electives and has to be a student from Visual Arts, Vocational, Science, Technical or General Arts.'
-    },
-  };
-
-  // For BA. Integrated Rural Art and Industry, use a large subject list (Group A/B)
-  if (programName === 'BA. INTEGRATED RURAL ART AND INDUSTRY') {
-    const groupA = [
-      'picture making', 'leatherwork', 'graphic design', 'textiles', 'jewellery', 'basketry', 'sculpture', 'ceramics', 'general knowledge in art', 'management in living', 'clothing & textiles', 'food and nutrition', 'physics', 'chemistry', 'mathematics (elective)', 'biology', 'religious studies', 'construction', 'economics', 'history', 'akan', 'geography', 'literature in english', 'business management', 'accounting', 'costing', 'ict'
-    ];
-    const groupB = [
-      'welding and fabrication technology', 'digital design technology', 'industrial mechanics', 'wood construction technology', 'furniture design and construction', 'creative art technology', 'building construction technology', 'general textiles', 'fashion design technology', 'visual communication technology'
-    ];
-    const groupAElig = electives.filter(e => groupA.includes(e.subject.trim().toLowerCase()));
-    const groupBElig = electives.filter(e => groupB.includes(e.subject.trim().toLowerCase()));
-    electivesEligible = groupAElig.length >= 3 || groupBElig.length >= 3;
-    electivesDetails.push(`Group A passes: ${groupAElig.length}, Group B passes: ${groupBElig.length}`);
-    if (electivesEligible) {
-      electivesDetails.push(groupAElig.length >= 3 ? 'You qualify via Group A.' : 'You qualify via Group B.');
-    } else {
-      electivesDetails.push('You need at least 3 passes from Group A or Group B subjects.');
-    }
-  } else {
-    // For other programs, just check count of eligible electives
-    const groupInfo = group1Map[programName];
-    electivesEligible = electives.length >= 3;
-    if (groupInfo) {
-      electivesDetails.push(groupInfo.message);
-      electivesDetails.push(`Eligible electives: ${electives.length}`);
-      if (!electivesEligible) {
-        electivesDetails.push('You need at least 3 passes from eligible electives.');
-      }
-    } else {
-      electivesDetails.push(`Eligible electives: ${electives.length}`);
-      if (!electivesEligible) {
-        electivesDetails.push('You need at least 3 passes from eligible electives.');
-      }
-    }
-  }
-
-  let aggregateEligible = !requirement.aggregatePoints || combo.aggregate <= requirement.aggregatePoints;
-  return {
-    eligible: coreEligible && electivesEligible && aggregateEligible,
-    details: [...coreDetails, ...electivesDetails]
-  };
-}
+// ...existing code...
+import { checkGroup1Eligibility } from './group1-eligibility';
+// ...existing code...
 import type { EligibilityResult, WassceeGrades } from '@shared/schema';
 import { gradeToNumber, meetsGradeRequirement, calculateAllAggregateCombinations, normalizeSubjectName } from '../offline-eligibility-engine';
 // import requirements from '../../public/data/requirements-knust.json';
@@ -160,7 +76,16 @@ export function checkEligibilityKNUST(grades: WassceeGrades, programs: any[], re
         'BSC. FASHION DESIGN',
         'BFA. CERAMICS',
         'B.ED. (ART AND DESIGN TECHNOLOGY)',
-        'BA. INTEGRATED RURAL ART AND INDUSTRY'
+        'BA. INTEGRATED RURAL ART AND INDUSTRY',
+        'BSC. DISABILITY AND REHABILITATION STUDIES',
+        'BACHELOR OF PUBLIC ADMINISTRATION',
+        'BA. RELIGION AND HUMAN DEVELOPMENT',
+        'BACHELOR OF LAW (LLB)',
+        'BSC. BUSINESS ADMINISTRATION (HUMAN RESOURCE MANAGEMENT/MANAGEMENT)',
+        'BSC. BUSINESS ADMINISTRATION (MARKETING/INTERNATIONAL BUSINESS)',
+        'BSC. HOSPITALITY AND TOURISM MANAGEMENT',
+        'BSC. BUSINESS ADMINISTRATION (ACCOUNTING/BANKING AND FINANCE)',
+        'BSC. BUSINESS ADMINISTRATION (LOGISTICS AND SUPPLY CHAIN MANAGEMENT/BUSINESS INFORMATION TECHNOLOGY)'
       ].includes(program.name.trim().toUpperCase())) {
         for (const combo of allAggregateCombinations) {
           const group1Result = checkGroup1Eligibility(combo, requirement, program.name.trim().toUpperCase());
@@ -582,7 +507,7 @@ export function checkEligibilityKNUST(grades: WassceeGrades, programs: any[], re
         }
       }
       // Default logic for other programs
-      
+
         // Simple eligibility for B.Ed. Junior High School Education
         else if ([
           'B.ED. JUNIOR HIGH SCHOOL EDUCATION',
