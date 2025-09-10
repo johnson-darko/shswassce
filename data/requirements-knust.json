@@ -783,6 +783,268 @@
     "aggregatePoints": 24,
     "requirementComplexity": "basic",
     "additionalRequirements": "Credit passes in THREE (3) electives from Business, General Arts, or General Science."
+  },
+  {
+    "id": "req-036",
+    "programId": "prog-036",
+    "faculty": "Faculty of Science",
+    "programName": "BSc. Biochemistry",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      { "type": "single", "subject": "Biology", "min_grade": "C6" },
+      { "type": "single", "subject": "Chemistry", "min_grade": "C6" },
+      { "type": "any", "count": 1, "subjects": ["Physics", "Mathematics (Elective)"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in Biology, Chemistry, and either Physics or Elective Mathematics."
+  },
+  {
+    "id": "req-037",
+    "programId": "prog-037",
+    "faculty": "Faculty of Science",
+    "programName": "BSc. Food Science and Technology",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      { "type": "single", "subject": "Biology", "min_grade": "C6" },
+      { "type": "single", "subject": "Chemistry", "min_grade": "C6" },
+      { "type": "any", "count": 1, "subjects": ["Physics", "Mathematics (Elective)"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in Biology, Chemistry, and either Physics or Elective Mathematics."
+  },
+  {
+    "id": "req-038",
+    "programId": "prog-038",
+    "faculty": "Faculty of Science",
+    "programName": "Doctor of Optometry (OD)",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": {
+      "compulsory": ["English Language", "Mathematics", "Integrated Science"]
+    },
+    "electiveSubjects": [
+      { "type": "single", "subject": "Biology", "min_grade": "C6" },
+      { "type": "single", "subject": "Physics", "min_grade": "C6" },
+      { "type": "any", "count": 1, "subjects": ["Chemistry", "Mathematics (Elective)"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Shortlisted applicants are expected to pass an interview. Credit passes in Biology, Physics, and either Chemistry or Mathematics (Elective)."
+  },
+  {
+    "id": "req-039",
+    "programId": "prog-039",
+    "faculty": "Faculty of Science",
+    "programName": "BSc. Chemistry",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [
+      { "type": "single", "subject": "Chemistry", "min_grade": "C6" },
+      { "type": "single", "subject": "Physics", "min_grade": "C6" },
+      { "type": "any", "count": 1, "subjects": ["Mathematics (Elective)", "Biology"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in Chemistry, Physics, and either Mathematics (Elective) or Biology."
+  },
+  {
+    "id": "req-040",
+    "programId": "prog-040",
+    "faculty": "Faculty of Science",
+    "programName": "BSc. Physics",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [
+      { "type": "single", "subject": "Physics", "min_grade": "C6" },
+      { "type": "single", "subject": "Mathematics (Elective)", "min_grade": "C6" },
+      { "type": "any", "count": 1, "subjects": ["Chemistry", "Electronics"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in Physics, Mathematics (Elective), and either Chemistry or Electronics."
+  },
+  {
+    "id": "req-041",
+    "programId": "prog-041",
+    "faculty": "Faculty of Science",
+    "programName": "BSc. Meteorology and Climate Science",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [
+      { "type": "single", "subject": "Mathematics (Elective)", "min_grade": "C6" },
+      { "type": "single", "subject": "Physics", "min_grade": "C6" },
+      { "type": "any", "count": 1, "subjects": ["Chemistry", "Electronics"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in Mathematics (Elective), Physics, and either Chemistry or Electronics."
+  },
+  {
+    "id": "req-042",
+    "programId": "prog-042",
+    "faculty": "Faculty of Science",
+    "programName": "BSc. Mathematics",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [
+      { "type": "single", "subject": "Mathematics (Elective)", "min_grade": "C6" },
+      { "type": "single", "subject": "Physics", "min_grade": "C6" },
+      { "type": "any", "count": 1, "subjects": ["Chemistry", "Biology"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in Mathematics (Elective), Physics, and either Chemistry or Biology."
+  },
+  {
+    "id": "req-043",
+    "programId": "prog-043",
+    "faculty": "Faculty of Science",
+    "programName": "BSc. Statistics",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [
+      { "type": "single", "subject": "Mathematics (Elective)", "min_grade": "C6" },
+      { "type": "any", "count": 2, "subjects": ["Any Elective"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit pass in Mathematics (Elective) and any TWO other electives."
+  },
+  {
+    "id": "req-044",
+    "programId": "prog-044",
+    "faculty": "Faculty of Science",
+    "programName": "BSc. Actuarial Science",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [
+      { "type": "single", "subject": "Mathematics (Elective)", "min_grade": "C6" },
+      { "type": "any", "count": 2, "subjects": ["Any Elective"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit pass in Mathematics (Elective) and any TWO other electives."
+  },
+  {
+    "id": "req-045",
+    "programId": "prog-045",
+    "faculty": "Faculty of Science",
+    "programName": "BSc. Computer Science",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [
+      { "type": "single", "subject": "Mathematics (Elective)", "min_grade": "C6" },
+      { "type": "single", "subject": "Physics", "min_grade": "C6" },
+      { "type": "any", "count": 1, "subjects": ["Chemistry", "Applied Electricity", "Electronics"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in Mathematics (Elective), Physics, and either Chemistry, Applied Electricity, or Electronics."
+  },
+  {
+    "id": "req-046",
+    "programId": "prog-046",
+    "faculty": "Faculty of Social Sciences",
+    "programName": "BA. History",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [
+      { "type": "single", "subject": "History", "min_grade": "C6" },
+      { "type": "any", "count": 1, "subjects": ["Economics", "Geography", "French", "Ghanaian Language", "Literature in English", "Religious Studies"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit pass in History and any ONE from Economics, Geography, French, Ghanaian Language, Literature in English, Religious Studies. Pass in Social Studies (D7–E8) needed for full eligibility."
+  },
+  {
+    "id": "req-047",
+    "programId": "prog-047",
+    "faculty": "Faculty of Social Sciences",
+    "programName": "BA. Political Studies",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [
+      { "type": "single", "subject": "Government", "min_grade": "C6" },
+      { "type": "any", "count": 1, "subjects": ["Economics", "Geography", "French", "Ghanaian Language", "Literature in English", "Religious Studies"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit pass in Government and any ONE from Economics, Geography, French, Ghanaian Language, Literature in English, Religious Studies. Pass in Social Studies (D7–E8) needed for full eligibility."
+  },
+  {
+    "id": "req-048",
+    "programId": "prog-048",
+    "faculty": "Faculty of Social Sciences",
+    "programName": "BA. Geography and Rural Development",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [
+      { "type": "single", "subject": "Geography", "min_grade": "C6" },
+      { "type": "any", "count": 2, "subjects": ["Economics", "Government", "French", "Literature in English", "Religious Studies", "History", "Mathematics (Elective)", "Akan"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit pass in Geography and any TWO from Economics, Government, French, Literature in English, Religious Studies, History, Mathematics (Elective), Akan."
+  },
+  {
+    "id": "req-049",
+    "programId": "prog-049",
+    "faculty": "Faculty of Social Sciences",
+    "programName": "BA. English",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [
+      { "type": "any", "count": 3, "subjects": ["Literature in English", "French", "History", "Government", "Economics", "Geography", "Akan", "Religious Studies"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in THREE electives from Literature in English, French, History, Government, Economics, Geography, Akan, Religious Studies."
+  },
+  {
+    "id": "req-050",
+    "programId": "prog-050",
+    "faculty": "Faculty of Social Sciences",
+    "programName": "BA. French and Francophone Studies",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [
+      { "type": "single", "subject": "French", "min_grade": "B3" },
+      { "type": "any", "count": 2, "subjects": ["History", "Religious Studies", "Economics", "Geography", "Government", "Literature in English", "Business Management", "Ghanaian Language"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Good pass in French (A1–B3) and any TWO from History, Religious Studies, Economics, Geography, Government, Literature in English, Business Management, Ghanaian Language."
+  },
+  {
+    "id": "req-051",
+    "programId": "prog-051",
+    "faculty": "Faculty of Social Sciences",
+    "programName": "BA. Akan Language and Culture",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [
+      { "type": "single", "subject": "Akan", "min_grade": "C6" },
+      { "type": "any", "count": 2, "subjects": ["History", "Geography", "Literature in English", "French", "Economics", "Religious Studies", "Government", "Business Management"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit pass in Akan and any TWO from History, Geography, Literature in English, French, Economics, Religious Studies, Government, Business Management."
+  },
+  {
+    "id": "req-052",
+    "programId": "prog-052",
+    "faculty": "Faculty of Social Sciences",
+    "programName": "BA. Sociology",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [
+      { "type": "any", "count": 3, "subjects": ["History", "Geography", "Literature in English", "French", "Ghanaian Language", "Government", "Business Management", "Mathematics (Elective)", "Economics"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in THREE electives from History, Geography, Literature in English, French, Ghanaian Language, Government, Business Management, Mathematics (Elective), Economics."
+  },
+  {
+    "id": "req-053",
+    "programId": "prog-053",
+    "faculty": "Faculty of Social Sciences",
+    "programName": "BA. Social Work",
+    "universityName": "Kwame Nkrumah University of Science and Technology",
+    "coreSubjects": { "compulsory": ["English Language", "Mathematics", "Integrated Science"] },
+    "electiveSubjects": [
+      { "type": "any", "count": 3, "subjects": ["History", "Geography", "Literature in English", "French", "Ghanaian Language", "Government", "Business Management", "Mathematics (Elective)", "Economics"], "min_grade": "C6" }
+    ],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in THREE electives from History, Geography, Literature in English, French, Ghanaian Language, Government, Business Management, Mathematics (Elective), Economics."
   }
-
 ]
