@@ -1,5 +1,6 @@
 // ...existing code...
 import { checkGroup1Eligibility } from './group1-eligibility';
+import { checkGroup2Eligibility } from './group2-eligibility';
 // ...existing code...
 import type { EligibilityResult, WassceeGrades } from '@shared/schema';
 import { gradeToNumber, meetsGradeRequirement, calculateAllAggregateCombinations, normalizeSubjectName } from '../offline-eligibility-engine';
@@ -29,9 +30,9 @@ export function checkEligibilityKNUST(grades: WassceeGrades, programs: any[], re
       let eligibleCombo = null;
       let borderlineCombo = null;
 
-      // Custom logic for Faculty of Natural Resource Management
-      // Strict matching for BSc Natural Resource Management, Forest Resource Technology, Aquaculture and Water Resource Management
-      if ([
+        // Custom logic for Faculty of Natural Resource Management
+        // Strict matching for BSc Natural Resource Management, Forest Resource Technology, Aquaculture and Water Resource Management
+        if ([
         'BSC. NATURAL RESOURCE MANAGEMENT',
         'BSC. FOREST RESOURCE TECHNOLOGY',
         'BSC. AQUACULTURE AND WATER RESOURCE MANAGEMENT'
@@ -67,6 +68,35 @@ export function checkEligibilityKNUST(grades: WassceeGrades, programs: any[], re
             break;
           }
         }
+        }
+        // Group 2 shared eligibility logic
+        else if ( [
+          'BSC. BIOCHEMISTRY',
+          'FOOD SCIENCE AND TECHNOLOGY',
+          'DOCTOR OF OPTOMETRY (OD)',
+          'BSC. CHEMISTRY',
+          'BSC. PHYSICS',
+          'BSC. METEOROLOGY AND CLIMATE SCIENCE',
+          'BSC. MATHEMATICS',
+          'BSC. STATISTICS',
+          'BSC. ACTUARIAL SCIENCE',
+          'BSC. COMPUTER SCIENCE',
+          'BA. HISTORY',
+          'BA. POLITICAL STUDIES',
+          'BA. GEOGRAPHY AND RURAL DEVELOPMENT',
+          'BA. ENGLISH',
+          'BA. FRENCH AND FRANCOPHONE STUDIES',
+          'BA. AKAN LANGUAGE AND CULTURE',
+          'BA. SOCIOLOGY',
+          'BA. SOCIAL WORK'
+        ].includes(program.name.trim().toUpperCase())) {
+          for (const combo of allAggregateCombinations) {
+            const group2Result = checkGroup2Eligibility(combo, requirement, program.name.trim().toUpperCase());
+            if (group2Result.eligible) {
+              eligibleCombo = { combo, coreDetails: [], electivesDetails: group2Result.details };
+              break;
+            }
+          }
       }
       // Group 1 shared eligibility logic
       else if ([
@@ -497,7 +527,7 @@ export function checkEligibilityKNUST(grades: WassceeGrades, programs: any[], re
           let aggregateEligible = !requirement.aggregatePoints || combo.aggregate <= requirement.aggregatePoints;
           if (coreEligible && aggregateEligible && groupQualified) {
             eligibleCombo = { combo, coreDetails, electivesDetails: [
-              'You meet all requirements for this program!',
+              'You meet all CORE requirements for this program!',
               `Qualified via group: ${groupQualified}`,
               electives.map(e => `${e.subject} (${e.grade})`).join(', '),
               
@@ -506,41 +536,39 @@ export function checkEligibilityKNUST(grades: WassceeGrades, programs: any[], re
           }
         }
       }
-      // Default logic for other programs
-
-        // Simple eligibility for B.Ed. Junior High School Education
-        else if ([
-          'B.ED. JUNIOR HIGH SCHOOL EDUCATION',
-          'BED JUNIOR HIGH SCHOOL EDUCATION'
-        ].includes(program.name.trim().toUpperCase())) {
-          for (const combo of allAggregateCombinations) {
-            const coreSubjects = combo.coreSubjects.map(s => s.subject.trim().toLowerCase());
-            const hasEnglish = coreSubjects.includes('english language');
-            const hasMath = coreSubjects.includes('mathematics');
-            const hasScience = coreSubjects.includes('integrated science');
-            let coreEligible = hasEnglish && hasMath && hasScience;
-            let coreDetails: string[] = [];
-            if (!coreEligible) {
-              coreDetails.push('Missing required core subjects: English, Mathematics, Integrated Science');
-            }
-            // Any 3 electives with C6 or better
-            const electives = combo.electiveSubjects.filter(e => gradeToNumber(e.grade) <= 6);
-            let aggregateEligible = !requirement.aggregatePoints || combo.aggregate <= requirement.aggregatePoints;
-            const allTeachingOptions = [
-              'To be Fully Eligible for Mathematics, Science, ICT, or Agricultural Science: You must be a Science, General Agriculture, or ICT student with 3 passes in your electives.',
-              'To be Fully Eligible for Visual Art: You must be a Visual Art student with 3 passes in your electives.',
-              'To be Fully Eligible for History: You must be a General Arts student (including History) with 3 passes in your electives.',
-              'To be Fully Eligible for Geography: You must be a General Arts student (including Geography) with 3 passes in your electives.'
-            ];
-            if (coreEligible && electives.length >= 3 && aggregateEligible) {
-              eligibleCombo = { combo, coreDetails, electivesDetails: [
-                ...allTeachingOptions,
+      // Simple eligibility for B.Ed. Junior High School Education
+      else if ([
+        'B.ED. JUNIOR HIGH SCHOOL EDUCATION',
+        'BED JUNIOR HIGH SCHOOL EDUCATION'
+      ].includes(program.name.trim().toUpperCase())) {
+        for (const combo of allAggregateCombinations) {
+          const coreSubjects = combo.coreSubjects.map(s => s.subject.trim().toLowerCase());
+          const hasEnglish = coreSubjects.includes('english language');
+          const hasMath = coreSubjects.includes('mathematics');
+          const hasScience = coreSubjects.includes('integrated science');
+          let coreEligible = hasEnglish && hasMath && hasScience;
+          let coreDetails: string[] = [];
+          if (!coreEligible) {
+            coreDetails.push('Missing required core subjects: English, Mathematics, Integrated Science');
+          }
+          // Any 3 electives with C6 or better
+          const electives = combo.electiveSubjects.filter(e => gradeToNumber(e.grade) <= 6);
+          let aggregateEligible = !requirement.aggregatePoints || combo.aggregate <= requirement.aggregatePoints;
+          const allTeachingOptions = [
+            'To be Fully Eligible for Mathematics, Science, ICT, or Agricultural Science: You must be a Science, General Agriculture, or ICT student with 3 passes in your electives.',
+            'To be Fully Eligible for Visual Art: You must be a Visual Art student with 3 passes in your electives.',
+            'To be Fully Eligible for History: You must be a General Arts student (including History) with 3 passes in your electives.',
+            'To be Fully Eligible for Geography: You must be a General Arts student (including Geography) with 3 passes in your electives.'
+          ];
+          if (coreEligible && electives.length >= 3 && aggregateEligible) {
+            eligibleCombo = { combo, coreDetails, electivesDetails: [
+              ...allTeachingOptions,
                
-              ] };
-              break;
-            }
+            ] };
+            break;
           }
         }
+      }
 
             // Grouped eligibility for BSc Ceramic Technology
             else if (program.name.trim().toUpperCase() === 'BSC. CERAMIC TECHNOLOGY') {
@@ -670,7 +698,7 @@ export function checkEligibilityKNUST(grades: WassceeGrades, programs: any[], re
 
       if (eligibleCombo) {
         status = 'eligible';
-        message = 'You meet all requirements for this program!';
+        message = 'You meet all CORE requirements for this program!';
         details = [...eligibleCombo.coreDetails, ...eligibleCombo.electivesDetails, `Aggregate: ✓ ${eligibleCombo.combo.aggregate}/${requirement.aggregatePoints}`];
         usedCombination = eligibleCombo.combo.combination;
         combinationFromBest = eligibleCombo.combo.isBest;

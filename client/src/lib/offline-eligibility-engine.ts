@@ -1,5 +1,4 @@
 import { localDataService } from './local-data-service';
-import type { EligibilityResult, WassceeGrades, AdmissionTrack } from '@shared/schema';
 
 // Grade value mapping for comparison
 export const gradeValues: Record<string, number> = {
@@ -18,7 +17,7 @@ export function meetsGradeRequirement(studentGrade: string | undefined, required
 }
 
 // Calculate all possible aggregate combinations (best + alternatives)
-export function calculateAllAggregateCombinations(grades: WassceeGrades): Array<{
+export function calculateAllAggregateCombinations(grades: any): Array<{
   combination: string;
   aggregate: number;
   coreSubjects: Array<{subject: string, grade: string}>;
@@ -117,15 +116,15 @@ export function calculateAllAggregateCombinations(grades: WassceeGrades): Array<
 }
 
 // Calculate aggregate points from grades (lower is better in Ghana system) - legacy function
-function calculateAggregatePoints(grades: WassceeGrades): number {
+function calculateAggregatePoints(grades: any): number {
   const combinations = calculateAllAggregateCombinations(grades);
   return combinations.length > 0 ? combinations[0].aggregate : 999; // Return best aggregate or very high number
 }
 
 // Enhanced eligibility checker for complex requirements
-function checkComplexRequirements(grades: WassceeGrades, requirement: any): {
+function checkComplexRequirements(grades: any, requirement: any): {
   eligible: boolean;
-  tracks: AdmissionTrack[];
+  tracks: any[];
   bestMatch?: string;
   usedElectives?: { subject: string, grade: string }[];
 } {
@@ -133,7 +132,7 @@ function checkComplexRequirements(grades: WassceeGrades, requirement: any): {
     return { eligible: false, tracks: [] };
   }
 
-  const trackResults: AdmissionTrack[] = [];
+  const trackResults: any[] = [];
   let usedElectives: { subject: string, grade: string }[] = [];
   let foundTrack = false;
   let bestTrackName = '';
@@ -150,7 +149,7 @@ function checkComplexRequirements(grades: WassceeGrades, requirement: any): {
 
       // Check core subjects first
       Object.entries(requirement.coreSubjects).forEach(([subject, minGrade]) => {
-        const studentGrade = grades[subject.toLowerCase() as keyof WassceeGrades];
+        const studentGrade = grades[subject.toLowerCase() as keyof typeof grades];
         if (!meetsGradeRequirement(studentGrade, minGrade as string)) {
           eligible = false;
           matchDetails.push(`${subject}: Need ${minGrade}, got ${studentGrade || 'N/A'}`);
@@ -166,8 +165,8 @@ function checkComplexRequirements(grades: WassceeGrades, requirement: any): {
         let found = false;
         // Search through all 4 elective slots to find the matching subject
         for (let i = 1; i <= 4; i++) {
-          const electiveSubjectKey = `elective${i}Subject` as keyof WassceeGrades;
-          const electiveGradeKey = `elective${i}Grade` as keyof WassceeGrades;
+          const electiveSubjectKey = `elective${i}Subject` as keyof typeof grades;
+          const electiveGradeKey = `elective${i}Grade` as keyof typeof grades;
           const electiveSubject = grades[electiveSubjectKey];
           const electiveGrade = grades[electiveGradeKey];
           if (
@@ -244,7 +243,7 @@ export function normalizeSubjectName(subject: string): string {
 }
 
 // Enhanced core subject logic for new requirements structure
-function checkCoreSubjectsFlexible(grades: WassceeGrades, coreReq: any): { eligible: boolean, details: string[], usedBestOf?: string, bestOfGrade?: string } {
+function checkCoreSubjectsFlexible(grades: any, coreReq: any): { eligible: boolean, details: string[], usedBestOf?: string, bestOfGrade?: string } {
   let eligible = true;
   let details: string[] = [];
   let usedBestOf = '';
@@ -254,7 +253,7 @@ function checkCoreSubjectsFlexible(grades: WassceeGrades, coreReq: any): { eligi
   if (coreReq.compulsory) {
     for (const subject of coreReq.compulsory) {
       const key = subject.toLowerCase().replace(/\s+/g, '');
-      const studentGrade = grades[key as keyof WassceeGrades];
+      const studentGrade = grades[key as keyof typeof grades];
       if (!meetsGradeRequirement(studentGrade, coreReq.minGrade || 'C6')) {
         eligible = false;
         details.push(`${subject}: Need ${coreReq.minGrade || 'C6'}, got ${studentGrade || 'N/A'}`);
@@ -271,7 +270,7 @@ function checkCoreSubjectsFlexible(grades: WassceeGrades, coreReq: any): { eligi
         let found = false;
         for (const subject of alt.subjects) {
           const key = subject.toLowerCase().replace(/\s+/g, '');
-          const studentGrade = grades[key as keyof WassceeGrades];
+          const studentGrade = grades[key as keyof typeof grades];
           if (meetsGradeRequirement(studentGrade, alt.minGrade)) {
             found = true;
             details.push(`${subject}: ✓ ${studentGrade}`);
@@ -290,7 +289,7 @@ function checkCoreSubjectsFlexible(grades: WassceeGrades, coreReq: any): { eligi
   if (coreReq.bestOf) {
     const gradesArr = coreReq.bestOf.map((subject: string) => {
       const key = subject.toLowerCase().replace(/\s+/g, '');
-      return { subject, grade: grades[key as keyof WassceeGrades] ?? 'F9' };
+      return { subject, grade: grades[key as keyof typeof grades] ?? 'F9' };
     });
     const best = gradesArr.reduce((prev: { subject: string, grade: string }, curr: { subject: string, grade: string }) => {
       if (!prev.grade) return curr;
@@ -311,14 +310,14 @@ function checkCoreSubjectsFlexible(grades: WassceeGrades, coreReq: any): { eligi
 }
 
 // Main eligibility checking function
-export async function checkEligibilityOffline(grades: WassceeGrades): Promise<EligibilityResult[]> {
+export async function checkEligibilityOffline(grades: any): Promise<any[]> {
   try {
     console.log('Checking eligibility offline with grades:', grades);
     const [programs, requirements] = await Promise.all([
       localDataService.getPrograms(),
       localDataService.getRequirements()
     ]);
-    let results: EligibilityResult[] = [];
+    let results: any[] = [];
     // --- Per-school routing block ---
     // Group programs by university
     const programsByUniversity: Record<string, any[]> = {};

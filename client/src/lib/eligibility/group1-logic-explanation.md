@@ -6,7 +6,7 @@ yellow highlight in pdf
   // 3. Reference the program name in the main eligibility logic so it uses checkGroup1Eligibility.
   // 4. No need to duplicate logic—just update group1Map and ensure the main file routes the program to this function.
    // 5. Add it to the program and requirements, append to it
-
+I will append the "Doctor of Optometry (OD)" program to your programs-knust.json file, including all key details for Group 2 eligibility
 This document explains which programs and requirements can be grouped under the shared Group A eligibility logic, as implemented in `checkGroup1Eligibility` in `eligibility-knust.ts`.
 
 ## Group A Logic Summary

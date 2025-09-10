@@ -111,7 +111,7 @@ export function checkEligibilityUG(grades: WassceeGrades, programs: any[], requi
       }
       if (eligibleCombo) {
         status = 'eligible';
-        message = 'You meet all requirements for this program!';
+        message = 'You meet all CORE requirements for this program!';
         details = [...eligibleCombo.coreDetails, ...eligibleCombo.electivesDetails, `Aggregate: ✓ ${eligibleCombo.combo.aggregate}/${requirement.aggregatePoints}`];
         usedCombination = eligibleCombo.combo.combination;
         combinationFromBest = eligibleCombo.combo.isBest;

@@ -18,10 +18,10 @@ class LocalDataService {
     try {
       console.log('Loading local data files...');
       const [universitiesRes, programsIndexRes, requirementsRes, scholarshipsRes] = await Promise.all([
-  fetch(`${import.meta.env.BASE_URL}data/universities.json`),
-  fetch(`${import.meta.env.BASE_URL}data/programs.json`),
-  fetch(`${import.meta.env.BASE_URL}data/requirements.json`),
-  fetch(`${import.meta.env.BASE_URL}data/scholarships.json`)
+  fetch('data/universities.json'),
+  fetch('data/programs.json'),
+  fetch('data/requirements.json'),
+  fetch('data/scholarships.json')
       ]);
 
       const [universities, programsIndex, requirements, scholarships] = await Promise.all([
@@ -35,7 +35,7 @@ class LocalDataService {
       let allPrograms: any[] = [];
       for (const uni of programsIndex) {
         try {
-          const res = await fetch(`${import.meta.env.BASE_URL}data/${uni.programsFile}`);
+          const res = await fetch(`data/${uni.programsFile}`);
           const programs = await res.json();
           allPrograms = allPrograms.concat(programs);
         } catch (e) {
@@ -116,11 +116,11 @@ class LocalDataService {
 
   // Update getRequirements to load and merge all requirements files listed in requirements.json
   async getRequirements() {
-  const indexRes = await fetch(`${import.meta.env.BASE_URL}data/requirements.json`);
+  const indexRes = await fetch('data/requirements.json');
     const files: string[] = await indexRes.json();
     let allRequirements: any[] = [];
     for (const file of files) {
-  const res = await fetch(`${import.meta.env.BASE_URL}data/${file}`);
+  const res = await fetch(`data/${file}`);
       const reqs = await res.json();
       allRequirements = allRequirements.concat(reqs);
     }

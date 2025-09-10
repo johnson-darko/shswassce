@@ -9,8 +9,10 @@ import { cn } from "@/lib/utils";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 import { checkEligibilityOffline } from '../lib/offline-eligibility-engine';
+import { group1Explanations } from '../lib/eligibility/group1-eligibility';
 import { useLocation } from "wouter";
 
 interface CalculatorGrades {
@@ -149,6 +151,10 @@ export default function CalculatorPage() {
 
   // State to control visibility of the calculator section
   const [showCalculator, setShowCalculator] = useState(true);
+
+  // Modal state for eligibility explanation
+  const [explanationModalOpen, setExplanationModalOpen] = useState(false);
+  const [explanationText, setExplanationText] = useState('');
 
   // Load grades from localStorage on component mount
   useEffect(() => {
@@ -499,6 +505,15 @@ export default function CalculatorPage() {
     }
   }
 
+  // Handler to show explanation modal
+  const handleShowExplanation = (programName: string) => {
+    // Try to match program name in a case-insensitive way
+    const key = Object.keys(group1Explanations).find(k => k.trim().toLowerCase() === programName.trim().toLowerCase());
+    const explanation = key ? group1Explanations[key] : 'No detailed explanation available.';
+    setExplanationText(explanation);
+    setExplanationModalOpen(true);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8" data-testid="calculator">
       <div className="max-w-4xl mx-auto">
@@ -760,11 +775,12 @@ export default function CalculatorPage() {
                         <CheckCircle className="h-5 w-5 mr-2" />
                         Programs You Qualify For ({eligibilityResults.filter(r => r.status === 'eligible' || r.status === 'multiple_tracks').length})
                       </h3>
+                      <p>Read any additional requirements</p>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {eligibilityResults
                           .filter(r => r.status === 'eligible' || r.status === 'multiple_tracks')
                           .map((result, index) => (
-                            <Card key={index} className="border-green-200 bg-green-50" data-testid={`eligible-program-${index}`}>
+                            <Card key={index} className="border-green-200 bg-green-50" data-testid={`eligible-program-${index}`}> 
                               <CardContent className="p-4">
                                 <div className="flex items-start justify-between mb-3">
                                   <div>
@@ -789,7 +805,14 @@ export default function CalculatorPage() {
                                     </Button>
                                   </div>
                                 </div>
-                                <p className="text-sm text-green-700 mb-2">{result.message}</p>
+                                <div className="flex items-center gap-2 mb-2">
+                                  <p className="text-sm text-green-700">{result.message}</p>
+                                  {/* Question icon for explanation */}
+                                  <Button size="icon" variant="ghost" onClick={() => handleShowExplanation(result.programName)}>
+                                    <AlertCircle className="h-5 w-5 text-blue-600" />
+                                  </Button>
+                                </div>
+                                {/* ...existing code for details/careerOutcomes... */}
                                 {result.details.length > 0 && (
                                   <div className="text-xs text-green-600">
                                     <ul className="list-disc list-inside space-y-1">
@@ -1130,6 +1153,17 @@ export default function CalculatorPage() {
             </CardContent>
           </Card>
         )}
+
+        {/* Modal for explanation */}
+        <Dialog open={explanationModalOpen} onOpenChange={setExplanationModalOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Program Eligibility Explained</DialogTitle>
+            </DialogHeader>
+            <div className="text-base text-gray-700 py-2">{explanationText}</div>
+            <Button onClick={() => setExplanationModalOpen(false)} className="mt-4">Close</Button>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

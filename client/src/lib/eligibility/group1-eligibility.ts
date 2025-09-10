@@ -69,6 +69,42 @@ export const group1Map: Record<string, { groups: string[], message: string }> = 
     },
 };
 
+// Explanations for eligibility messages (for popups/modals)
+export const group1Explanations: Record<string, string> = {
+  'BSC. PACKAGING TECHNOLOGY':
+    'To apply for Packaging Technology:\n\n• You must have passed 3 elective subjects from one of these groups:\n  - Science\n  - General Arts\n  - Visual Art\n  - Technical\n  - Home Economics\n\n• If you have 3 passes in any one group, you are eligible!',
+  'BA. METAL PRODUCT DESIGN TECHNOLOGY':
+    'To apply for Metal Product Design Technology:\n\n• You must have passed 3 elective subjects from one of these groups:\n  - Visual Art\n  - Home Economics\n  - Technical\n  - Science\n\n• If you have 3 passes in any one group, you are eligible!',
+  'BSC. TEXTILE DESIGN AND TECHNOLOGY':
+    'To apply for Textile Design and Technology:\n\n• You must have passed 3 elective subjects from one of these groups:\n  - Visual Art\n  - Home Economics\n  - Technical\n  - Science\n  - General Arts\n  - Business\n\n• If you have 3 passes in any one group, you are eligible!',
+  'BSC. FASHION DESIGN':
+    'To apply for Fashion Design:\n\n• You must have passed 3 elective subjects from one of these groups:\n  - Visual Art\n  - Home Economics\n  - Technical\n  - Science\n  - General Arts\n  - Business\n\n• If you have 3 passes in any one group, you are eligible!',
+  'BFA. CERAMICS':
+    'To apply for Ceramics:\n\n• You must have passed 3 elective subjects from one of these groups:\n  - Visual Art\n  - Home Economics\n  - General Arts\n\n• If you have 3 passes in any one group, you are eligible!',
+  'B.ED. (ART AND DESIGN TECHNOLOGY)':
+    'To apply for Art and Design Technology:\n\n• You must have passed 3 elective subjects from one of these groups:\n  - Visual Arts\n  - Vocational\n  - Science\n  - Technical\n  - General Arts\n\n• If you have 3 passes in any one group, you are eligible!',
+  'BA. INTEGRATED RURAL ART AND INDUSTRY':
+    'To apply for Integrated Rural Art and Industry:\n\n• You must have passed 3 elective subjects from one of these groups:\n  - Group A: Visual Art, Home Economics, General Arts, Science, Business\n  - Group B: Technical or Creative Art subjects (Welding, Digital Design, Industrial Mechanics, etc.)\n\n• If you have 3 passes in any one group, you are eligible!',
+  'BSC. DISABILITY AND REHABILITATION STUDIES':
+    'To apply for Disability and Rehabilitation Studies:\n\n• You must have passed 3 elective subjects from one of these groups:\n  - General Science\n  - General Arts\n  - Business\n  - Visual Art\n  - Home Economics\n\n• If you have 3 passes in any one group, you are eligible!',
+  'BACHELOR OF PUBLIC ADMINISTRATION':
+    'To apply for Public Administration:\n\n• You must have passed 3 elective subjects from one of these groups:\n  - General Arts\n  - Business\n  - General Science\n  - Home Economics\n  - Visual Art\n\n• If you have 3 passes in any one group, you are eligible!',
+  'BA. RELIGION AND HUMAN DEVELOPMENT':
+    'To apply for Religion and Human Development:\n\n• You must have passed Christian Religious Studies (CRS) or Islamic Religious Studies (IRS)\n• You must also have 2 other General Arts electives with C6 or better\n\n• If you have these, you are eligible!',
+  'BACHELOR OF LAW (LLB)':
+    'To apply for Law (LLB):\n\n• You must have passed 3 elective subjects from one of these groups:\n  - General Arts\n  - Business\n  - Visual Art\n  - General Science\n\n• If you have 3 passes in any one group, you are eligible!',
+  'BSC. BUSINESS ADMINISTRATION (HUMAN RESOURCE MANAGEMENT/MANAGEMENT)':
+    'To apply for Business Administration (HR/Management):\n\n• You must have passed 3 elective subjects from one of these groups:\n  - Business\n  - General Arts\n  - General Science\n  - Vocational/Home Economics\n\n• If you have 3 passes in any one group, you are eligible!',
+  'BSC. BUSINESS ADMINISTRATION (MARKETING/INTERNATIONAL BUSINESS)':
+    'To apply for Business Administration (Marketing/International Business):\n\n• You must have passed 3 elective subjects from one of these groups:\n  - Business\n  - General Arts\n  - General Science\n  - Vocational/Home Economics\n\n• If you have 3 passes in any one group, you are eligible!',
+  'BSC. HOSPITALITY AND TOURISM MANAGEMENT':
+    'To apply for Hospitality and Tourism Management:\n\n• You must have passed 3 elective subjects from one of these groups:\n  - Business\n  - General Arts\n  - General Science\n  - Vocational/Home Economics\n\n• If you have 3 passes in any one group, you are eligible!',
+  'BSC. BUSINESS ADMINISTRATION (ACCOUNTING/BANKING AND FINANCE)':
+    'To apply for Business Administration (Accounting/Banking and Finance):\n\n• You must have passed 3 elective subjects from one of these groups:\n  - Business\n  - General Arts\n  - General Science\n\n• If you have 3 passes in any one group, you are eligible!',
+  'BSC. BUSINESS ADMINISTRATION (LOGISTICS AND SUPPLY CHAIN MANAGEMENT/BUSINESS INFORMATION TECHNOLOGY)':
+    'To apply for Business Administration (Logistics/Supply Chain/Business IT):\n\n• You must have passed 3 elective subjects from one of these groups:\n  - Business\n  - General Arts\n  - General Science\n\n• If you have 3 passes in any one group, you are eligible!'
+};
+
 export function checkGroup1Eligibility(combo: any, requirement: any, programName: string): Group1EligibilityResult {
   // Core: English, Mathematics, Integrated Science
   const coreSubjects = combo.coreSubjects.map((s: any) => s.subject.trim().toLowerCase());
