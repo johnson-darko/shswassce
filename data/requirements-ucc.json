@@ -1,12 +1,15 @@
 [
   {
-    "id": "req-004",
-    "programId": "prog-004",
-    "coreSubjects": {"compulsory": ["English", "Mathematics"], "bestOf": ["Integrated Science", "Social Studies"]},
-    "electiveSubjects": [
-  {"type": "single", "subject": "Elective Mathematics", "min_grade": "C6"},
-  {"type": "any", "count": 2, "subjects": ["Biology", "Chemistry", "Geography", "Government", "Economics", "French", "Literature", "History", "Business Management", "Accounting", "Costing", "Elective Mathematics", "Physics"], "min_grade": "C6"}
-    ],
+    "id": "req-001",
+    "programId": "prog-001",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "delete this later on",
     "additionalRequirements": "Teaching aptitude test required",
     "aggregatePoints": 24,
     "requirementComplexity": "basic",
@@ -14,18 +17,1567 @@
     "universityName": "University of Cape Coast"
   },
   {
-    "id": "req-007",
-    "programId": "prog-007",
-    "coreSubjects": {"English": "C6", "Mathematics": "C6", "Social Studies": "C6", "Integrated Science": "C6"},
-    "electiveSubjects": [
-  {"type": "single", "subject": "Biology", "min_grade": "C6"},
-  {"type": "single", "subject": "Chemistry", "min_grade": "C6"},
-  {"type": "any", "count": 1, "subjects": ["Geography", "French", "Literature", "History", "Business Management", "Accounting", "Costing", "Elective Mathematics", "Physics", "Biology", "Chemistry"], "min_grade": "C6"}
-    ],
+    "id": "req-002",
+    "programId": "prog-002",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Social Studies", "Integrated Science"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "delete this later on",
     "additionalRequirements": "Medical fitness certificate and interview required",
     "aggregatePoints": 24,
     "requirementComplexity": "basic",
     "programName": "Diploma in Nursing",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-003",
+    "programId": "prog-003",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 20, Female 20",
+    "aggregatePoints": 20,
+    "requirementComplexity": "basic",
+    "programName": "BCom Finance",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-004",
+    "programId": "prog-004",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 17, Female 17",
+    "aggregatePoints": 17,
+    "requirementComplexity": "basic",
+    "programName": "BCom Accounting",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-005",
+    "programId": "prog-005",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 34, Female 34",
+    "aggregatePoints": 34,
+    "requirementComplexity": "basic",
+    "programName": "BA Information Science",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-006",
+    "programId": "prog-006",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BSc Statistics",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-007",
+    "programId": "prog-007",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BSc Mathematics with Economics",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-008",
+    "programId": "prog-008",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BSc Mathematics and Statistics",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-009",
+    "programId": "prog-009",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BSc Mathematics with Business",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-010",
+    "programId": "prog-010",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 30, Female 32",
+    "aggregatePoints": 30,
+    "requirementComplexity": "basic",
+    "programName": "BSc Agriculture",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-011",
+    "programId": "prog-011",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 30, Female 32",
+    "aggregatePoints": 30,
+    "requirementComplexity": "basic",
+    "programName": "BSc Agro Processing",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-012",
+    "programId": "prog-012",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 30, Female 32",
+    "aggregatePoints": 30,
+    "requirementComplexity": "basic",
+    "programName": "BSc Horticulture",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-013",
+    "programId": "prog-013",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 30, Female 30",
+    "aggregatePoints": 30,
+    "requirementComplexity": "basic",
+    "programName": "BSc Agriculture Extension and Community Development",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-014",
+    "programId": "prog-014",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 30, Female 30",
+    "aggregatePoints": 30,
+    "requirementComplexity": "basic",
+    "programName": "BSc Agribusiness",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-015",
+    "programId": "prog-015",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 30, Female 30",
+    "aggregatePoints": 30,
+    "requirementComplexity": "basic",
+    "programName": "BSc Psychology",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-016",
+    "programId": "prog-016",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 20, Female 20",
+    "aggregatePoints": 20,
+    "requirementComplexity": "basic",
+    "programName": "BCom Human Resource Management",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-017",
+    "programId": "prog-017",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BCom Marketing",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-018",
+    "programId": "prog-018",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 12, Female 12",
+    "aggregatePoints": 12,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Home Economics (Food and Nutrition)",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-019",
+    "programId": "prog-019",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BCom Procurement and Supply Chain Management",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-020",
+    "programId": "prog-020",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 25, Female 25",
+    "aggregatePoints": 25,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Home Economics (Clothing and Textiles)",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-021",
+    "programId": "prog-021",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BCom Management (Sandwich)",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-022",
+    "programId": "prog-022",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 25, Female 25",
+    "aggregatePoints": 25,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Health, Physical Education and Recreation",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-023",
+    "programId": "prog-023",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 31, Female 31",
+    "aggregatePoints": 31,
+    "requirementComplexity": "basic",
+    "programName": "BA Social Sciences",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-024",
+    "programId": "prog-024",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 27, Female 27",
+    "aggregatePoints": 27,
+    "requirementComplexity": "basic",
+    "programName": "BA Population and Health",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-025",
+    "programId": "prog-025",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 27, Female 27",
+    "aggregatePoints": 27,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Social Sciences (Economics and Geography)",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-026",
+    "programId": "prog-026",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 28, Female 28",
+    "aggregatePoints": 28,
+    "requirementComplexity": "basic",
+    "programName": "BA Anthropology",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-027",
+    "programId": "prog-027",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 23, Female 23",
+    "aggregatePoints": 23,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Accounting",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-028",
+    "programId": "prog-028",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 25, Female 25",
+    "aggregatePoints": 25,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Management",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-029",
+    "programId": "prog-029",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 17, Female 17",
+    "aggregatePoints": 17,
+    "requirementComplexity": "basic",
+    "programName": "BSc Geography and Regional Planning",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-030",
+    "programId": "prog-030",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 25, Female 25",
+    "aggregatePoints": 25,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Arts",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-031",
+    "programId": "prog-031",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 31, Female 31",
+    "aggregatePoints": 31,
+    "requirementComplexity": "basic",
+    "programName": "BSc Tourism Management",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-032",
+    "programId": "prog-032",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 25, Female 25",
+    "aggregatePoints": 25,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Social Studies",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-033",
+    "programId": "prog-033",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 19, Female 19",
+    "aggregatePoints": 19,
+    "requirementComplexity": "basic",
+    "programName": "BSc Hospitality Management",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-034",
+    "programId": "prog-034",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 25, Female 25",
+    "aggregatePoints": 25,
+    "requirementComplexity": "basic",
+    "programName": "BSc Economics",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-035",
+    "programId": "prog-035",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BSc Economics With Finance",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-036",
+    "programId": "prog-036",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 29, Female 29",
+    "aggregatePoints": 29,
+    "requirementComplexity": "basic",
+    "programName": "BSc Health Information Management",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-037",
+    "programId": "prog-037",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 12, Female 12",
+    "aggregatePoints": 12,
+    "requirementComplexity": "basic",
+    "programName": "BSc Diagnostic Medical Sonography",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-038",
+    "programId": "prog-038",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 12, Female 12",
+    "aggregatePoints": 12,
+    "requirementComplexity": "basic",
+    "programName": "BSc Diagnostic Imaging Technology",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-039",
+    "programId": "prog-039",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Primary Education",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-040",
+    "programId": "prog-040",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Junior High School Education",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-041",
+    "programId": "prog-041",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 9, Female 9",
+    "aggregatePoints": 9,
+    "requirementComplexity": "basic",
+    "programName": "LL.B. Law",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-042",
+    "programId": "prog-042",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Early Childhood Education",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-043",
+    "programId": "prog-043",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 32, Female 32",
+    "aggregatePoints": 32,
+    "requirementComplexity": "basic",
+    "programName": "BA Arts",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-044",
+    "programId": "prog-044",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 20, Female 20",
+    "aggregatePoints": 20,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Science",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-045",
+    "programId": "prog-045",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 22, Female 22",
+    "aggregatePoints": 22,
+    "requirementComplexity": "basic",
+    "programName": "BA Communication Studies",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-046",
+    "programId": "prog-046",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 18, Female 18",
+    "aggregatePoints": 18,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Mathematics",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-047",
+    "programId": "prog-047",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 33, Female 33",
+    "aggregatePoints": 33,
+    "requirementComplexity": "basic",
+    "programName": "BA African Studies",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-048",
+    "programId": "prog-048",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 20, Female 20",
+    "aggregatePoints": 20,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Information Technology",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-049",
+    "programId": "prog-049",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 34, Female 34",
+    "aggregatePoints": 34,
+    "requirementComplexity": "basic",
+    "programName": "BA Theatre and Drama",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-050",
+    "programId": "prog-050",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 34, Female 34",
+    "aggregatePoints": 34,
+    "requirementComplexity": "basic",
+    "programName": "BA Music",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-051",
+    "programId": "prog-051",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 26, Female 26",
+    "aggregatePoints": 26,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Fine Arts",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-052",
+    "programId": "prog-052",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 34, Female 34",
+    "aggregatePoints": 34,
+    "requirementComplexity": "basic",
+    "programName": "BA Chinese",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-053",
+    "programId": "prog-053",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 25, Female 25",
+    "aggregatePoints": 25,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Communication Design",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-054",
+    "programId": "prog-054",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 18, Female 18",
+    "aggregatePoints": 18,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed. Construction Technology Education",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-055",
+    "programId": "prog-055",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 29, Female 29",
+    "aggregatePoints": 29,
+    "requirementComplexity": "basic",
+    "programName": "BA Linguistics",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-056",
+    "programId": "prog-056",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 12, Female 12 Either Regular or Sandwich",
+    "aggregatePoints": 12,
+    "requirementComplexity": "basic",
+    "programName": "BSc Medical Laboratory Technology",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-057",
+    "programId": "prog-057",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 18, Female 18",
+    "aggregatePoints": 18,
+    "requirementComplexity": "basic",
+    "programName": "BSc Biomedical Sciences",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-058",
+    "programId": "prog-058",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 11, Female 11",
+    "aggregatePoints": 11,
+    "requirementComplexity": "basic",
+    "programName": "BSc Nursing",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-059",
+    "programId": "prog-059",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 30, Female 30",
+    "aggregatePoints": 30,
+    "requirementComplexity": "basic",
+    "programName": "BSc Fisheries and Aquatic Science",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-060",
+    "programId": "prog-060",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 18, Female 18",
+    "aggregatePoints": 18,
+    "requirementComplexity": "basic",
+    "programName": "BSc Biochemistry",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-061",
+    "programId": "prog-061",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 33, Female 33",
+    "aggregatePoints": 33,
+    "requirementComplexity": "basic",
+    "programName": "BSc Environmental Science",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-062",
+    "programId": "prog-062",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BSc Molecular Biology and Biotechnology",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-063",
+    "programId": "prog-063",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 33, Female 33",
+    "aggregatePoints": 33,
+    "requirementComplexity": "basic",
+    "programName": "BSc Conservation Biology and Entomology",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-064",
+    "programId": "prog-064",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BSc Forensic Science",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-065",
+    "programId": "prog-065",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 15, Female 17",
+    "aggregatePoints": 15,
+    "requirementComplexity": "basic",
+    "programName": "BSc Information Technology",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-066",
+    "programId": "prog-066",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 15, Female 17",
+    "aggregatePoints": 15,
+    "requirementComplexity": "basic",
+    "programName": "BSc Computer Science",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-067",
+    "programId": "prog-067",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BSc Laboratory Technology (Sandwich)",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-068",
+    "programId": "prog-068",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BSc Chemistry",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-069",
+    "programId": "prog-069",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BSc Industrial Chemistry",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-070",
+    "programId": "prog-070",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 20, Female 20",
+    "aggregatePoints": 20,
+    "requirementComplexity": "basic",
+    "programName": "BSc Chemical Engineering",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-071",
+    "programId": "prog-071",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BSc Agricultural Engineering",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-072",
+    "programId": "prog-072",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BSc Physics",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-073",
+    "programId": "prog-073",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BSc Engineering Physics (Sandwich)",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-074",
+    "programId": "prog-074",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BSc Meteorology and Atmospheric Physics",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-075",
+    "programId": "prog-075",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BSc Mathematics",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-076",
+    "programId": "prog-076",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 24, Female 24",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "programName": "BSc Actuarial Science",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-077",
+    "programId": "prog-077",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.Sc Mental Health Nursing",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-078",
+    "programId": "prog-078",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.Sc Community Mental Health Nursing",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-079",
+    "programId": "prog-079",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed Basic Education",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-080",
+    "programId": "prog-080",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed Guidance and Counselling",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-081",
+    "programId": "prog-081",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed Home Economics",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-082",
+    "programId": "prog-082",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed Computer Science",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-083",
+    "programId": "prog-083",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed Early Childhood Education (Sandwich)",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-084",
+    "programId": "prog-084",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed Social Science",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-085",
+    "programId": "prog-085",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed Social Studies",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-086",
+    "programId": "prog-086",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed Social Studies",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-087",
+    "programId": "prog-087",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.Ed Bachelor of Education",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-088",
+    "programId": "prog-088",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.Sc Aquaculture",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-089",
+    "programId": "prog-089",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.Sc Post – Harvest Technology",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-090",
+    "programId": "prog-090",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.Sc Film Studies",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-091",
+    "programId": "prog-091",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.A Social Behaviour and Conflict Management (Sandwich)",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-092",
+    "programId": "prog-092",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.A Classics and Philosophy",
+    "universityName": "University of Cape Coast"
+  },
+  {
+    "id": "req-093",
+    "programId": "prog-093",
+    "coreSubjects": {
+      "compulsory": [
+        {"subject": "English Language", "min_grade": "C6"},
+        {"subject": "Mathematics", "min_grade": "C6"}
+      ],
+      "any": {"count": 1, "subjects": ["Integrated Science", "Social Studies"], "min_grade": "C6"}
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "Cut-off points: Male 36, Female 36",
+    "aggregatePoints": 36,
+    "requirementComplexity": "basic",
+    "programName": "B.Mus Religion and Human Values",
     "universityName": "University of Cape Coast"
   }
 ]

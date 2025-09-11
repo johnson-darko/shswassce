@@ -23,5 +23,10 @@
     "universityId": "uds-001",
     "universityName": "University for Development Studies",
     "programsFile": "programs-uds.json"
+  },
+  {
+    "universityId": "uew-001",
+    "universityName": "University of Education, Winneba",
+    "programsFile": "programs-uew.json"
   }
 ]

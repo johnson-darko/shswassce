@@ -53,5 +53,16 @@
     "link": "https://uds.edu.gh/scholarships",
     "universityName": "University for Development Studies",
     "programName": null
+  },
+  {
+    "id": "sch-006",
+    "universityId": "uew-001",
+    "programId": null,
+    "name": "UEW Teacher Excellence Scholarship",
+    "amount": 7000,
+    "eligibilityText": "Awarded to outstanding students pursuing education degrees. Minimum aggregate of 15 points, commitment to teaching required.",
+    "link": "https://uew.edu.gh/scholarships",
+    "universityName": "University of Education, Winneba",
+    "programName": null
   }
 ]

@@ -73,5 +73,20 @@
     "medianEarnings": 35000,
     "acceptanceRate": 68,
     "description": "Multi-campus university focused on development studies"
+  },
+  {
+    "id": "uew-001",
+    "name": "University of Education, Winneba",
+    "location": "Winneba",
+    "region": "Central",
+    "type": "Public",
+    "size": "Large",
+    "setting": "City",
+    "website": "https://uew.edu.gh",
+    "graduationRate": 80,
+    "annualCost": 10000,
+    "medianEarnings": 37000,
+    "acceptanceRate": 70,
+    "description": "Ghana's leading university for teacher education and educational research"
   }
 ]

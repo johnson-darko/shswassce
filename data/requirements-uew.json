@@ -1,0 +1,4082 @@
+[
+  {
+    "id": "uew-req-001",
+    "programId": "uew-prog-001",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Ed. Community-Based Rehabilitation and Disability Studies"
+  },
+  {
+    "id": "uew-req-002",
+    "programId": "uew-prog-002",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Ed. Counselling Psychology"
+  },
+  {
+    "id": "uew-req-003",
+    "programId": "uew-prog-003",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Ed. Early Grade Education"
+  },
+  {
+    "id": "uew-req-004",
+    "programId": "uew-prog-004",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Ed. Psychology"
+  },
+  {
+    "id": "uew-req-005",
+    "programId": "uew-prog-005",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Ed. Special Education"
+  },
+  {
+    "id": "uew-req-006",
+    "programId": "uew-prog-006",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Ed. Special Education with (ICT Education, Integrated Home Economics Education, Clothing and Textiles Education, Social Studies Education, French Education, English Education and Health, Physical Education and Recreational Sports)"
+  },
+  {
+    "id": "uew-req-007",
+    "programId": "uew-prog-007",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Diploma in Community-Based Rehabilitation & Disability Studies"
+  },
+  {
+    "id": "uew-req-008",
+    "programId": "uew-prog-008",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Ed. Early Grade Education (Post-Diploma)"
+  },
+  {
+    "id": "uew-req-009",
+    "programId": "uew-prog-009",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Ed. Counselling Psychology (Post-Diploma)"
+  },
+  {
+    "id": "uew-req-010",
+    "programId": "uew-prog-010",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Ed. Special Education (Post-Diploma)"
+  },
+  {
+    "id": "uew-req-011",
+    "programId": "uew-prog-011",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Diploma in Early Grade Education"
+  },
+  {
+    "id": "uew-req-012",
+    "programId": "uew-prog-012",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Certificate in Preschool Education (Early Grade Education)"
+  },
+  {
+    "id": "uew-req-013",
+    "programId": "uew-prog-013",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Ed. Basic Education (JHS Option)"
+  },
+  {
+    "id": "uew-req-014",
+    "programId": "uew-prog-014",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Ed. Basic Education (Upper Primary: P4 – P6)"
+  },
+  {
+    "id": "uew-req-015",
+    "programId": "uew-prog-015",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Diploma in Basic Education"
+  },
+  {
+    "id": "uew-req-016",
+    "programId": "uew-prog-016",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Ed. Basic Education (Upper Primary: P4-P6) (Post-Diploma)"
+  },
+  {
+    "id": "uew-req-017",
+    "programId": "uew-prog-017",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Diploma in Basic Education (Sandwich)"
+  },
+  {
+    "id": "uew-req-018",
+    "programId": "uew-prog-018",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Certificate in Basic Education (Sandwich)"
+  },
+  {
+    "id": "uew-req-019",
+    "programId": "uew-prog-019",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. English Education"
+  },
+  {
+    "id": "uew-req-020",
+    "programId": "uew-prog-020",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. French Education"
+  },
+  {
+    "id": "uew-req-021",
+    "programId": "uew-prog-021",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. German Education"
+  },
+  {
+    "id": "uew-req-022",
+    "programId": "uew-prog-022",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. German with (English, French, Applied Linguistics)"
+  },
+  {
+    "id": "uew-req-023",
+    "programId": "uew-prog-023",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. French Education with (English, German, Linguistics)"
+  },
+  {
+    "id": "uew-req-024",
+    "programId": "uew-prog-024",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Linguistics and Dagaare Education"
+  },
+  {
+    "id": "uew-req-025",
+    "programId": "uew-prog-025",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Linguistics and Dagbani Education"
+  },
+  {
+    "id": "uew-req-026",
+    "programId": "uew-prog-026",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Linguistics and Dangme Education"
+  },
+  {
+    "id": "uew-req-027",
+    "programId": "uew-prog-027",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Linguistics and English Education"
+  },
+  {
+    "id": "uew-req-028",
+    "programId": "uew-prog-028",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Linguistics and Ewe Education"
+  },
+  {
+    "id": "uew-req-029",
+    "programId": "uew-prog-029",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Linguistics and Fante Education"
+  },
+  {
+    "id": "uew-req-030",
+    "programId": "uew-prog-030",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Linguistics and French Education"
+  },
+  {
+    "id": "uew-req-031",
+    "programId": "uew-prog-031",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Linguistics and Ga Education"
+  },
+  {
+    "id": "uew-req-032",
+    "programId": "uew-prog-032",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Linguistics and Gonja Education"
+  },
+  {
+    "id": "uew-req-033",
+    "programId": "uew-prog-033",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Linguistics and Gurene Education"
+  },
+  {
+    "id": "uew-req-034",
+    "programId": "uew-prog-034",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Linguistics and Kasem Education"
+  },
+  {
+    "id": "uew-req-035",
+    "programId": "uew-prog-035",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Linguistics and Kusaal Education"
+  },
+  {
+    "id": "uew-req-036",
+    "programId": "uew-prog-036",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Linguistics and Nzema Education"
+  },
+  {
+    "id": "uew-req-037",
+    "programId": "uew-prog-037",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Linguistics and Twi Education"
+  },
+  {
+    "id": "uew-req-038",
+    "programId": "uew-prog-038",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Diploma in French Education"
+  },
+  {
+    "id": "uew-req-039",
+    "programId": "uew-prog-039",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Clothing and Textiles Education"
+  },
+  {
+    "id": "uew-req-040",
+    "programId": "uew-prog-040",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Family Life Management Education"
+  },
+  {
+    "id": "uew-req-041",
+    "programId": "uew-prog-041",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Food and Nutrition Education"
+  },
+  {
+    "id": "uew-req-042",
+    "programId": "uew-prog-042",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Integrated Home Economics Education"
+  },
+  {
+    "id": "uew-req-043",
+    "programId": "uew-prog-043",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Environmental Health & Sanitation"
+  },
+  {
+    "id": "uew-req-044",
+    "programId": "uew-prog-044",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Health Administration & Education"
+  },
+  {
+    "id": "uew-req-045",
+    "programId": "uew-prog-045",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Physical Education"
+  },
+  {
+    "id": "uew-req-046",
+    "programId": "uew-prog-046",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Agriculture Education"
+  },
+  {
+    "id": "uew-req-047",
+    "programId": "uew-prog-047",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Biology Education"
+  },
+  {
+    "id": "uew-req-048",
+    "programId": "uew-prog-048",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Chemistry Education"
+  },
+  {
+    "id": "uew-req-049",
+    "programId": "uew-prog-049",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Physics Education"
+  },
+  {
+    "id": "uew-req-050",
+    "programId": "uew-prog-050",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Environmental Science"
+  },
+  {
+    "id": "uew-req-051",
+    "programId": "uew-prog-051",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Information & Communication Technology Education"
+  },
+  {
+    "id": "uew-req-052",
+    "programId": "uew-prog-052",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Integrated Science Education"
+  },
+  {
+    "id": "uew-req-053",
+    "programId": "uew-prog-053",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Mathematics Education"
+  },
+  {
+    "id": "uew-req-054",
+    "programId": "uew-prog-054",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Mathematics Education with Economics"
+  },
+  {
+    "id": "uew-req-055",
+    "programId": "uew-prog-055",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Sports Coaching"
+  },
+  {
+    "id": "uew-req-056",
+    "programId": "uew-prog-056",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Diploma in Coaching (Sandwich)"
+  },
+  {
+    "id": "uew-req-057",
+    "programId": "uew-prog-057",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Certificate in Environmental Health & Sanitation (Sandwich)"
+  },
+  {
+    "id": "uew-req-058",
+    "programId": "uew-prog-058",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Certificate in Preschool Education (Sandwich)"
+  },
+  {
+    "id": "uew-req-059",
+    "programId": "uew-prog-059",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Economics Education"
+  },
+  {
+    "id": "uew-req-060",
+    "programId": "uew-prog-060",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Economics Education with Geography"
+  },
+  {
+    "id": "uew-req-061",
+    "programId": "uew-prog-061",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Economics Education with History"
+  },
+  {
+    "id": "uew-req-062",
+    "programId": "uew-prog-062",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Economics Education with Political Science"
+  },
+  {
+    "id": "uew-req-063",
+    "programId": "uew-prog-063",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Economics Education with Social Studies"
+  },
+  {
+    "id": "uew-req-064",
+    "programId": "uew-prog-064",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Geography Education"
+  },
+  {
+    "id": "uew-req-065",
+    "programId": "uew-prog-065",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Geography Education with Economics"
+  },
+  {
+    "id": "uew-req-066",
+    "programId": "uew-prog-066",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Geography Education with History"
+  },
+  {
+    "id": "uew-req-067",
+    "programId": "uew-prog-067",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Geography Education with Political Science"
+  },
+  {
+    "id": "uew-req-068",
+    "programId": "uew-prog-068",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Geography Education with Social Studies"
+  },
+  {
+    "id": "uew-req-069",
+    "programId": "uew-prog-069",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. History Education"
+  },
+  {
+    "id": "uew-req-070",
+    "programId": "uew-prog-070",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. History Education with Economics"
+  },
+  {
+    "id": "uew-req-071",
+    "programId": "uew-prog-071",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. History Education with Geography"
+  },
+  {
+    "id": "uew-req-072",
+    "programId": "uew-prog-072",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. History Education with Political Science"
+  },
+  {
+    "id": "uew-req-073",
+    "programId": "uew-prog-073",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "History Education with Social Studies"
+  },
+  {
+    "id": "uew-req-074",
+    "programId": "uew-prog-074",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Political Science Education"
+  },
+  {
+    "id": "uew-req-075",
+    "programId": "uew-prog-075",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Political Science Education with Economics"
+  },
+  {
+    "id": "uew-req-076",
+    "programId": "uew-prog-076",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Political Science Education with Geography"
+  },
+  {
+    "id": "uew-req-077",
+    "programId": "uew-prog-077",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Political Science Education with History"
+  },
+  {
+    "id": "uew-req-078",
+    "programId": "uew-prog-078",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Political Science Education with Social Studies"
+  },
+  {
+    "id": "uew-req-079",
+    "programId": "uew-prog-079",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Religions and Moral Studies Education"
+  },
+  {
+    "id": "uew-req-080",
+    "programId": "uew-prog-080",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Social Studies Education"
+  },
+  {
+    "id": "uew-req-081",
+    "programId": "uew-prog-081",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Social Studies Education with Economics"
+  },
+  {
+    "id": "uew-req-082",
+    "programId": "uew-prog-082",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Social Studies Education with Geography"
+  },
+  {
+    "id": "uew-req-083",
+    "programId": "uew-prog-083",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Social Studies Education with History"
+  },
+  {
+    "id": "uew-req-084",
+    "programId": "uew-prog-084",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Social Studies Education with Political Science"
+  },
+  {
+    "id": "uew-req-085",
+    "programId": "uew-prog-085",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.B.A. Accounting"
+  },
+  {
+    "id": "uew-req-086",
+    "programId": "uew-prog-086",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.B.A. Banking & Finance"
+  },
+  {
+    "id": "uew-req-087",
+    "programId": "uew-prog-087",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.B.A. Business Information Systems"
+  },
+  {
+    "id": "uew-req-088",
+    "programId": "uew-prog-088",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.B.A. Human Resource Management"
+  },
+  {
+    "id": "uew-req-089",
+    "programId": "uew-prog-089",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.B.A. Marketing and Entrepreneurship"
+  },
+  {
+    "id": "uew-req-090",
+    "programId": "uew-prog-090",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.B.A. Procurement & Supply Chain Management"
+  },
+  {
+    "id": "uew-req-091",
+    "programId": "uew-prog-091",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Accounting Education"
+  },
+  {
+    "id": "uew-req-092",
+    "programId": "uew-prog-092",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Insurance and Risk Management"
+  },
+  {
+    "id": "uew-req-093",
+    "programId": "uew-prog-093",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Sc. Management Education"
+  },
+  {
+    "id": "uew-req-094",
+    "programId": "uew-prog-094",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Strategic Communication (Public Relations and Advertising)"
+  },
+  {
+    "id": "uew-req-095",
+    "programId": "uew-prog-095",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Journalism and Media Studies"
+  },
+  {
+    "id": "uew-req-096",
+    "programId": "uew-prog-096",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Development Communication"
+  },
+  {
+    "id": "uew-req-097",
+    "programId": "uew-prog-097",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Art Education"
+  },
+  {
+    "id": "uew-req-098",
+    "programId": "uew-prog-098",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Creative Arts and Design Education"
+  },
+  {
+    "id": "uew-req-099",
+    "programId": "uew-prog-099",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Fashion Design & Textile Education"
+  },
+  {
+    "id": "uew-req-100",
+    "programId": "uew-prog-100",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Graphic Design"
+  },
+  {
+    "id": "uew-req-101",
+    "programId": "uew-prog-101",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Music"
+  },
+  {
+    "id": "uew-req-102",
+    "programId": "uew-prog-102",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Music Education"
+  },
+  {
+    "id": "uew-req-103",
+    "programId": "uew-prog-103",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Theatre Arts"
+  },
+  {
+    "id": "uew-req-104",
+    "programId": "uew-prog-104",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Ed Performing Arts"
+  },
+  {
+    "id": "uew-req-105",
+    "programId": "uew-prog-105",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.F.A. Animation"
+  },
+  {
+    "id": "uew-req-106",
+    "programId": "uew-prog-106",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Diploma in Art"
+  },
+  {
+    "id": "uew-req-107",
+    "programId": "uew-prog-107",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Diploma in Graphic Design"
+  },
+  {
+    "id": "uew-req-108",
+    "programId": "uew-prog-108",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Diploma in Music"
+  },
+  {
+    "id": "uew-req-109",
+    "programId": "uew-prog-109",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Diploma in Textiles and Fashion"
+  },
+  {
+    "id": "uew-req-110",
+    "programId": "uew-prog-110",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Diploma in Theatre Arts"
+  },
+  {
+    "id": "uew-req-111",
+    "programId": "uew-prog-111",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Dagaare Education"
+  },
+  {
+    "id": "uew-req-112",
+    "programId": "uew-prog-112",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Dagbani Education"
+  },
+  {
+    "id": "uew-req-113",
+    "programId": "uew-prog-113",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Dangme Education"
+  },
+  {
+    "id": "uew-req-114",
+    "programId": "uew-prog-114",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Ewe Education"
+  },
+  {
+    "id": "uew-req-115",
+    "programId": "uew-prog-115",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Fante Education"
+  },
+  {
+    "id": "uew-req-116",
+    "programId": "uew-prog-116",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Ga Education"
+  },
+  {
+    "id": "uew-req-117",
+    "programId": "uew-prog-117",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Gonja Education"
+  },
+  {
+    "id": "uew-req-118",
+    "programId": "uew-prog-118",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Gurune Education"
+  },
+  {
+    "id": "uew-req-119",
+    "programId": "uew-prog-119",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Kasem Education"
+  },
+  {
+    "id": "uew-req-120",
+    "programId": "uew-prog-120",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Kusaal Education"
+  },
+  {
+    "id": "uew-req-121",
+    "programId": "uew-prog-121",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Likpakpaanl Education"
+  },
+  {
+    "id": "uew-req-122",
+    "programId": "uew-prog-122",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Nzema Education"
+  },
+  {
+    "id": "uew-req-123",
+    "programId": "uew-prog-123",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Sisaali Education"
+  },
+  {
+    "id": "uew-req-124",
+    "programId": "uew-prog-124",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Twi Education"
+  },
+  {
+    "id": "uew-req-125",
+    "programId": "uew-prog-125",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Ed. (Upper Primary Option)"
+  },
+  {
+    "id": "uew-req-126",
+    "programId": "uew-prog-126",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Ed. (Junior High School Option)"
+  },
+  {
+    "id": "uew-req-127",
+    "programId": "uew-prog-127",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.Ed. in Early Grade Education"
+  },
+  {
+    "id": "uew-req-128",
+    "programId": "uew-prog-128",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. English Language Education"
+  },
+  {
+    "id": "uew-req-129",
+    "programId": "uew-prog-129",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Mathematics Education"
+  },
+  {
+    "id": "uew-req-130",
+    "programId": "uew-prog-130",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.A. Social Studies Education"
+  },
+  {
+    "id": "uew-req-131",
+    "programId": "uew-prog-131",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.B.A. Accounting"
+  },
+  {
+    "id": "uew-req-132",
+    "programId": "uew-prog-132",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "B.B.A. Human Resource Management"
+  },
+  {
+    "id": "uew-req-133",
+    "programId": "uew-prog-133",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Diploma in Basic Education"
+  },
+  {
+    "id": "uew-req-134",
+    "programId": "uew-prog-134",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Diploma in Early Grade Education"
+  },
+  {
+    "id": "uew-req-135",
+    "programId": "uew-prog-135",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Diploma in Management Studies"
+  },
+  {
+    "id": "uew-req-136",
+    "programId": "uew-prog-136",
+    "coreSubjects": {
+      "compulsory": [
+        {
+          "subject": "English Language",
+          "min_grade": "C6"
+        },
+        {
+          "subject": "Mathematics",
+          "min_grade": "C6"
+        }
+      ],
+      "any": {
+        "count": 1,
+        "subjects": [
+          "Integrated Science",
+          "Social Studies"
+        ],
+        "min_grade": "C6"
+      }
+    },
+    "electiveSubjects": "To be updated",
+    "additionalRequirements": "To be updated",
+    "aggregatePoints": 24,
+    "requirementComplexity": "basic",
+    "universityName": "University of Education, Winneba",
+    "programName": "Diploma in Education"
+  }
+]
