@@ -5,9 +5,39 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Search, GraduationCap, University, Calculator, FileText, BookOpen, Target, Sun, Moon, Settings, Home } from "lucide-react";
 import { useTheme } from '@/context/ThemeContext';
 
+type ExamCategory = 'upcoming' | 'core' | 'elective';
+type ExamItem = {
+  subject: string;
+  date: string;
+  day: string;
+  weekday: string;
+  time: string;
+  color: string;
+};
+
 export default function HomePage() {
   const { theme } = useTheme();
   const navigate = useNavigate();
+  const [examTab, setExamTab] = useState<ExamCategory>('upcoming');
+
+  // Example exam data
+  const exams: Record<ExamCategory, ExamItem[]> = {
+    upcoming: [
+      { subject: 'Mathematics', date: 'Mon, 10th June', day: '10', weekday: 'Mon', time: '8:00am - 11:00am', color: 'blue' },
+      { subject: 'English Language', date: 'Wed, 12th June', day: '12', weekday: 'Wed', time: '8:00am - 11:00am', color: 'green' },
+      { subject: 'Integrated Science', date: 'Fri, 14th June', day: '14', weekday: 'Fri', time: '8:00am - 11:00am', color: 'purple' },
+    ],
+    core: [
+      { subject: 'Mathematics', date: 'Mon, 10th June', day: '10', weekday: 'Mon', time: '8:00am - 11:00am', color: 'blue' },
+      { subject: 'English Language', date: 'Wed, 12th June', day: '12', weekday: 'Wed', time: '8:00am - 11:00am', color: 'green' },
+      { subject: 'Integrated Science', date: 'Fri, 14th June', day: '14', weekday: 'Fri', time: '8:00am - 11:00am', color: 'purple' },
+    ],
+    elective: [
+      { subject: 'Biology', date: 'Mon, 17th June', day: '17', weekday: 'Mon', time: '8:00am - 11:00am', color: 'teal' },
+      { subject: 'Economics', date: 'Wed, 19th June', day: '19', weekday: 'Wed', time: '8:00am - 11:00am', color: 'orange' },
+      { subject: 'Geography', date: 'Fri, 21st June', day: '21', weekday: 'Fri', time: '8:00am - 11:00am', color: 'indigo' },
+    ],
+  };
 
   return (
     <div className={`min-h-screen flex flex-col ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} transition-colors`}>
@@ -22,25 +52,11 @@ export default function HomePage() {
               className="w-24 h-24 md:w-28 md:h-28 rounded-full shadow-2xl border-4 border-white"
               style={{ boxShadow: '0 8px 32px 0 rgba(59,130,246,0.25), 0 1.5px 8px 0 rgba(0,0,0,0.10)' }}
             />
-            {/* Lower curved arrow from bottom of logo to text */}
-            <svg className="absolute left-1/2 bottom-[-24px] md:left-full md:bottom-0" width="120" height="60" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="arrowGradient" x1="0" y1="30" x2="120" y2="30" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#3b82f6" />
-                  <stop offset="1" stopColor="#60a5fa" />
-                </linearGradient>
-              </defs>
-              <path d="M10 40 Q60 80 110 50" stroke="url(#arrowGradient)" strokeWidth="3" fill="none" filter="url(#f1)" />
-              <polygon points="110,50 100,45 100,55" fill="#60a5fa" filter="url(#f1)" />
-              <filter id="f1">
-                <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#3b82f6" />
-              </filter>
-            </svg>
           </div>
           {/* Text on the right, smaller on mobile */}
           <div className="flex-1 text-left">
             <h2 className={`text-lg md:text-4xl font-bold mb-2 ${theme === 'dark' ? 'text-blue-200' : 'text-white'}`}>Your University Journey Starts Here</h2>
-            <p className={`text-xs md:text-lg mb-2 ${theme === 'dark' ? 'text-blue-300' : 'text-blue-100'}`}>Find, compare, and apply to universities across Ghana. Instantly check your eligibility and calculate your WASSCE aggregate score.</p>
+            <p className={`text-xs md:text-lg mb-2 ${theme === 'dark' ? 'text-blue-300' : 'text-blue-100'}`}>Find, compare, and Instantly check programs you're eligible for and calculate your WASSCE aggregate score.</p>
           </div>
         </div>
       </section>
@@ -53,56 +69,59 @@ export default function HomePage() {
               Your Eligibility Tool
             </h3>
           </div>
+          <section className="py-6">
+  <div className="max-w-md mx-auto px-2 flex flex-row items-center justify-center gap-4 relative">
+    {/* Saved Program Eligibility Card */}
+    <Link to="/saved-programs" className="w-full max-w-[160px]">
+      <Card
+        className={`rounded-xl border ${theme === 'dark' ? 'bg-gray-900 text-yellow-200 border-gray-700' : 'bg-white text-scorecard-blue border-gray-200'} transition-transform active:scale-95`}
+      >
+        <CardContent className="p-4 flex flex-col items-center">
+          <FileText className={`h-8 w-8 mb-2 ${theme === 'dark' ? 'text-yellow-300' : 'text-yellow-600'}`} />
+          <h2 className="text-base font-semibold mb-1 text-center">Saved Program Eligibility</h2>
+          <p className="text-xs text-center opacity-80">View all your saved eligible programs</p>
+        </CardContent>
+      </Card>
+    </Link>
+    {/* Connector Arrow */}
+    <svg
+      width="48"
+      height="48"
+      viewBox="0 0 48 48"
+      fill="none"
+      className="mx-2"
+    >
+      <path
+        d="M8 40 Q24 16 40 40"
+        stroke={theme === 'dark' ? "#fbbf24" : "#3b82f6"}
+        strokeWidth="2.5"
+        fill="none"
+        strokeLinecap="round"
+      />
+      <polygon
+        points="40,40 36,36 44,36"
+        fill={theme === 'dark' ? "#fbbf24" : "#3b82f6"}
+      />
+    </svg>
+    {/* WASSCE Aggregate Calculator Card */}
+    <Link to="/calculator" className="w-full max-w-[160px]">
+      <Card
+        className={`rounded-xl border ${theme === 'dark' ? 'bg-gray-900 text-purple-200 border-gray-700' : 'bg-white text-scorecard-blue border-gray-200'} transition-transform active:scale-95`}
+      >
+        <CardContent className="p-4 flex flex-col items-center">
+          <Calculator className={`h-8 w-8 mb-2 ${theme === 'dark' ? 'text-purple-300' : 'text-purple-600'}`} />
+          <h2 className="text-base font-semibold mb-1 text-center">University Programs Eligibility</h2>
+          <p className="text-xs text-center opacity-80">Input your WASSCE grades</p>
+        </CardContent>
+      </Card>
+    </Link>
+  </div>
+</section>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {/* Saved Programs Eligibility */}
-            <Link to="/saved-programs" className="block">
-              <Card className={`hover:shadow-md transition-shadow cursor-pointer ${theme === 'dark' ? 'bg-gray-800 text-white' : ''}`} data-testid="card-saved-programs">
-                <CardContent className="p-4 text-center">
-                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3 ${theme === 'dark' ? 'bg-yellow-900' : 'bg-yellow-100'}`}>
-                    <FileText className={`h-6 w-6 ${theme === 'dark' ? 'text-yellow-300' : 'text-yellow-600'}`} />
-                  </div>
-                  <h4 className={`text-sm font-semibold mb-1 ${theme === 'dark' ? 'text-blue-200' : 'text-scorecard-blue'}`}>
-                    Saved Program Eligibility
-                  </h4>
-                  <p className={`text-xs ${theme === 'dark' ? 'text-gray-300' : 'text-scorecard-gray'}`}>
-                    View all your saved eligible programs
-                  </p>
-                </CardContent>
-              </Card>
-            </Link>
-            {/* WASSCE Aggregate Calculator */}
-            <Link to="/calculator" className="block">
-              <Card className={`hover:shadow-md transition-shadow cursor-pointer ${theme === 'dark' ? 'bg-gray-800 text-white' : ''}`} data-testid="card-calculator">
-                <CardContent className="p-4 text-center">
-                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3 ${theme === 'dark' ? 'bg-purple-900' : 'bg-purple-100'}`}>
-                    <Calculator className={`h-6 w-6 ${theme === 'dark' ? 'text-purple-300' : 'text-purple-600'}`} />
-                  </div>
-                  <h4 className={`text-sm font-semibold mb-1 ${theme === 'dark' ? 'text-blue-200' : 'text-scorecard-blue'}`}>
-                    WASSCE Aggregate Calculator
-                  </h4>
-                  <p className={`text-xs ${theme === 'dark' ? 'text-gray-300' : 'text-scorecard-gray'}`}>
-                    Calculate your aggregate score
-                  </p>
-                </CardContent>
-              </Card>
-            </Link>
+
 
             {/* Check Eligibility */}
-            <Link to="/eligibility" className="block">
-              <Card className={`hover:shadow-md transition-shadow cursor-pointer ${theme === 'dark' ? 'bg-gray-800 text-white' : ''}`} data-testid="card-eligibility-small">
-                <CardContent className="p-4 text-center">
-                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3 ${theme === 'dark' ? 'bg-green-900' : 'bg-green-100'}`}>
-                    <Target className={`h-6 w-6 ${theme === 'dark' ? 'text-green-300' : 'text-green-600'}`} />
-                  </div>
-                  <h4 className={`text-sm font-semibold mb-1 ${theme === 'dark' ? 'text-blue-200' : 'text-scorecard-blue'}`}>
-                    Check Eligibility
-                  </h4>
-                  <p className={`text-xs ${theme === 'dark' ? 'text-gray-300' : 'text-scorecard-gray'}`}>
-                    See which programs you qualify for
-                  </p>
-                </CardContent>
-              </Card>
-            </Link>
+
 
             {/* Search Universities */}
             <Card className={`hover:shadow-md transition-shadow cursor-pointer ${theme === 'dark' ? 'bg-gray-800 text-white' : ''}`} data-testid="card-search-small">
@@ -174,7 +193,124 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      {/* WASSCE Timetable Calendar Section - Mobile Calendar Style with Tabs & Dynamic Today/Next Exam */}
+      <section className={`py-10 ${theme === 'dark' ? 'bg-gray-900' : 'bg-scorecard-bg'}`} data-testid="timetable-section">
+        <div className="max-w-md mx-auto px-4">
+          <h3 className={`text-2xl font-bold mb-6 text-center ${theme === 'dark' ? 'text-blue-200' : 'text-scorecard-blue'}`}>WASSCE Timetable</h3>
+          {/* Tabs for exam categories */}
+          <div className="flex justify-center mb-6">
+            <button
+              className={`px-4 py-2 rounded-l-full font-semibold border ${examTab === 'upcoming' ? (theme === 'dark' ? 'bg-blue-800 text-white' : 'bg-blue-200 text-blue-900') : (theme === 'dark' ? 'bg-gray-800 text-gray-400' : 'bg-gray-100 text-gray-500')}`}
+              onClick={() => setExamTab('upcoming')}
+            >Upcoming</button>
+            <button
+              className={`px-4 py-2 font-semibold border-t border-b ${examTab === 'core' ? (theme === 'dark' ? 'bg-green-800 text-white' : 'bg-green-200 text-green-900') : (theme === 'dark' ? 'bg-gray-800 text-gray-400' : 'bg-gray-100 text-gray-500')}`}
+              onClick={() => setExamTab('core')}
+            >Core</button>
+            <button
+              className={`px-4 py-2 rounded-r-full font-semibold border ${examTab === 'elective' ? (theme === 'dark' ? 'bg-purple-800 text-white' : 'bg-purple-200 text-purple-900') : (theme === 'dark' ? 'bg-gray-800 text-gray-400' : 'bg-gray-100 text-gray-500')}`}
+              onClick={() => setExamTab('elective')}
+            >Elective</button>
+          </div>
+          {/* Dynamic Today/Next Exam Logic */}
+          {(() => {
+            const parseExamDate = (dateStr: string) => {
+              const parts = dateStr.split(',');
+              if (parts.length < 2) return null;
+              const dayMonth = parts[1].trim();
+              const match = dayMonth.match(/(\d+)(?:[a-zA-Z]{2})?\s+([a-zA-Z]+)/);
+              if (!match) return null;
+              const day = parseInt(match[1]);
+              const monthName = match[2].toLowerCase();
+              const monthIndex = [
+                "january", "february", "march", "april", "may", "june",
+                "july", "august", "september", "october", "november", "december"
+              ].indexOf(monthName);
+              if (day && monthIndex >= 0) {
+                const year = 2025;
+                return new Date(year, monthIndex, day);
+              }
+              return null;
+            };
 
+            const today = new Date();
+            today.setHours(0,0,0,0);
+
+            // Find today's exam
+            const todayExam = exams[examTab].find(exam => {
+              const examDate = parseExamDate(exam.date);
+              return (
+                examDate &&
+                examDate.getFullYear() === today.getFullYear() &&
+                examDate.getMonth() === today.getMonth() &&
+                examDate.getDate() === today.getDate()
+              );
+            });
+
+            // Find next exam (after today)
+            const futureExams = exams[examTab]
+              .map(exam => ({ ...exam, examDate: parseExamDate(exam.date) }))
+              .filter(exam => exam.examDate && exam.examDate.getTime() > today.getTime())
+              .sort((a, b) => a.examDate!.getTime() - b.examDate!.getTime());
+
+            let nextExam = futureExams[0];
+
+            // If no future exam, wrap around and show the earliest exam in the list as "Next Exam"
+            if (!nextExam && exams[examTab].length > 0) {
+              nextExam = exams[examTab]
+                .map(exam => ({ ...exam, examDate: parseExamDate(exam.date) }))
+                .sort((a, b) => a.examDate!.getTime() - b.examDate!.getTime())[0];
+            }
+
+            return (
+              <div className="mb-6">
+                {todayExam ? (
+                  <div className="rounded-xl shadow p-4 flex items-center bg-blue-50 dark:bg-blue-900 border-l-4 border-blue-600 mb-4">
+                    <div className="flex flex-col items-center justify-center mr-4">
+                      <span className="text-xl font-bold text-blue-600 dark:text-blue-200">{todayExam.day}</span>
+                      <span className="text-xs text-gray-400">{todayExam.weekday}</span>
+                    </div>
+                    <div className="flex-1">
+                      <span className="font-semibold text-blue-700 dark:text-blue-200">{todayExam.subject}</span>
+                      <div className="text-xs text-gray-500 dark:text-gray-300">{todayExam.date.split(',')[1].trim()} &bull; {todayExam.time}</div>
+                      <div className="mt-1 font-bold text-blue-600 dark:text-blue-200">Exam TODAY</div>
+                    </div>
+                  </div>
+                ) : nextExam ? (
+                  <div className="rounded-xl shadow p-4 flex items-center bg-green-50 dark:bg-green-900 border-l-4 border-green-600 mb-4">
+                    <div className="flex flex-col items-center justify-center mr-4">
+                      <span className="text-xl font-bold text-green-600 dark:text-green-200">{nextExam.day}</span>
+                      <span className="text-xs text-gray-400">{nextExam.weekday}</span>
+                    </div>
+                    <div className="flex-1">
+                      <span className="font-semibold text-green-700 dark:text-green-200">{nextExam.subject}</span>
+                      <div className="text-xs text-gray-500 dark:text-gray-300">{nextExam.date.split(',')[1].trim()} &bull; {nextExam.time}</div>
+                      <div className="mt-1 font-bold text-green-600 dark:text-green-200">Next Exam</div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-center text-gray-500 dark:text-gray-300 mb-4">No exams scheduled.</div>
+                )}
+              </div>
+            );
+          })()}
+          {/* Exam List for selected tab */}
+          <div className="flex flex-col gap-5">
+            {exams[examTab].map((exam: ExamItem, idx: number) => (
+              <div key={idx} className={`rounded-xl shadow p-4 flex items-center bg-white dark:bg-gray-800`}>
+                <div className="flex flex-col items-center justify-center mr-4">
+                  <span className={`text-xl font-bold text-${exam.color}-600 dark:text-${exam.color}-200`}>{exam.day}</span>
+                  <span className="text-xs text-gray-400">{exam.weekday}</span>
+                </div>
+                <div className="flex-1">
+                  <span className={`font-semibold text-${exam.color}-700 dark:text-${exam.color}-200`}>{exam.subject}</span>
+                  <div className="text-xs text-gray-500 dark:text-gray-300">{exam.date.split(',')[1].trim()} &bull; {exam.time}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
       {/* Features Section */}
       <section className={`py-16 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`} data-testid="features-section">
         <div className="max-w-7xl mx-auto px-4">
@@ -326,57 +462,13 @@ export default function HomePage() {
             </div>
           </div>
           <div className={`border-t mt-8 pt-8 text-center ${theme === 'dark' ? 'border-gray-700 text-blue-300' : 'border-blue-800 text-blue-100'}`}>
-            <p>&copy; 2024 Studyxo Uni Guide. Empowering students across Ghana.</p>
+            <p>&copy; 2025 Studyxo Uni Guide. Empowering students across Ghana.</p>
           </div>
         </div>
       </footer>
 
-      <div className="flex-1 p-4">
-        <h1 className={`text-3xl font-bold text-center mb-6 ${theme === 'dark' ? 'text-blue-300' : 'text-scorecard-blue'}`}>
-          Ghana Uni Guide
-        </h1>
-        <div className="space-y-4">
-          <Card className={`rounded-2xl shadow-lg ${theme === 'dark' ? 'bg-gray-800' : ''}`}>
-            <CardContent className="p-6 flex flex-col items-center">
-              <GraduationCap className={`h-10 w-10 ${theme === 'dark' ? 'text-blue-300' : 'text-blue-600'} mb-2`} />
-              <h2 className="text-xl font-semibold mb-2">Check Your Eligibility</h2>
-              <Button size="lg" className="w-full rounded-full bg-blue-600 text-white" onClick={() => navigate('/calculator')}>
-                Start Calculator
-              </Button>
-            </CardContent>
-          </Card>
-          <Card className={`rounded-2xl shadow-lg ${theme === 'dark' ? 'bg-gray-800' : ''}`}>
-            <CardContent className="p-6 flex flex-col items-center">
-              <Home className={`h-10 w-10 ${theme === 'dark' ? 'text-green-300' : 'text-green-600'} mb-2`} />
-              <h2 className="text-xl font-semibold mb-2">Explore Universities</h2>
-              <Button size="lg" className="w-full rounded-full bg-green-600 text-white" onClick={() => navigate('/universities')}>
-                Browse Universities
-              </Button>
-            </CardContent>
-          </Card>
-          <Card className={`rounded-2xl shadow-lg ${theme === 'dark' ? 'bg-gray-800' : ''}`}>
-            <CardContent className="p-6 flex flex-col items-center">
-              <Settings className={`h-10 w-10 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} mb-2`} />
-              <h2 className="text-xl font-semibold mb-2">Settings</h2>
-              <Button size="lg" className="w-full rounded-full bg-gray-700 text-white" onClick={() => navigate('/settings')}>
-                Go to Settings
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-      {/* Bottom navigation bar */}
-      <div className={`fixed bottom-0 left-0 right-0 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-t'} flex justify-around py-2 shadow-lg`}>
-        <Button variant="ghost" onClick={() => navigate('/')}>
-          <Home className="h-6 w-6" />
-        </Button>
-        <Button variant="ghost" onClick={() => navigate('/calculator')}>
-          <GraduationCap className="h-6 w-6" />
-        </Button>
-        <Button variant="ghost" onClick={() => navigate('/settings')}>
-          <Settings className="h-6 w-6" />
-        </Button>
-      </div>
+
+
     </div>
   );
 }

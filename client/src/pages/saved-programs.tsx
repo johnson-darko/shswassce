@@ -1,10 +1,14 @@
+import { Link } from "react-router-dom";
+import { Calculator } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { useTheme } from "@/context/ThemeContext";
 import { useEffect, useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, XCircle } from 'lucide-react';
 import type { EligibilityResult } from '@shared/schema';
 
 export default function SavedProgramsPage() {
+  const { theme } = useTheme();
   const [savedPrograms, setSavedPrograms] = useState<EligibilityResult[]>([]);
 
   useEffect(() => {
@@ -19,10 +23,27 @@ export default function SavedProgramsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-3xl">
-      <h1 className="text-3xl font-bold mb-6 text-scorecard-blue">Saved Programs</h1>
+    <div className={`min-h-screen flex flex-col items-center justify-center ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} transition-colors`}>
+      <h2 className="text-2xl font-bold mb-6">Saved Programs</h2>
       {savedPrograms.length === 0 ? (
-        <div className="text-gray-600">No saved programs yet.</div>
+        <Card className={`max-w-sm w-full rounded-xl shadow-lg border-0 ${theme === 'dark' ? 'bg-gradient-to-br from-blue-900 via-purple-900 to-gray-800 text-blue-100' : 'bg-gradient-to-br from-blue-50 via-purple-50 to-white text-scorecard-blue'} flex flex-col items-center py-8`}>
+          <CardContent className="flex flex-col items-center">
+            <Calculator className={`h-12 w-12 mb-4 ${theme === 'dark' ? 'text-purple-300' : 'text-purple-600'}`} />
+            <h3 className="text-lg font-semibold mb-2">No saved programs yet.</h3>
+            <p className="text-sm mb-4 text-center opacity-80">Input your WASSCE grades to find eligible programs.</p>
+            <Link to="/calculator">
+              <button
+                className={`px-6 py-2 rounded-full font-semibold shadow transition-colors ${
+                  theme === 'dark'
+                    ? 'bg-blue-700 text-white hover:bg-purple-700'
+                    : 'bg-blue-600 text-white hover:bg-purple-600'
+                }`}
+              >
+                Input & Check Eligibility
+              </button>
+            </Link>
+          </CardContent>
+        </Card>
       ) : (
         <div className="space-y-4">
           {savedPrograms.map((program, idx) => (

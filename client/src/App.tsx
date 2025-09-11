@@ -16,8 +16,22 @@ import ComparisonBar from "@/components/comparison-bar";
 import { ComparisonProvider } from "@/hooks/use-comparison";
 import SavedProgramsPage from "./pages/saved-programs";
 import SettingsPage from "./pages/settings";
+import React, { useState, useEffect } from "react";
+import SplashScreen from "./components/SplashScreen";
+import BottomNavigation from "@/components/bottom-navigation"; // Adjust path if needed
 
 function App() {
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowSplash(false), 2000); // 2 seconds
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (showSplash) {
+    return <SplashScreen />;
+  }
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -36,6 +50,7 @@ function App() {
               <Route path="/settings" element={<SettingsPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            <BottomNavigation /> {/* <-- Add this line */}
             <ComparisonBar />
           </div>
           <Toaster />
