@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useTheme } from '@/context/ThemeContext';
 
 export default function Header() {
+  const { theme } = useTheme();
   const navigation = [
     { name: "Search Colleges", to: "/search" },
     { name: "Compare", to: "/compare" },
@@ -12,12 +14,12 @@ export default function Header() {
   ];
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200" data-testid="header">
+    <header className={`${theme === 'dark' ? 'bg-gray-900 border-gray-700 shadow-none' : 'bg-white shadow-sm border-b border-gray-200'}`} data-testid="header">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <Link to="/" data-testid="link-home">
-              <h1 className="text-2xl font-bold text-scorecard-blue">MyCampusMingle</h1>
+              <h1 className={`text-lg font-bold ${theme === 'dark' ? 'text-blue-200' : 'text-scorecard-blue'}`}>Studyxo Uni Guide</h1>
             </Link>
           </div>
           
@@ -31,7 +33,7 @@ export default function Header() {
               >
                 <Button
                   variant="ghost"
-                  className="font-medium text-scorecard-gray hover:text-scorecard-blue"
+                  className={`font-medium ${theme === 'dark' ? 'text-gray-200 hover:text-blue-200' : 'text-scorecard-gray hover:text-scorecard-blue'}`}
                 >
                   {item.name}
                 </Button>
@@ -44,10 +46,10 @@ export default function Header() {
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" data-testid="button-mobile-menu">
-                  <Menu className="h-6 w-6 text-scorecard-gray" />
+                  <Menu className={`h-6 w-6 ${theme === 'dark' ? 'text-gray-200' : 'text-scorecard-gray'}`} />
                 </Button>
               </SheetTrigger>
-              <SheetContent>
+              <SheetContent className={theme === 'dark' ? 'bg-gray-900 text-gray-200' : ''}>
                 <div className="mt-6 space-y-4">
                   {navigation.map((item) => (
                     <Link
@@ -57,7 +59,7 @@ export default function Header() {
                     >
                       <Button
                         variant="ghost"
-                        className="w-full justify-start font-medium text-scorecard-gray hover:text-scorecard-blue"
+                        className={`w-full justify-start font-medium ${theme === 'dark' ? 'text-gray-200 hover:text-blue-200' : 'text-scorecard-gray hover:text-scorecard-blue'}`}
                       >
                         {item.name}
                       </Button>

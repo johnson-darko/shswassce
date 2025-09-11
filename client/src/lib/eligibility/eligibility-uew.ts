@@ -6,7 +6,7 @@ import { gradeToNumber, calculateAllAggregateCombinations } from '../offline-eli
 // 2. Enforce aggregatePoints and additionalRequirements as needed.
 // 3. Provide detailed eligibility feedback per program, similar to the KNUST logic.
 
-export function checkEligibilityUCC(grades: WassceeGrades, programs: any[], requirements: any[]): EligibilityResult[] {
+export function checkEligibilityUEW(grades: WassceeGrades, programs: any[], requirements: any[]): EligibilityResult[] {
   const results: EligibilityResult[] = [];
   for (const program of programs) {
     const programRequirements = requirements.filter(req => req.programId === program.id);
@@ -32,7 +32,7 @@ export function checkEligibilityUCC(grades: WassceeGrades, programs: any[], requ
       }
       if (hasEnglish && hasMath && hasScienceOrSocial) {
         status = 'eligible';
-        message = 'You meet all CORE requirements for this program! To be fully Eligible, we will update the Elective Requirements for UCC and check if you pass.';
+        message = 'You meet all CORE requirements for this program! To be fully Eligible, we will update the Elective Requirements for UEW and check if you pass.';
         details = ['You have credit passes in English Language, Mathematics, and at least one of Integrated Science or Social Studies.'];
         matchScore = 100;
       } else {
@@ -68,4 +68,3 @@ export function checkEligibilityUCC(grades: WassceeGrades, programs: any[], requ
   results.sort((a, b) => (b.matchScore || 0) - (a.matchScore || 0));
   return results;
 }
-

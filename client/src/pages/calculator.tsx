@@ -386,10 +386,16 @@ export default function CalculatorPage() {
     setIsCheckingEligibility(true);
     setShowEligibility(true);
     setShowCalculator(false); // Hide calculator section
-    
     try {
       const { checkEligibilityOffline } = await import('@/lib/offline-eligibility-engine');
-      const results = await checkEligibilityOffline({
+      // Support both UCC and KNUST key formats
+      const mappedGrades = {
+        // UCC keys
+        'english language': grades.english,
+        'mathematics': grades.mathematics,
+        'integrated science': grades.science,
+        'social studies': grades.social,
+        // KNUST keys
         english: grades.english,
         mathematics: grades.mathematics,
         science: grades.science,
@@ -402,7 +408,8 @@ export default function CalculatorPage() {
         elective3Grade: grades.elective3Grade,
         elective4Subject: grades.elective4Subject,
         elective4Grade: grades.elective4Grade,
-      });
+      };
+      const results = await checkEligibilityOffline(mappedGrades);
       setEligibilityResults(results);
     } catch (error) {
       console.error('Error checking eligibility:', error);

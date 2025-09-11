@@ -364,12 +364,19 @@ export async function checkEligibilityOffline(grades: any): Promise<any[]> {
           results = results.concat(checkEligibilityAshesi(grades, uniPrograms, uniRequirements));
           break;
         }
+                case 'University of Education Winneba': {
+          // @ts-ignore
+          const { checkEligibilityUEW } = await import('./eligibility/eligibility-uew');
+          results = results.concat(checkEligibilityUEW(grades, uniPrograms, uniRequirements));
+          break;
+        }
         case 'University for Development Studies': {
           // @ts-ignore
           const { checkEligibilityUDS } = await import('./eligibility/eligibility-uds');
           results = results.concat(checkEligibilityUDS(grades, uniPrograms, uniRequirements));
           break;
         }
+
         default:
           // fallback to default logic (could be global)
           // ...existing code for default...

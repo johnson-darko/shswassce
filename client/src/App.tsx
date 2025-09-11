@@ -15,6 +15,7 @@ import Header from "@/components/header";
 import ComparisonBar from "@/components/comparison-bar";
 import { ComparisonProvider } from "@/hooks/use-comparison";
 import SavedProgramsPage from "./pages/saved-programs";
+import SettingsPage from "./pages/settings";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               <Route path="/university/:id" element={<UniversityDetail />} />
               <Route path="/admin/pdf" element={<PDFAdmin />} />
               <Route path="/saved-programs" element={<SavedProgramsPage />} />
+              <Route path="/settings" element={<SettingsPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             <ComparisonBar />
