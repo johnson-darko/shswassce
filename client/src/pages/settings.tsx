@@ -75,13 +75,18 @@ export default function SettingsPage() {
             variant="outline"
             className="rounded-full"
             onClick={() => {
+              const shareMessage =
+                "Download Studyxo SHS from Play Store (Android) or App Store (iOS)! " +
+                "Check your Wascce aggregate score, Find Programs at Universities you qualify and compare programs requirements from all Universities in Ghama"
               if (navigator.share) {
                 navigator.share({
-                  title: "Studyxo GH Uni Guide",
-                  url: window.location.href,
+                  title: "Studyxo SHS",
+                  text: shareMessage,
                 });
               } else {
-                window.open(`https://twitter.com/intent/tweet?text=Check%20out%20Studyxo%20GH%20Uni%20Guide!%20${window.location.href}`);
+                // fallback: copy to clipboard and alert user
+                navigator.clipboard.writeText(shareMessage);
+                alert("Share message copied! You can now paste it to your friends.");
               }
             }}
           >
