@@ -10,6 +10,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { useTheme } from "@/context/ThemeContext"; // Adjust path if needed
 
 import { checkEligibilityOffline } from '../lib/offline-eligibility-engine';
 import { group1Explanations } from '../lib/eligibility/group1-eligibility';

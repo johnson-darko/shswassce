@@ -1,18 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useTheme } from "@/context/ThemeContext"; // Adjust path if needed
 import './SplashScreen.css';
 
 export default function SplashScreen() {
-  // Optionally, you can add logic to auto-hide after a delay
-  // or hide when your app is ready
+  const { theme } = useTheme();
+
+  const isDark = theme === 'dark';
+
   return (
-    <div className="fixed inset-0 flex flex-col items-center justify-center bg-white z-50">
+    <div className={`fixed inset-0 flex flex-col items-center justify-center z-50 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
       <img
         src="logo.png"
         alt="App Logo"
         className="w-32 h-32 animate-splash-bounce mb-4"
       />
-      <h2 className="text-2xl font-bold text-scorecard-blue mb-2">GH Uni Guide</h2>
-      <p className="text-xs text-gray-500">Powered by Studyxo</p>
+      <h2 className={`text-2xl font-bold mb-2 ${isDark ? 'text-blue-200' : 'text-scorecard-blue'}`}>GH Uni Guide</h2>
+      <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Powered by Studyxo</p>
     </div>
   );
 }

@@ -3,11 +3,40 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Sun, Moon, Share2, Info, RefreshCw, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Network } from '@capacitor/network';
+import { useEffect, useState } from 'react';
 
 const APP_VERSION = "v1.0.0"; // Replace with your actual version
 
 export default function SettingsPage() {
   const { theme, setTheme } = useTheme();
+  const [showOfflineModal, setShowOfflineModal] = useState(false);
+  const [isOnline, setIsOnline] = useState(true);
+
+  useEffect(() => {
+    const checkNetwork = async () => {
+      const status = await Network.getStatus();
+      setIsOnline(status.connected);
+    };
+
+    checkNetwork();
+
+    const handler = Network.addListener('networkStatusChange', status => {
+      setIsOnline(status.connected);
+    });
+
+    return () => {
+      handler.remove();
+    };
+  }, []);
+
+  const handleCheckUpdate = () => {
+    if (!isOnline) {
+      setShowOfflineModal(true);
+    } else {
+      window.location.reload();
+    }
+  };
 
   return (
     <div className={`min-h-screen flex flex-col items-center justify-center ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} transition-colors`}>
@@ -72,7 +101,7 @@ export default function SettingsPage() {
           <Button
             variant="outline"
             className="rounded-full"
-            onClick={() => window.location.reload()}
+            onClick={handleCheckUpdate}
           >
             <RefreshCw className="h-5 w-5 mr-1" /> Check Update
           </Button>
@@ -106,6 +135,24 @@ export default function SettingsPage() {
           </Link>
         </CardContent>
       </Card>
+
+      {/* Offline Modal */}
+      {showOfflineModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className={`rounded-lg shadow-lg p-6 max-w-sm w-full ${theme === 'dark' ? 'bg-gray-900 text-blue-200' : 'bg-white text-scorecard-blue'}`}>
+            <h3 className="text-lg font-bold mb-2">No Internet Connection</h3>
+            <p className="mb-4">
+              You are currently offline. Please connect to the internet to check for updates.
+            </p>
+            <Button
+              className="px-4 py-2 rounded bg-blue-600 text-white font-semibold"
+              onClick={() => setShowOfflineModal(false)}
+            >
+              OK
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
