@@ -19,6 +19,7 @@ import SettingsPage from "./pages/settings";
 import React, { useState, useEffect } from "react";
 import SplashScreen from "./components/SplashScreen";
 import BottomNavigation from "@/components/bottom-navigation"; // Adjust path if needed
+import PrivacyPage from "./pages/privacy";
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -48,6 +49,7 @@ function App() {
               <Route path="/admin/pdf" element={<PDFAdmin />} />
               <Route path="/saved-programs" element={<SavedProgramsPage />} />
               <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             <BottomNavigation /> {/* <-- Add this line */}

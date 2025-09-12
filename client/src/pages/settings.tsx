@@ -108,6 +108,20 @@ export default function SettingsPage() {
         </CardContent>
       </Card>
 
+      {/* Privacy Policy */}
+      <Card className="rounded-2xl shadow w-full max-w-sm mb-4">
+        <CardContent className="flex items-center gap-4 p-4">
+          <Info className={`h-7 w-7 ${theme === 'dark' ? 'text-pink-300' : 'text-pink-600'}`} />
+          <div className="flex-1">
+            <h3 className="font-semibold">Privacy</h3>
+            <p className="text-xs opacity-80">Read about your privacy and data protection.</p>
+          </div>
+          <Link to="/privacy">
+            <Button variant="outline" className="rounded-full">Privacy</Button>
+          </Link>
+        </CardContent>
+      </Card>
+
       {/* Feedback Form */}
       <Card className="rounded-2xl shadow w-full max-w-sm mb-4">
         <CardContent className="flex items-center gap-4 p-4">
