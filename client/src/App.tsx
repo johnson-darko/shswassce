@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
+import ScrollToTop from "@/components/ScrollToTop";
 import Home from "@/pages/home";
 import Search from "@/pages/search";
 import Compare from "@/pages/compare";
@@ -37,22 +38,26 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <ComparisonProvider>
-          <div className="min-h-screen bg-scorecard-bg">
+          <div className="min-h-screen flex flex-col bg-scorecard-bg h-screen w-screen overflow-y-auto">
             <Header />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/compare" element={<Compare />} />
-              <Route path="/eligibility" element={<Eligibility />} />
-              <Route path="/calculator" element={<Calculator />} />
-              <Route path="/university/:id" element={<UniversityDetail />} />
-              <Route path="/admin/pdf" element={<PDFAdmin />} />
-              <Route path="/saved-programs" element={<SavedProgramsPage />} />
-              <Route path="/settings" element={<SettingsPage />} />
-              <Route path="/privacy" element={<PrivacyPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            <BottomNavigation /> {/* <-- Add this line */}
+            <main className="flex-1 flex flex-col">
+              {/* Scroll to top on route change */}
+              <ScrollToTop />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/compare" element={<Compare />} />
+                <Route path="/eligibility" element={<Eligibility />} />
+                <Route path="/calculator" element={<Calculator />} />
+                <Route path="/university/:id" element={<UniversityDetail />} />
+                <Route path="/admin/pdf" element={<PDFAdmin />} />
+                <Route path="/saved-programs" element={<SavedProgramsPage />} />
+                <Route path="/settings" element={<SettingsPage />} />
+                <Route path="/privacy" element={<PrivacyPage />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <BottomNavigation />
             <ComparisonBar />
           </div>
           <Toaster />

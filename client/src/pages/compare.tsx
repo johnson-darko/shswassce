@@ -27,7 +27,7 @@ export default function ComparePage() {
 
   if (selectedUniversities.size === 0) {
     return (
-      <div className="min-h-screen bg-scorecard-bg py-8">
+      <div className="flex-1 w-full bg-scorecard-bg py-8 flex flex-col">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center py-16" data-testid="no-selection">
             <GraduationCap className="mx-auto h-16 w-16 text-scorecard-gray mb-6" />

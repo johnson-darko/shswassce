@@ -23,7 +23,7 @@ export default function SavedProgramsPage() {
   }
 
   return (
-    <div className={`min-h-screen flex flex-col items-center justify-center ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} transition-colors`}>
+    <div className={`flex-1 w-full flex flex-col items-center justify-center ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} transition-colors`}>
       <h2 className="text-2xl font-bold mb-6">Saved Programs</h2>
       {savedPrograms.length === 0 ? (
         <Card className={`max-w-sm w-full rounded-xl shadow-lg border-0 ${theme === 'dark' ? 'bg-gradient-to-br from-blue-900 via-purple-900 to-gray-800 text-blue-100' : 'bg-gradient-to-br from-blue-50 via-purple-50 to-white text-scorecard-blue'} flex flex-col items-center py-8`}>

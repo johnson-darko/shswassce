@@ -40,7 +40,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} transition-colors`}>
+    <div className={`${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} transition-colors flex-1 w-full flex flex-col`}>
       {/* Hero Section */}
       <section className={`${theme === 'dark' ? 'bg-gradient-to-br from-gray-900 to-gray-800' : 'bg-gradient-to-br from-scorecard-blue to-scorecard-light-blue'} py-10`} data-testid="hero-section">
         <div className="max-w-4xl mx-auto px-4 flex flex-row items-center justify-center relative">

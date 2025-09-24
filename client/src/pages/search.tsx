@@ -111,7 +111,7 @@ export default function SearchPage() {
   }
 
   return (
-    <div className="min-h-screen bg-scorecard-bg py-8">
+    <div className="flex-1 w-full bg-scorecard-bg py-8 flex flex-col">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Search Header */}
         <div className="mb-8" data-testid="search-header">

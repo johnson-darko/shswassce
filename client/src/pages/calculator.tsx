@@ -538,23 +538,23 @@ export default function CalculatorPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8" data-testid="calculator">
+    <div className="container mx-auto px-4 py-8 min-h-screen flex flex-col" data-testid="calculator">
       <div className="max-w-4xl mx-auto">
         {showCalculator && (
           <>
             <div className="text-center mb-8">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <CalculatorIcon className="h-8 w-8 text-scorecard-blue" />
-                <h1 className="text-3xl font-bold text-scorecard-blue">WASSCE Aggregate Calculator</h1>
+                <h1 className="text-base font-bold text-scorecard-blue">WASSCE Aggregate Calculator</h1>
               </div>
-              <p className="text-gray-600">
+              <p className="text-gray-600 text-xs">
                 Calculate your aggregate score based on your WASSCE grades. 
                 Your aggregate is calculated using all 4 core subjects + your best 3 elective subjects.
               </p>
             </div>
             <Card className="w-full bg-scorecard-bg mb-6" data-testid="calculator-input">
               <CardHeader>
-                <CardTitle className="text-center text-scorecard-blue">Enter Your WASSCE Grades</CardTitle>
+                <CardTitle className="text-center text-scorecard-blue text-base">Enter Your WASSCE Grades</CardTitle>
               </CardHeader>
               <CardContent>
                 {/* Core Subjects */}
