@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gh-uni-guide-v2';
+const CACHE_NAME = 'gh-uni-guide-v3';
 const STATIC_RESOURCES = [
   '/',
   '/index.html',
