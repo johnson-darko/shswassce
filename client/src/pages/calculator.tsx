@@ -114,6 +114,21 @@ const gradeValues: Record<string, number> = {
 export default function CalculatorPage() {
   // Listen for route changes to trigger re-render
   const [location] = useLocation();
+
+  // Payment state (persisted in localStorage)
+  const [hasPaid, setHasPaid] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('hasPaid') === 'true';
+    }
+    return false;
+  });
+
+  // Listen for payment status changes (in case localStorage changes in another tab)
+  useEffect(() => {
+    const checkPaid = () => setHasPaid(localStorage.getItem('hasPaid') === 'true');
+    window.addEventListener('storage', checkPaid);
+    return () => window.removeEventListener('storage', checkPaid);
+  }, []);
   const [grades, setGrades] = useState<CalculatorGrades>({
     english: '',
     mathematics: '',
