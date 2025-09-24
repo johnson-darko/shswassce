@@ -1,14 +1,13 @@
-// filepath: c:\Users\JOHNSON\Desktop\my outfit\shswassce\client\src\components\bottom-navigation.tsx
 import { Link, useLocation } from "react-router-dom";
-import { Home, GraduationCap, Calculator, Settings } from "lucide-react";
+import { Home, Calculator, Settings, Bookmark } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext"; // Adjust path if needed
 
 export default function BottomNavigation() {
   const location = useLocation();
   const { theme } = useTheme();
   const navItems = [
-    { to: "/", label: "Home", icon: <Home /> },
-    { to: "/search", label: "Programs", icon: <GraduationCap /> },
+        { to: "/", label: "Home", icon: <Home /> },
+  { to: "/saved-programs", label: "Saved", icon: <Bookmark /> },
     { to: "/calculator", label: "Aggregate", icon: <Calculator /> },
     { to: "/settings", label: "Settings", icon: <Settings /> },
   ];

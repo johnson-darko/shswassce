@@ -728,13 +728,21 @@ export default function CalculatorPage() {
                   </div>
                 </div>
 
-                {/* Check Program Eligibility Button */}
+                {/* Check All Program Eligibility Button */}
                 <div className="text-center mt-8">
+                  {hasPaid && (
+                    <div className="mb-4 flex justify-center">
+                      <span className="inline-flex items-center px-4 py-2 rounded-full bg-green-100 text-green-800 font-semibold text-base">
+                        <svg className="h-5 w-5 mr-2 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                        Payment Completed
+                      </span>
+                    </div>
+                  )}
                   <Button 
                     onClick={checkProgramEligibility}
                     disabled={!result || isCheckingEligibility}
                     size="lg"
-                    className="bg-slate-700 hover:bg-slate-800 text-white px-8 py-3"
+                    className="bg-slate-700 hover:bg-slate-800 text-white px-8 py-3 mb-[4rem]"
                     data-testid="check-eligibility-btn"
                   >
                     {isCheckingEligibility ? (
@@ -745,7 +753,7 @@ export default function CalculatorPage() {
                     ) : (
                       <>
                         <GraduationCap className="h-5 w-5 mr-2" />
-                        Check Program Eligibility
+                        Check All Program Eligibility
                       </>
                     )}
                   </Button>
@@ -976,144 +984,146 @@ export default function CalculatorPage() {
         </div>
         */}
 
-        {/* Step 2: Check Specific Program */}
-        <div className="mb-8">
-          <h2 className="text-xl font-bold text-slate-700 mb-4">Check Specific Program</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Searchable Program Combobox */}
-            <Popover open={openPopovers[100] || false} onOpenChange={open => setOpenPopovers(prev => ({ ...prev, 100: open }))}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  role="combobox"
-                  aria-expanded={openPopovers[100] || false}
-                  className="w-full justify-between font-normal h-11"
-                >
-                  {selectedProgram || "Select a program"}
-                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-96 p-0" align="start">
-                <Command>
-                  <CommandInput placeholder="Search programs..." className="h-9" />
-                  <CommandList>
-                    <CommandEmpty>No program found.</CommandEmpty>
-                    <CommandGroup>
-                      {programs.map((program) => (
+        {/* Step 2: Check Specific Program (hidden until after eligibility is checked) */}
+        {showEligibility && (
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-slate-700 mb-4">Check Specific Program</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Searchable Program Combobox */}
+              <Popover open={openPopovers[100] || false} onOpenChange={open => setOpenPopovers(prev => ({ ...prev, 100: open }))}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={openPopovers[100] || false}
+                    className="w-full justify-between font-normal h-11"
+                  >
+                    {selectedProgram || "Select a program"}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-96 p-0" align="start">
+                  <Command>
+                    <CommandInput placeholder="Search programs..." className="h-9" />
+                    <CommandList>
+                      <CommandEmpty>No program found.</CommandEmpty>
+                      <CommandGroup>
+                        {programs.map((program) => (
+                          <CommandItem
+                            key={program}
+                            value={program}
+                            onSelect={() => {
+                              setSelectedProgram(program);
+                              setSelectedUniversity('');
+                              setOpenPopovers(prev => ({ ...prev, 100: false }));
+                            }}
+                          >
+                            <Check className={cn("mr-2 h-4 w-4", selectedProgram === program ? "opacity-100" : "opacity-0")} />
+                            {program}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+              {/* Searchable University Combobox */}
+              <Popover open={openPopovers[200] || false} onOpenChange={open => setOpenPopovers(prev => ({ ...prev, 200: open }))}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={openPopovers[200] || false}
+                    className="w-full justify-between font-normal h-11"
+                  >
+                    {selectedUniversity || "Select a university"}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-96 p-0" align="start">
+                  <Command>
+                    <CommandInput placeholder="Search universities..." className="h-9" />
+                    <CommandList>
+                      <CommandEmpty>No university found.</CommandEmpty>
+                      <CommandGroup>
                         <CommandItem
-                          key={program}
-                          value={program}
+                          key="all-universities"
+                          value="Select All Universities"
                           onSelect={() => {
-                            setSelectedProgram(program);
                             setSelectedUniversity('');
-                            setOpenPopovers(prev => ({ ...prev, 100: false }));
-                          }}
-                        >
-                          <Check className={cn("mr-2 h-4 w-4", selectedProgram === program ? "opacity-100" : "opacity-0")} />
-                          {program}
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
-            {/* Searchable University Combobox */}
-            <Popover open={openPopovers[200] || false} onOpenChange={open => setOpenPopovers(prev => ({ ...prev, 200: open }))}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  role="combobox"
-                  aria-expanded={openPopovers[200] || false}
-                  className="w-full justify-between font-normal h-11"
-                >
-                  {selectedUniversity || "Select a university"}
-                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-96 p-0" align="start">
-                <Command>
-                  <CommandInput placeholder="Search universities..." className="h-9" />
-                  <CommandList>
-                    <CommandEmpty>No university found.</CommandEmpty>
-                    <CommandGroup>
-                      <CommandItem
-                        key="all-universities"
-                        value="Select All Universities"
-                        onSelect={() => {
-                          setSelectedUniversity('');
-                          setOpenPopovers(prev => ({ ...prev, 200: false }));
-                        }}
-                      >
-                        <Check className={cn("mr-2 h-4 w-4", selectedUniversity === '' ? "opacity-100" : "opacity-0")} />
-                        Select All Universities
-                      </CommandItem>
-                      {universities.map((university) => (
-                        <CommandItem
-                          key={university}
-                          value={university}
-                          onSelect={() => {
-                            setSelectedUniversity(university);
                             setOpenPopovers(prev => ({ ...prev, 200: false }));
                           }}
                         >
-                          <Check className={cn("mr-2 h-4 w-4", selectedUniversity === university ? "opacity-100" : "opacity-0")} />
-                          {university}
+                          <Check className={cn("mr-2 h-4 w-4", selectedUniversity === '' ? "opacity-100" : "opacity-0")} />
+                          Select All Universities
                         </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
-          </div>
-          <div className="mt-4">
-            <Button 
-              onClick={handleFilter}
-              disabled={!selectedProgram}
-              className="bg-blue-600 hover:bg-blue-700 text-white w-full"
-            >
-              Check
-            </Button>
-          </div>
-          {Array.isArray(filteredResult) ? (
-            <div className="mt-6 p-4 rounded-lg bg-slate-50 border">
-              <h3 className="text-lg font-semibold text-slate-700">{selectedProgram} - Universities Offering This Program</h3>
-              <ul className="list-disc list-inside space-y-2 text-sm text-slate-700">
-                {filteredResult.map((res: EligibilityResult, i: number) => (
-                  <li key={i}>
-                    <span className="font-semibold">{res.universityName}</span>: {res.status === 'eligible' ? '✅ Eligible' : res.status === 'borderline' ? '⚠️ Borderline' : '❌ Not Eligible'}
-                    <ul className="ml-4 list-disc">
-                      {res.details?.map((d, idx) => <li key={idx}>{d}</li>)}
-                    </ul>
-                  </li>
-                ))}
-              </ul>
+                        {universities.map((university) => (
+                          <CommandItem
+                            key={university}
+                            value={university}
+                            onSelect={() => {
+                              setSelectedUniversity(university);
+                              setOpenPopovers(prev => ({ ...prev, 200: false }));
+                            }}
+                          >
+                            <Check className={cn("mr-2 h-4 w-4", selectedUniversity === university ? "opacity-100" : "opacity-0")} />
+                            {university}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
             </div>
-          ) : filteredResult && (
-            <div className="mt-6 p-4 rounded-lg bg-slate-50 border">
-              <h3 className="text-lg font-semibold text-slate-700">{filteredResult.programName} at {filteredResult.universityName}</h3>
-              <div className="text-sm text-slate-500 mb-2">
-                {filteredResult.status === 'eligible' ? '✅ Eligible' : '❌ This university does not offer the selected program.'}
+            <div className="mt-4">
+              <Button 
+                onClick={handleFilter}
+                disabled={!selectedProgram}
+                className="bg-blue-600 hover:bg-blue-700 text-white w-full"
+              >
+                Check
+              </Button>
+            </div>
+            {Array.isArray(filteredResult) ? (
+              <div className="mt-6 p-4 rounded-lg bg-slate-50 border">
+                <h3 className="text-lg font-semibold text-slate-700">{selectedProgram} - Universities Offering This Program</h3>
+                <ul className="list-disc list-inside space-y-2 text-sm text-slate-700">
+                  {filteredResult.map((res: EligibilityResult, i: number) => (
+                    <li key={i}>
+                      <span className="font-semibold">{res.universityName}</span>: {res.status === 'eligible' ? '✅ Eligible' : res.status === 'borderline' ? '⚠️ Borderline' : '❌ Not Eligible'}
+                      <ul className="ml-4 list-disc">
+                        {res.details?.map((d, idx) => <li key={idx}>{d}</li>)}
+                      </ul>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="list-disc list-inside space-y-1 text-sm text-slate-700">
-                {filteredResult.details?.map((d, i) => <li key={i}>{d}</li>)}
-              </ul>
-            </div>
-          )}
-          {filteredResult && filteredResult.status === 'not_offered' && (
-            <div className="mt-6 p-4 rounded-lg bg-yellow-50 border border-yellow-300">
-              <div className="mb-2 text-sm text-yellow-700">Other universities that offer this program:</div>
-              <ul className="list-disc list-inside space-y-1 text-sm">
-                {alternatives.map(a => (
-                  <li key={a.programId}>
-                    {a.programName} at {a.universityName}: {a.status === 'eligible' ? '✅ Eligible' : a.status === 'borderline' ? '⚠️ Borderline' : '❌ Not Eligible'}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
+            ) : filteredResult && (
+              <div className="mt-6 p-4 rounded-lg bg-slate-50 border">
+                <h3 className="text-lg font-semibold text-slate-700">{filteredResult.programName} at {filteredResult.universityName}</h3>
+                <div className="text-sm text-slate-500 mb-2">
+                  {filteredResult.status === 'eligible' ? '✅ Eligible' : '❌ This university does not offer the selected program.'}
+                </div>
+                <ul className="list-disc list-inside space-y-1 text-sm text-slate-700">
+                  {filteredResult.details?.map((d, i) => <li key={i}>{d}</li>)}
+                </ul>
+              </div>
+            )}
+            {filteredResult && filteredResult.status === 'not_offered' && (
+              <div className="mt-6 p-4 rounded-lg bg-yellow-50 border border-yellow-300">
+                <div className="mb-2 text-sm text-yellow-700">Other universities that offer this program:</div>
+                <ul className="list-disc list-inside space-y-1 text-sm">
+                  {alternatives.map(a => (
+                    <li key={a.programId}>
+                      {a.programName} at {a.universityName}: {a.status === 'eligible' ? '✅ Eligible' : a.status === 'borderline' ? '⚠️ Borderline' : '❌ Not Eligible'}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Step 3: Alternatives if not eligible */}
         {filteredResult && filteredResult.status !== 'eligible' && (
