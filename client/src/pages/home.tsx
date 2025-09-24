@@ -56,7 +56,7 @@ export default function HomePage() {
           {/* Text on the right, smaller on mobile */}
           <div className="flex-1 text-left">
             <h2 className={`text-lg md:text-4xl font-bold mb-2 ${theme === 'dark' ? 'text-blue-200' : 'text-white'}`}>Your University Journey Starts Here</h2>
-            <p className={`text-xs md:text-lg mb-2 ${theme === 'dark' ? 'text-blue-300' : 'text-blue-100'}`}>Find, compare, and Instantly check programs you're eligible for and calculate your WASSCE aggregate score.</p>
+            <p className={`text-xs md:text-lg mb-2 ${theme === 'dark' ? 'text-blue-300' : 'text-blue-100'}`}>Instantly check UNI programs you're eligible for and calculate your WASSCE aggregate score.Find & Compare Uni</p>
           </div>
         </div>
       </section>
@@ -65,8 +65,11 @@ export default function HomePage() {
       <section className={`py-12 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`} data-testid="quick-tools-section">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-8">
-            <h3 className={`text-2xl font-bold mb-2 ${theme === 'dark' ? 'text-blue-200' : 'text-scorecard-blue'}`}>
-              Your Eligibility Tool
+            <h3
+              className={`font-bold mb-2 ${theme === 'dark' ? 'text-blue-200' : 'text-scorecard-blue'}`}
+              style={{ fontSize: '1rem', lineHeight: '1.1' }}
+            >
+              Ghana University Eligibility Tool
             </h3>
           </div>
           <section className="py-6">
