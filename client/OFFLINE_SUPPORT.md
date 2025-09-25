@@ -33,3 +33,23 @@ This app uses a Service Worker (`public/sw.js`) to enable offline functionality.
 ## Summary
 
 Your app is a Progressive Web App (PWA) with offline support, thanks to the service worker. Users can access most features offline after the initial load.
+Attention SHS graduates—your future is calling!
+
+You’ve worked hard, you’ve conquered WASSCE, and now it’s time to take the next big leap.
+Which programs do you qualify for? Do you know each program’s requirements—or do you have to visit over 50 university websites in Ghana just to figure them out?
+
+Don’t leave your dreams to chance.
+
+Introducing the SHS WASSCE University Guide—the smart, easy-to-use app built just for Ghana’s brightest graduates.
+Instantly calculate your aggregate, discover every program you’re eligible for, and get all the data you need to make the best choice.
+
+With this app, you can compare different programs side by side, save your favorites for later, and even explore job prospects for each program.
+
+No more confusion. No more missed opportunities.
+With the SHS WASSCE University Guide, you’re in control—anytime, anywhere, even offline.
+
+Ready to unlock your future?
+Download the SHS WASSCE University Guide today.
+Your journey to university starts now!
+
+GPT-4.1 • 0x
