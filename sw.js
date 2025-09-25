@@ -3,7 +3,7 @@ self.addEventListener('message', event => {
     event.ports[0].postMessage({ version: self.SW_APP_VERSION });
   }
 });
-const CACHE_NAME = 'gh-uni-guide-v6';
+const CACHE_NAME = 'gh-uni-guide-v8';
 self.SW_APP_VERSION = CACHE_NAME;
 const STATIC_RESOURCES = [
   '/',
