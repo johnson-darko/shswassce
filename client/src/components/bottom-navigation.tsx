@@ -13,11 +13,12 @@ export default function BottomNavigation() {
   ];
   return (
     <nav
-      className={`fixed bottom-0 left-0 right-0 z-50 flex justify-around py-2 border-t ${
+      className={`fixed left-1/2 -translate-x-1/2 bottom-1 z-50 flex justify-around py-2 px-3 rounded-2xl shadow-lg border ${
         theme === "dark"
-          ? "bg-gray-900 border-gray-800"
-          : "bg-white border-gray-200"
-      }`}
+          ? "bg-gray-900 border-gray-800 shadow-black/40"
+          : "bg-white border-gray-200 shadow-blue-200/60"
+      } w-[95vw] max-w-md transition-all`}
+      style={{ minWidth: 320 }}
     >
       {navItems.map((item) => (
         <Link

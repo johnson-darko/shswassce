@@ -1,4 +1,10 @@
-const CACHE_NAME = 'gh-uni-guide-v3';
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'GET_VERSION') {
+    event.ports[0].postMessage({ version: self.SW_APP_VERSION });
+  }
+});
+const CACHE_NAME = 'gh-uni-guide-v8';
+self.SW_APP_VERSION = CACHE_NAME;
 const STATIC_RESOURCES = [
   '/',
   '/index.html',

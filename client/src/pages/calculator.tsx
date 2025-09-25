@@ -1,3 +1,5 @@
+// Use environment variable for Paystack key
+const paystackKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -746,33 +748,73 @@ export default function CalculatorPage() {
 
                 {/* Check All Program Eligibility Button */}
                 <div className="text-center mt-8">
-                  {hasPaid && (
-                    <div className="mb-4 flex justify-center">
-                      <span className="inline-flex items-center px-4 py-2 rounded-full bg-green-100 text-green-800 font-semibold text-base">
-                        <svg className="h-5 w-5 mr-2 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                        Payment Completed
+                  {!hasPaid ? (
+                    <Button
+                      onClick={() => {
+                        // Ask user for email
+                        const email = window.prompt('Enter your email address for payment receipt:');
+                        if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+                          alert('Please enter a valid email address to receive the payment receipt.');
+                          return;
+                        }
+                        // Paystack integration
+                        const paystack = (window as any).PaystackPop && (window as any).PaystackPop.setup ? (window as any).PaystackPop : null;
+                        if (paystack) {
+                          paystack.setup({
+                            key: paystackKey,
+                            email,
+                            amount: 5, // Amount in ghana (e.g., 500 )
+                            currency: 'GHS', // Ghana Cedis
+                            callback: function(response: any) {
+                              setHasPaid(true);
+                              localStorage.setItem('hasPaid', 'true');
+                            },
+                            onClose: function() {
+                              // Optionally handle close
+                            }
+                          }).openIframe();
+                        } else {
+                          alert('Paystack is not loaded. Please check your internet connection.');
+                        }
+                      }}
+                      size="lg"
+                      className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white px-8 py-3 mb-8 shadow-lg rounded-full font-bold text-lg"
+                      data-testid="pay-btn"
+                    >
+                      <span className="inline-flex items-center">
+                        <svg className="h-5 w-5 mr-2 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm0 10c-4.418 0-8-1.79-8-4V7a2 2 0 012-2h12a2 2 0 012 2v7c0 2.21-3.582 4-8 4z" /></svg>
+                        Pay to Unlock Eligibility
                       </span>
-                    </div>
+                    </Button>
+                  ) : (
+                    <>
+                      <div className="mb-4 flex justify-center">
+                        <span className="inline-flex items-center px-4 py-2 rounded-full bg-green-100 text-green-800 font-semibold text-base">
+                          <svg className="h-5 w-5 mr-2 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                          Payment Completed
+                        </span>
+                      </div>
+                      <Button 
+                        onClick={checkProgramEligibility}
+                        disabled={!result || isCheckingEligibility}
+                        size="lg"
+                        className="bg-slate-700 hover:bg-slate-800 text-white px-8 py-3 mb-[4rem]"
+                        data-testid="check-eligibility-btn"
+                      >
+                        {isCheckingEligibility ? (
+                          <>
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+                            Checking Eligibility...
+                          </>
+                        ) : (
+                          <>
+                            <GraduationCap className="h-5 w-5 mr-2" />
+                            Check All Program Eligibility
+                          </>
+                        )}
+                      </Button>
+                    </>
                   )}
-                  <Button 
-                    onClick={checkProgramEligibility}
-                    disabled={!result || isCheckingEligibility}
-                    size="lg"
-                    className="bg-slate-700 hover:bg-slate-800 text-white px-8 py-3 mb-[4rem]"
-                    data-testid="check-eligibility-btn"
-                  >
-                    {isCheckingEligibility ? (
-                      <>
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
-                        Checking Eligibility...
-                      </>
-                    ) : (
-                      <>
-                        <GraduationCap className="h-5 w-5 mr-2" />
-                        Check All Program Eligibility
-                      </>
-                    )}
-                  </Button>
                 </div>
               </>
             )}

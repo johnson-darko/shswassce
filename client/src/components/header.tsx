@@ -5,39 +5,64 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useTheme } from '@/context/ThemeContext';
 import { Network } from '@capacitor/network';
 import { useEffect, useState } from "react";
+import { registerServiceWorker, clearAllCaches, hotReload } from "@/lib/swManager";
+import { getServiceWorkerVersion } from "@/lib/versionCheck";
+
 
 export default function Header() {
   const { theme } = useTheme();
   const [showOfflineModal, setShowOfflineModal] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   useEffect(() => {
     const checkNetwork = async () => {
       const status = await Network.getStatus();
       setIsOnline(status.connected);
     };
-
     checkNetwork();
-
-    const handler = Network.addListener('networkStatusChange', status => {
+    let removeListener: (() => void) | undefined;
+    Network.addListener('networkStatusChange', status => {
       setIsOnline(status.connected);
+    }).then(handle => {
+      removeListener = handle.remove;
+    });
+    // Register SW and listen for updates
+    registerServiceWorker({
+      onUpdate: () => setShowUpdateModal(true)
+    });
+
+    // Version check on mount and after reload
+    let lastVersion: string | null = null;
+    getServiceWorkerVersion().then(version => {
+      if (version) {
+        const stored = localStorage.getItem('sw_app_version');
+        if (stored && stored !== version) {
+          setShowUpdateModal(true);
+        }
+        localStorage.setItem('sw_app_version', version);
+        lastVersion = version;
+      }
     });
 
     return () => {
-      handler.remove();
+      if (removeListener) removeListener();
     };
   }, []);
 
   const navigation = [
     { name: "Search Universities", to: "/search" },
-
   ];
 
-  const handleRefresh = () => {
+  // On refresh, clear all caches and reload
+  const handleRefresh = async () => {
     if (!isOnline) {
       setShowOfflineModal(true);
     } else {
-      window.location.reload();
+      await clearAllCaches();
+      // Remove version from localStorage so modal doesn't show again after reload
+      localStorage.removeItem('sw_app_version');
+      hotReload();
     }
   };
 
@@ -114,6 +139,24 @@ export default function Header() {
           </div>
         </div>
       </div>
+
+      {/* Update Modal */}
+      {showUpdateModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className={`rounded-lg shadow-lg p-6 max-w-sm w-full ${theme === 'dark' ? 'bg-gray-900 text-blue-200' : 'bg-white text-scorecard-blue'}`}>
+            <h3 className="text-lg font-bold mb-2">Update Available</h3>
+            <p className="mb-4">
+              A new version of the app is available. Please refresh to get the latest updates.
+            </p>
+            <button
+              className="px-4 py-2 rounded bg-blue-600 text-white font-semibold"
+              onClick={handleRefresh}
+            >
+              Refresh Now
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Offline Modal */}
       {showOfflineModal && (
