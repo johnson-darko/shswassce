@@ -763,7 +763,7 @@ export default function CalculatorPage() {
                           paystack.setup({
                             key: paystackKey,
                             email,
-                            amount: 5, // Amount in ghana (e.g., 500 )
+                            amount: 500, // Amount in pesewas (5 cedis = 500 pesewas)
                             currency: 'GHS', // Ghana Cedis
                             callback: function(response: any) {
                               setHasPaid(true);
