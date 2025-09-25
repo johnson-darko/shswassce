@@ -1,3 +1,4 @@
+// --- Testimonials Carousel Component ---
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 // CardLink: animates card on click, then navigates
@@ -31,9 +32,53 @@ function CardLink({ to, icon, title, desc }: { to: string; icon: React.ReactNode
     </a>
   );
 }
+
 import { useTheme } from '@/context/ThemeContext';
 import { Moon, Sun, Search, GraduationCap, University, Calculator, Bot, FileText, Settings, Save, ShieldCheck, BarChart2, BookOpen, Users, CheckCircle } from "lucide-react";
 import banner from '/banner.png';
+
+
+
+
+// --- Testimonials Carousel Component ---
+const testimonials = [
+  {
+    name: "Ama B.",
+    text: "This app made it so easy to check my eligibility and find the right program. Highly recommended!",
+    school: "Prempeh College Student"
+  },
+  {
+    name: "Kwesi O.",
+    text: "I love the clean design and how fast I could compare universities. The stats are super helpful!",
+    school: "Adisadel College Student"
+  },
+  {
+    name: "Linda A.",
+    text: "The WASSCE calculator and eligibility checker saved me so much time. Every SHS student should use this!",
+    school: "Presbyterian Girls' Student"
+  }
+];
+
+function TestimonialCarousel() {
+  const [idx, setIdx] = React.useState(0);
+  React.useEffect(() => {
+    const t = setInterval(() => setIdx(i => (i + 1) % testimonials.length), 5000);
+    return () => clearInterval(t);
+  }, []);
+  const t = testimonials[idx];
+  return (
+    <div className="flex flex-col items-center text-center min-h-[90px]">
+      <p className="text-sm text-gray-800 dark:text-gray-100 italic mb-1">“{t.text}”</p>
+      <span className="text-xs font-semibold text-blue-700 dark:text-blue-200">{t.name}</span>
+      <span className="text-xs text-gray-500 dark:text-gray-400">{t.school}</span>
+      <div className="flex gap-1 mt-2">
+        {testimonials.map((_, i) => (
+          <span key={i} className={`inline-block w-2 h-2 rounded-full ${i === idx ? 'bg-blue-500' : 'bg-gray-300 dark:bg-gray-700'}`}></span>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 
 export default function HomePage() {
@@ -93,12 +138,38 @@ export default function HomePage() {
         </section>
 
 
+
+
+
         {/* All Main Links as Cards */}
         <div className="grid grid-cols-2 gap-4 w-full mb-8">
           {mainLinks.map(link => (
             <CardLink key={link.to} {...link} />
           ))}
         </div>
+
+        {/* Stats & Testimonials Section (moved below cards) */}
+        <section className="w-full flex flex-col gap-4 mb-8">
+          {/* Stats */}
+          <div className="glass-card rounded-2xl px-6 py-4 flex flex-row items-center justify-between shadow-md">
+            <div className="flex flex-col items-center flex-1">
+              <University className="w-8 h-8 text-blue-700 dark:text-blue-200 mb-1" />
+              <span className="text-lg font-bold text-blue-900 dark:text-blue-100">32</span>
+              <span className="text-xs text-gray-700 dark:text-gray-300">Universities</span>
+            </div>
+            <div className="w-px h-10 bg-gray-300 dark:bg-gray-700 mx-2" />
+            <div className="flex flex-col items-center flex-1">
+              <BookOpen className="w-8 h-8 text-green-700 dark:text-green-200 mb-1" />
+              <span className="text-lg font-bold text-green-900 dark:text-green-100">700+</span>
+              <span className="text-xs text-gray-700 dark:text-gray-300">Programs</span>
+            </div>
+          </div>
+          {/* Testimonials Carousel */}
+          <div className="glass-card rounded-2xl px-4 py-4 shadow-md">
+            <h3 className="text-base font-bold text-gray-800 dark:text-gray-100 mb-2 text-center">What students say</h3>
+            <TestimonialCarousel />
+          </div>
+        </section>
 
 
 
