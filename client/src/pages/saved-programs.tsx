@@ -26,18 +26,14 @@ export default function SavedProgramsPage() {
     <div className={`flex-1 w-full flex flex-col items-center justify-center ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} transition-colors`}>
       <h2 className="text-2xl font-bold mb-6">Saved Programs</h2>
       {savedPrograms.length === 0 ? (
-        <Card className={`max-w-sm w-full rounded-xl shadow-lg border-0 ${theme === 'dark' ? 'bg-gradient-to-br from-blue-900 via-purple-900 to-gray-800 text-blue-100' : 'bg-gradient-to-br from-blue-50 via-purple-50 to-white text-scorecard-blue'} flex flex-col items-center py-8`}>
+        <Card className="max-w-sm w-full rounded-xl shadow-lg border-0 bg-gradient-to-br from-blue-50 via-purple-50 to-white text-scorecard-blue dark:from-blue-900 dark:via-purple-900 dark:to-gray-800 dark:text-blue-100 flex flex-col items-center py-8">
           <CardContent className="flex flex-col items-center">
-            <Calculator className={`h-12 w-12 mb-4 ${theme === 'dark' ? 'text-purple-300' : 'text-purple-600'}`} />
+            <Calculator className="h-12 w-12 mb-4 text-purple-600 dark:text-purple-300" />
             <h3 className="text-lg font-semibold mb-2">No saved programs yet.</h3>
             <p className="text-sm mb-4 text-center opacity-80">Input your WASSCE grades to find eligible programs.</p>
             <Link to="/calculator">
               <button
-                className={`px-6 py-2 rounded-full font-semibold shadow transition-colors ${
-                  theme === 'dark'
-                    ? 'bg-blue-700 text-white hover:bg-purple-700'
-                    : 'bg-blue-600 text-white hover:bg-purple-600'
-                }`}
+                className="px-6 py-2 rounded-full font-semibold shadow transition-colors bg-blue-600 text-white hover:bg-purple-600 dark:bg-blue-700 dark:text-white dark:hover:bg-purple-700"
               >
                 Input & Check Eligibility
               </button>

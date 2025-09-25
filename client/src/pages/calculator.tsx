@@ -537,33 +537,34 @@ export default function CalculatorPage() {
     setExplanationModalOpen(true);
   };
 
+  const { theme } = useTheme();
   return (
-    <div className="container mx-auto px-4 py-8 min-h-screen flex flex-col" data-testid="calculator">
-      <div className="max-w-4xl mx-auto">
+  <div className={"container mx-auto px-4 py-8 min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900 transition-colors duration-500 w-full"} style={{background: theme === 'dark' ? '#111827' : undefined}} data-testid="calculator">
+  <div className="max-w-4xl mx-auto text-gray-900 dark:text-gray-100">
         {showCalculator && (
           <>
             <div className="text-center mb-8">
               <div className="flex items-center justify-center gap-3 mb-4">
-                <CalculatorIcon className="h-8 w-8 text-scorecard-blue" />
-                <h1 className="text-base font-bold text-scorecard-blue">WASSCE Aggregate Calculator</h1>
+                <CalculatorIcon className="h-8 w-8 text-scorecard-blue dark:text-blue-200" />
+                <h1 className="text-base font-bold text-scorecard-blue dark:text-blue-200">WASSCE Aggregate Calculator</h1>
               </div>
-              <p className="text-gray-600 text-xs">
+              <p className="text-gray-600 dark:text-gray-300 text-xs">
                 Calculate your aggregate score based on your WASSCE grades. 
                 Your aggregate is calculated using all 4 core subjects + your best 3 elective subjects.
               </p>
             </div>
-            <Card className="w-full bg-scorecard-bg mb-6" data-testid="calculator-input">
+            <Card className={`w-full rounded-xl shadow-lg border-0 bg-gradient-to-br from-blue-50 via-purple-50 to-white dark:from-blue-900 dark:via-purple-900 dark:to-gray-800 text-scorecard-blue dark:text-blue-100 flex flex-col mb-6`} data-testid="calculator-input">
               <CardHeader>
-                <CardTitle className="text-center text-scorecard-blue text-base">Enter Your WASSCE Grades</CardTitle>
+                <CardTitle className="text-center text-scorecard-blue text-base" style={theme === 'dark' ? { color: 'rgb(62,83,127)' } : {}}>Enter Your WASSCE Grades</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex flex-col items-center" style={theme === 'dark' ? { color: 'rgb(200,210,255)' } : {}}>
                 {/* Core Subjects */}
                 <div className="mb-8" data-testid="core-subjects">
-                  <h3 className="font-semibold text-scorecard-blue mb-4">Core Subjects (All Required)</h3>
+                  <h3 className="font-semibold text-scorecard-blue dark:text-blue-100 mb-4">Core Subjects (All Required)</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {subjects.core.map(({ key, label }) => (
                       <div key={key}>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
                           {label}
                         </label>
                         <Select 
@@ -591,8 +592,8 @@ export default function CalculatorPage() {
                 <div data-testid="elective-subjects">
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="font-semibold text-scorecard-blue">Elective Subjects</h3>
-                    <div className="flex items-center gap-3 bg-blue-50 px-4 py-2 rounded-lg">
-                      <span className="text-sm text-gray-700 font-medium">
+                    <div className="flex items-center gap-3 bg-blue-50 dark:bg-gray-700 px-4 py-2 rounded-lg">
+                      <span className="text-sm text-gray-700 dark:text-gray-200 font-medium">
                         Selected: {getElectiveCount()} of 4 subjects
                       </span>
                       <div className="flex gap-1">
@@ -623,9 +624,9 @@ export default function CalculatorPage() {
                       const gradeKey = `elective${num}Grade` as keyof CalculatorGrades;
                       const datalistId = `elective-subjects-list-${num}`;
                       return (
-                        <div key={num} className="border-2 border-blue-200 rounded-lg p-4 bg-white shadow-sm">
+                        <div key={num} className="border-2 border-blue-200 dark:border-gray-700 rounded-lg p-4 bg-white dark:bg-gray-800 shadow-sm">
                           <div className="flex items-center justify-between mb-3">
-                            <h4 className="font-medium text-gray-700 italic">Elective Subject {num}</h4>
+                            <h4 className="font-medium text-gray-700 dark:text-gray-200 italic">Elective Subject {num}</h4>
                             <span className="text-xs bg-teal-600 text-white px-2 py-1 rounded uppercase font-medium">
                               ELECTIVE
                             </span>
@@ -633,7 +634,7 @@ export default function CalculatorPage() {
                           <div className="space-y-3">
                             {/* Subject Selection - HTML Searchable Input with Datalist */}
                             <div>
-                              <label className="block text-sm font-medium text-gray-700 mb-2">Select a subject</label>
+                              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Select a subject</label>
                               <input
                                 type="search"
                                 className="w-full h-11 border rounded px-2"
@@ -652,7 +653,7 @@ export default function CalculatorPage() {
                             </div>
                             {/* Grade Selection */}
                             <div>
-                              <label className="block text-sm font-medium text-gray-700 mb-2">Select Grade</label>
+                              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Select Grade</label>
                               <select
                                 className="w-full h-11 border rounded px-2"
                                 value={grades[gradeKey] || ""} 
@@ -682,10 +683,10 @@ export default function CalculatorPage() {
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between">
                       <div>
-                        <div className="text-sm text-slate-300 mb-1">Best Score</div>
+                        <div className="text-sm text-slate-300 dark:text-slate-200 mb-1">Best Score</div>
                         <h2 className="text-2xl font-bold mb-4">Your Best Aggregate Score</h2>
                         <div className="mb-4">
-                          <div className="text-sm text-slate-300 mb-2">Subjects:</div>
+                          <div className="text-sm text-slate-300 dark:text-slate-200 mb-2">Subjects:</div>
                           <div className="flex flex-wrap gap-2">
                             {result.bestCore.map((item, index) => (
                               <span key={index} className="bg-blue-600 px-3 py-1 rounded-full text-sm">
@@ -709,15 +710,15 @@ export default function CalculatorPage() {
 
                 {/* Alternative Combinations Section */}
                 <div className="mb-6">
-                  <h2 className="text-2xl font-bold text-slate-700 mb-2">Alternative Combinations</h2>
-                  <p className="text-gray-600 mb-6">These are other valid subject combinations and their aggregate scores:</p>
+                  <h2 className="text-2xl font-bold text-slate-700 dark:text-slate-100 mb-2">Alternative Combinations</h2>
+                  <p className="text-gray-600 dark:text-gray-300 mb-6">These are other valid subject combinations and their aggregate scores:</p>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {result.alternatives.map((alt, index) => (
                       <Card key={index} className="border-slate-200" data-testid={`alternative-${index + 1}`}>
                         <CardContent className="p-4">
                           <div className="flex items-center justify-between mb-3">
-                            <h3 className="font-semibold text-slate-700">{alt.name}</h3>
+                            <h3 className="font-semibold text-slate-700 dark:text-slate-100">{alt.name}</h3>
                             <div className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full font-bold">
                               {alt.aggregate}
                             </div>
@@ -979,7 +980,7 @@ export default function CalculatorPage() {
           <h2 className="text-xl font-bold text-slate-700 mb-4">Broad Eligibility Results</h2>
           <ul className="space-y-2">
             {eligibilityResults.slice(0, 5).map(r => (
-              <li key={r.programId} className="flex items-center justify-between p-3 rounded-lg bg-slate-50">
+              <li key={r.programId} className="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-gray-800">
                 <div className="flex-1">
                   <div className="text-sm font-medium text-slate-700">{r.programName}</div>
                   <div className="text-xs text-slate-500">{r.universityName}</div>
@@ -1101,7 +1102,7 @@ export default function CalculatorPage() {
               </Button>
             </div>
             {Array.isArray(filteredResult) ? (
-              <div className="mt-6 p-4 rounded-lg bg-slate-50 border">
+              <div className="mt-6 p-4 rounded-lg bg-slate-50 dark:bg-gray-800 border dark:border-gray-700">
                 <h3 className="text-lg font-semibold text-slate-700">{selectedProgram} - Universities Offering This Program</h3>
                 <ul className="list-disc list-inside space-y-2 text-sm text-slate-700">
                   {filteredResult.map((res: EligibilityResult, i: number) => (
@@ -1115,7 +1116,7 @@ export default function CalculatorPage() {
                 </ul>
               </div>
             ) : filteredResult && (
-              <div className="mt-6 p-4 rounded-lg bg-slate-50 border">
+              <div className="mt-6 p-4 rounded-lg bg-slate-50 dark:bg-gray-800 border dark:border-gray-700">
                 <h3 className="text-lg font-semibold text-slate-700">{filteredResult.programName} at {filteredResult.universityName}</h3>
                 <div className="text-sm text-slate-500 mb-2">
                   {filteredResult.status === 'eligible' ? '✅ Eligible' : '❌ This university does not offer the selected program.'}
@@ -1174,7 +1175,7 @@ export default function CalculatorPage() {
         */}
 
         {!result && (
-          <Card className="bg-gray-50 border-gray-200" data-testid="calculator-instructions">
+          <Card className="bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700" data-testid="calculator-instructions">
             <CardContent className="pt-6">
               <Alert>
                 <AlertDescription>

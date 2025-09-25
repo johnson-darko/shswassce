@@ -35,11 +35,11 @@ export default function ComparePage() {
             <p className="text-xl text-scorecard-gray mb-8 max-w-2xl mx-auto">
               Select universities from the search page to compare them side by side.
             </p>
-            <Link href="/search">
+            <a href="/shswassce/search#/search">
               <Button className="bg-scorecard-blue hover:bg-blue-900 text-white" data-testid="button-go-search">
                 Go to Search
               </Button>
-            </Link>
+            </a>
           </div>
         </div>
       </div>

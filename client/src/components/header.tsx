@@ -29,10 +29,8 @@ export default function Header() {
   }, []);
 
   const navigation = [
-    { name: "Search Colleges", to: "/search" },
-    { name: "Compare", to: "/compare" },
-    { name: "Check Eligibility", to: "/eligibility" },
-    { name: "PDF Parser", to: "/admin/pdf" },
+    { name: "Search Universities", to: "/search" },
+
   ];
 
   const handleRefresh = () => {
