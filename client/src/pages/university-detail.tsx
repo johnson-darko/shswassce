@@ -488,14 +488,14 @@ export default function UniversityDetailPage() {
         {/* Action Bar */}
         <div className="mt-12 text-center space-y-4" data-testid="action-bar">
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/eligibility">
+            <Link to="/eligibility">
               <Button className="bg-green-600 hover:bg-green-700 text-white" data-testid="button-check-eligibility">
                 <GraduationCap className="mr-2 h-4 w-4" />
                 Check Your Eligibility
               </Button>
             </Link>
             {selectedUniversities.size > 0 && (
-              <Link href="/compare">
+              <Link to="/compare">
                 <Button 
                   variant="outline" 
                   className="border-scorecard-blue text-scorecard-blue hover:bg-scorecard-blue hover:text-white"
@@ -505,7 +505,7 @@ export default function UniversityDetailPage() {
                 </Button>
               </Link>
             )}
-            <Link href="/search">
+            <Link to="/search">
               <Button 
                 variant="outline" 
                 className="border-scorecard-blue text-scorecard-blue hover:bg-scorecard-blue hover:text-white"

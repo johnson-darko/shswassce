@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { University } from "@shared/schema";
 import { useComparison } from "@/hooks/use-comparison";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import { ExternalLink, GraduationCap, DollarSign, TrendingUp, Users, X } from "lucide-react";
 import { localDataService } from "@/lib/local-data-service";
 
@@ -186,7 +186,7 @@ export default function ComparePage() {
                     </div>
 
                     <div className="flex gap-2 pt-2">
-                      <Link href={`/university/${university.id}`} className="flex-1">
+                      <Link to={`/university/${university.id}`} className="flex-1">
                         <Button 
                           variant="outline" 
                           className="w-full border-scorecard-blue text-scorecard-blue hover:bg-scorecard-blue hover:text-white"
@@ -300,7 +300,7 @@ export default function ComparePage() {
         {/* Actions */}
         <div className="mt-8 text-center" data-testid="comparison-actions">
           <div className="space-x-4">
-            <Link href="/search">
+            <Link to="/search">
               <Button 
                 variant="outline" 
                 className="border-scorecard-blue text-scorecard-blue hover:bg-scorecard-blue hover:text-white"
@@ -309,7 +309,7 @@ export default function ComparePage() {
                 Add More Universities
               </Button>
             </Link>
-            <Link href="/eligibility">
+            <Link to="/eligibility">
               <Button 
                 className="bg-green-600 hover:bg-green-700 text-white"
                 data-testid="button-check-eligibility"

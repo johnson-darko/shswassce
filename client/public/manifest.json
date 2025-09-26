@@ -2,13 +2,17 @@
   "name": "Ghana University Admission Guide",
   "short_name": "GH UNICHECK",
   "description": "Check your WASSCE eligibility for Ghana universities instantly - works offline",
-  "start_url": "https://johnson-darko.github.io/shswassce/",
+  "start_url": "http://localhost:5173/shswassce/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#3b82f6",
   "orientation": "portrait-primary",
-  "scope": "https://johnson-darko.github.io/shswassce/",
-  "categories": ["education", "reference", "productivity"],
+  "scope": "http://localhost:5173/shswassce/",
+  "categories": [
+    "education",
+    "reference",
+    "productivity"
+  ],
   "lang": "en",
   "icons": [
     {

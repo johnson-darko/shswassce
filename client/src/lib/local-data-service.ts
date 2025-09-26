@@ -155,9 +155,12 @@ class LocalDataService {
     return university;
   }
 
-  async getProgramsByUniversity(universityId: string) {
+  async getProgramsByUniversity(universityId: string, universityName?: string) {
     const data = await this.loadData();
-    return data.programs.filter(program => program.universityId === universityId);
+    return data.programs.filter(program =>
+      program.universityId === universityId ||
+      (universityName && program.universityName === universityName)
+    );
   }
 
   async getScholarshipsByUniversity(universityId: string) {

@@ -4,13 +4,15 @@ import { Badge } from "@/components/ui/badge";
 import { University } from "@shared/schema";
 import { Check, ExternalLink } from "lucide-react";
 import { useComparison } from "@/hooks/use-comparison";
+import { toast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 
 interface UniversityCardProps {
   university: University;
+  onViewDetails?: () => void;
 }
 
-export default function UniversityCard({ university }: UniversityCardProps) {
+export default function UniversityCard({ university, onViewDetails }: UniversityCardProps) {
   const { addToComparison, removeFromComparison, isSelected, selectedUniversities } = useComparison();
   const selected = isSelected(university.id);
 
@@ -20,6 +22,10 @@ export default function UniversityCard({ university }: UniversityCardProps) {
     } else {
       if (selectedUniversities.size < 10) {
         addToComparison(university);
+        toast({
+          title: `${university.name} added to compare list!`,
+          description: `You have ${selectedUniversities.size + 1} universities in your compare list. Go to the Home page to view and compare.`,
+        });
       }
     }
   };
@@ -111,14 +117,13 @@ export default function UniversityCard({ university }: UniversityCardProps) {
             </div>
             
             <div className="flex gap-2">
-              <Link href={`/university/${university.id}`} className="flex-1">
-                <Button 
-                  className="w-full bg-scorecard-blue text-white hover:bg-blue-900 transition text-sm"
-                  data-testid={`button-view-details-${university.id}`}
-                >
-                  View Details
-                </Button>
-              </Link>
+              <Button 
+                className="w-full bg-scorecard-blue text-white hover:bg-blue-900 transition text-sm"
+                data-testid={`button-view-details-${university.id}`}
+                onClick={onViewDetails}
+              >
+                View Details
+              </Button>
               {university.website && (
                 <Button 
                   variant="outline"

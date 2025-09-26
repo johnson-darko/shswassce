@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { University } from "@shared/schema";
 
 interface ComparisonContextType {
@@ -13,12 +13,23 @@ interface ComparisonContextType {
 const ComparisonContext = createContext<ComparisonContextType | undefined>(undefined);
 
 export function ComparisonProvider({ children }: { children: ReactNode }) {
-  const [selectedUniversities, setSelectedUniversities] = useState<Set<string>>(new Set());
+  const [selectedUniversities, setSelectedUniversities] = useState<Set<string>>(() => {
+    const saved = localStorage.getItem("compare-list");
+    return saved ? new Set(JSON.parse(saved)) : new Set();
+  });
   const [universityDetails, setUniversityDetails] = useState<Map<string, University>>(new Map());
+
+  // Persist selectedUniversities to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("compare-list", JSON.stringify(Array.from(selectedUniversities)));
+  }, [selectedUniversities]);
 
   const addToComparison = (university: University) => {
     if (selectedUniversities.size < 10) {
-      setSelectedUniversities(prev => new Set([...prev, university.id]));
+      setSelectedUniversities(prev => {
+        const newSet = new Set([...prev, university.id]);
+        return newSet;
+      });
       setUniversityDetails(prev => new Map([...prev, [university.id, university]]));
     }
   };
@@ -39,6 +50,7 @@ export function ComparisonProvider({ children }: { children: ReactNode }) {
   const clearComparison = () => {
     setSelectedUniversities(new Set());
     setUniversityDetails(new Map());
+    localStorage.removeItem("compare-list");
   };
 
   const isSelected = (universityId: string) => {

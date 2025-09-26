@@ -5,11 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search } from "lucide-react";
 import UniversityCard from "@/components/university-card";
+import { Dialog } from "@/components/ui/dialog";
+import UniversityDetailModal from "@/components/university-detail-modal";
 import SearchFilters from "@/components/search-filters";
 import { SearchFilters as ISearchFilters, University } from "@shared/schema";
 import { useLocation } from "wouter";
 
 export default function SearchPage() {
+  const [selectedUniversity, setSelectedUniversity] = useState<University | null>(null);
   const [location] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState<ISearchFilters>({});
@@ -219,13 +222,23 @@ export default function SearchPage() {
             ) : (
               <div className="space-y-4" data-testid="results-list">
                 {universities.map((university) => (
-                  <UniversityCard key={university.id} university={university} />
+                  <UniversityCard 
+                    key={university.id} 
+                    university={university} 
+                    onViewDetails={() => setSelectedUniversity(university)}
+                  />
                 ))}
               </div>
             )}
           </main>
         </div>
       </div>
+      {/* University Details Modal */}
+      <Dialog open={!!selectedUniversity} onOpenChange={() => setSelectedUniversity(null)}>
+        {selectedUniversity && (
+          <UniversityDetailModal university={selectedUniversity} onClose={() => setSelectedUniversity(null)} />
+        )}
+      </Dialog>
     </div>
   );
 }

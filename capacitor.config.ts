@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'Studyxo SHS',
   webDir: 'dist',
   server: {
-    url: 'https://johnson-darko.github.io/shswassce/', // <-- This makes the app load your online site
+    url: 'https://shs.studyxo.com/',
     cleartext: true
   }
 };
