@@ -14,7 +14,7 @@ export default function SplashScreen() {
         alt="App Logo"
         className="w-32 h-32 animate-splash-bounce mb-4"
       />
-      <h2 className={`text-2xl font-bold mb-2 ${isDark ? 'text-blue-200' : 'text-scorecard-blue'}`}>GH Uni Guide</h2>
+      <h2 className={`text-2xl font-bold mb-2 ${isDark ? 'text-blue-200' : 'text-scorecard-blue'}`}>GH-UniCheck</h2>
       <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Powered by Studyxo</p>
     </div>
   );

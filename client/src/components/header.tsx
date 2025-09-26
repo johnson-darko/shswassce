@@ -73,7 +73,7 @@ export default function Header() {
           {/* Left: Logo */}
           <div className="flex items-center">
             <Link to="/" data-testid="link-home">
-              <h1 className={`text-lg font-bold ${theme === 'dark' ? 'text-blue-200' : 'text-scorecard-blue'}`}>Studyxo Uni Guide</h1>
+              <h1 className={`text-lg font-bold ${theme === 'dark' ? 'text-blue-200' : 'text-scorecard-blue'}`}>GH-UniCheck</h1>
             </Link>
           </div>
 
