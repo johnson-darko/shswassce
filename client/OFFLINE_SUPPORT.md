@@ -1,4 +1,4 @@
-# Offline Support in Studyxo SHS
+# Offline Support in GH-UniCheck
 
 ## How Offline Support Works
 

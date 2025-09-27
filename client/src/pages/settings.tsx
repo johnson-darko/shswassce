@@ -76,11 +76,11 @@ export default function SettingsPage() {
             className="rounded-full"
             onClick={() => {
               const shareMessage =
-                "Download Studyxo SHS from Play Store (Android) or App Store (iOS)! " +
+                "Download GH-UniCheck from Play Store (Android) or App Store (iOS)! " +
                 "Check your Wascce aggregate score, Find Programs at Universities you qualify and compare programs requirements from all Universities in Ghama"
               if (navigator.share) {
                 navigator.share({
-                  title: "Studyxo SHS",
+                  title: "GH-UniCheck",
                   text: shareMessage,
                 });
               } else {
