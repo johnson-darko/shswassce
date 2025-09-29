@@ -10,11 +10,11 @@
     },
     "electiveSubjects": [
   {"type": "single", "subject": "Chemistry", "min_grade": "C6"},
-  {"type": "any", "count": 2, "subjects": ["Physics", "Mathematics", "Biology", "General Agriculture", "Animal Husbandry", "Crop Husbandry", "Horticulture"], "min_grade": "C6"}
+  {"type": "any", "count": 2, "subjects": ["Physics", "Mathematics (Elective)", "Biology", "General Agriculture", "Animal Husbandry", "Crop Husbandry", "Horticulture"], "min_grade": "C6"}
     ],
     "aggregatePoints": 24,
     "requirementComplexity": "basic",
-    "additionalRequirements": "Credit passes in Chemistry and any TWO (2) from Physics or Mathematics, Biology or General Agriculture or Animal Husbandry or Crop Husbandry or Horticulture."
+    "additionalRequirements": "Credit passes in Chemistry and any TWO (2) from Physics or Mathematics (Elective)Agriculture or Animal Husbandry or Crop Husbandry or Horticulture."
   },
   {
     "id": "req-002",
@@ -27,11 +27,11 @@
     },
     "electiveSubjects": [
   {"type": "single", "subject": "Chemistry", "min_grade": "C6"},
-  {"type": "any", "count": 2, "subjects": ["Physics", "Mathematics", "Biology", "General Agriculture", "Animal Husbandry", "Crop Husbandry", "Horticulture"], "min_grade": "C6"}
+  {"type": "any", "count": 2, "subjects": ["Physics", "Mathematics (Elective)", "Biology", "General Agriculture", "Animal Husbandry", "Crop Husbandry", "Horticulture"], "min_grade": "C6"}
     ],
     "aggregatePoints": 24,
     "requirementComplexity": "basic",
-    "additionalRequirements": "Credit passes in Chemistry and any TWO (2) from Physics or Mathematics, Biology or General Agriculture or Animal Husbandry or Crop Husbandry or Horticulture."
+    "additionalRequirements": "Credit passes in Chemistry and any TWO (2) from Physics or Mathematics (Elective), Biology or General Agriculture or Animal Husbandry or Crop Husbandry or Horticulture."
   },
   {
     "id": "req-003",
@@ -43,13 +43,36 @@
       "compulsory": ["English Language", "Mathematics", "Integrated Science"]
     },
     "electiveSubjects": [
-      {"type": "any", "count": 3, "subjects": [
-        "Chemistry", "Physics", "Biology", "General Agriculture", "Economics", "Accounting", "Business Management", "Business Mathematics", "Costing", "Elective Mathematics", "Geography", "Crop Husbandry", "Horticulture", "Technical Drawing", "General Knowledge in Art", "Graphic Design", "Picture Making", "Painting", "Sculpture"
-      ], "min_grade": "C6"}
+      {
+        "group": "Science",
+        "subjects": ["Chemistry", "Physics", "Mathematics (Elective)", "Biology", "General Agriculture"],
+        "minCount": 3,
+        "minGrade": "C6"
+      },
+      {
+        "group": "Business",
+        "subjects": ["Economics", "Accounting", "Business Management", "Business Mathematics", "Costing", "Mathematics (Elective)"],
+        "minCount": 3,
+        "minGrade": "C6",
+        "coreRequirement": {"subject": "Integrated Science", "minGrade": "B3"}
+      },
+      {
+        "group": "General Arts",
+        "subjects": ["Economics", "Geography", "Mathematics (Elective)"],
+        "minCount": 3,
+        "minGrade": "C6",
+        "coreRequirement": {"subject": "Integrated Science", "minGrade": "B3"}
+      },
+      {
+        "group": "General Agriculture",
+        "subjects": ["Chemistry", "Physics", "Mathematics (Elective)", "Biology", "General Agriculture", "Crop Husbandry", "Horticulture"],
+        "minCount": 3,
+        "minGrade": "C6"
+      }
     ],
     "aggregatePoints": 24,
-    "requirementComplexity": "basic",
-    "additionalRequirements": "Credit passes in THREE subjects from Science, Business, General Arts, or General Agriculture elective options."
+    "requirementComplexity": "custom",
+    "additionalRequirements": "Credit passes in THREE subjects from Science, Business, General Arts, or General Agriculture elective options. For Business and General Arts combinations, applicants must have a minimum of B3 in Integrated Science."
   },
   {
     "id": "req-004",
@@ -61,9 +84,24 @@
       "compulsory": ["English Language", "Mathematics", "Integrated Science"]
     },
     "electiveSubjects": [
-      {"type": "any", "count": 3, "subjects": [
-        "Chemistry", "Physics", "Mathematics", "Crop Husbandry", "Biology", "General Agriculture", "Geography", "Economics", "Technical Drawing", "General Knowledge in Art", "Graphic Design", "Picture Making", "Painting", "Sculpture"
-      ], "min_grade": "C6"}
+      {
+        "group": "Science",
+        "subjects": ["Chemistry", "Physics", "Mathematics (Elective)", "Crop Husbandry", "Biology", "General Agriculture"],
+        "minCount": 3,
+        "minGrade": "C6"
+      },
+      {
+        "group": "General Arts",
+        "subjects": ["Mathematics (Elective)", "Geography", "Economics", "Technical Drawing", "General Knowledge in Art"],
+        "minCount": 3,
+        "minGrade": "C6"
+      },
+      {
+        "group": "Visual Art",
+        "subjects": ["General Knowledge in Art", "Graphic Design", "Chemistry", "Picture Making", "Painting", "Sculpture"],
+        "minCount": 3,
+        "minGrade": "C6"
+      }
     ],
     "aggregatePoints": 24,
     "requirementComplexity": "basic",
@@ -149,7 +187,7 @@
       "compulsory": ["English Language", "Mathematics", "Integrated Science"]
     },
     "electiveSubjects": [
-      {"type": "single", "subject": "Mathematics", "min_grade": "C6"},
+      {"type": "single", "subject": "Mathematics (Elective)", "min_grade": "C6"},
       {"type": "any", "count": 2, "subjects": [
         "Technical Drawing", "Engineering Science", "Woodwork", "Metalwork", "Building Construction",
         "Biology", "Chemistry", "Physics",
@@ -171,16 +209,16 @@
       "compulsory": ["English Language", "Mathematics", "Integrated Science"]
     },
     "electiveSubjects": [
-      {"type": "single", "subject": "Mathematics", "min_grade": "C6"},
-      {"type": "any", "count": 2, "subjects": [
-        "Technical Drawing", "Engineering Science", "Woodwork", "Building Construction", "Metalwork",
-        "Chemistry", "Physics",
-        "Economics", "Geography"
+      {"type": "single", "subject": "Mathematics (Elective)", "min_grade": "C6"},
+      {"type": "any", "count": 2, "groups": [
+        {"name": "Technical", "subjects": ["Technical Drawing", "Engineering Science", "Woodwork", "Building Construction", "Metalwork"]},
+        {"name": "Science", "subjects": ["Chemistry", "Physics"]},
+        {"name": "General Art", "subjects": ["Economics", "Geography"]}
       ], "min_grade": "C6"}
     ],
     "aggregatePoints": 24,
     "requirementComplexity": "basic",
-    "additionalRequirements": "Credit passes in Mathematics and any TWO from Technical (Technical Drawing, Engineering Science, Woodwork, Building Construction, Metalwork), Science (Chemistry, Physics), or General Art (Economics, Geography)."
+  "additionalRequirements": "Credit passes in Mathematics (Elective) and any TWO (2) from the following options: Technical: Technical Drawing, Engineering Science, Woodwork, Building Construction, Metalwork. Science: Chemistry, Physics. General Art: Economics, Geography."
   },
   {
     "id": "req-011",
@@ -192,7 +230,7 @@
       "compulsory": ["English Language", "Mathematics", "Integrated Science"]
     },
     "electiveSubjects": [
-      {"type": "single", "subject": "Mathematics", "min_grade": "C6"},
+      {"type": "single", "subject": "Mathematics (Elective)", "min_grade": "C6"},
       {"type": "any", "count": 2, "subjects": [
         "Chemistry", "Economics", "Geography", "Technical Drawing", "Building Construction", "Physics"
       ], "min_grade": "C6"}
