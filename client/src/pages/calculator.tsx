@@ -39,6 +39,251 @@ import type { EligibilityResult } from '@shared/schema';
 
 const gradeOptions = ['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9'];
 
+// Floating Search Button and Modal
+// Remove duplicate React import
+const FloatingSearchButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
+  <button
+    onClick={onClick}
+    style={{
+  position: "fixed",
+  top: "78%",
+  right: "40px",
+  transform: "translateY(-50%)",
+  zIndex: 9999,
+  color: "white",
+  borderRadius: "50%",
+  width: "60px",
+  height: "60px",
+  boxShadow: "0 4px 16px rgba(0,0,0,0.25)",
+  border: "3px solid #fff",
+  fontSize: "32px",
+  cursor: "pointer",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+    }}
+    aria-label="Search Programs"
+  >
+    <span role="img" aria-label="search">🔍</span>
+  </button>
+);
+
+interface SearchModalProps {
+  open: boolean;
+  onClose: () => void;
+  openPopovers: Record<number, boolean>;
+  setOpenPopovers: React.Dispatch<React.SetStateAction<Record<number, boolean>>>;
+  selectedProgram: string;
+  setSelectedProgram: (program: string) => void;
+  selectedUniversity: string;
+  setSelectedUniversity: (university: string) => void;
+  programs: string[];
+  universities: string[];
+  handleFilter: () => void;
+  filteredResult: EligibilityResult | EligibilityResult[] | null;
+  alternatives: EligibilityResult[];
+  handleShowExplanation: (programName: string, result: EligibilityResult) => void;
+  savedIds: string[];
+  saveProgram: (result: EligibilityResult) => void;
+}
+
+const SearchModal: React.FC<SearchModalProps> = ({ open, onClose, openPopovers, setOpenPopovers, selectedProgram, setSelectedProgram, selectedUniversity, setSelectedUniversity, programs, universities, handleFilter, filteredResult, alternatives, handleShowExplanation, savedIds, saveProgram }) => {
+  if (!open) return null;
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh", // solid dark overlay, change to "#fff" for white
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          background: "white",
+          borderRadius: "12px",
+          padding: "32px 24px",
+          minWidth: "340px",
+          maxWidth: "95vw",
+          boxShadow: "0 4px 24px rgba(0,0,0,0.18)",
+          zIndex: 1100,
+        }}
+        onClick={e => e.stopPropagation()}
+      >
+        <h2 style={{ marginBottom: "16px" }}>Search Programs</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        {/* Search Results Section */}
+        <div className="mt-4">
+          {Array.isArray(filteredResult) ? (
+            filteredResult.length > 0 ? (
+              <div>
+                <h3 className="font-semibold mb-2">Programs found:</h3>
+                <ul className="list-disc list-inside space-y-1 text-sm">
+                  {filteredResult.map((r: any, idx: number) => {
+                    const isSaved = savedIds.includes(r.programId + '|' + r.universityName);
+                    return (
+                      <li key={idx} className="flex items-center gap-2">
+                        <span className="font-bold">{r.programName}</span> at <span className="font-semibold">{r.universityName}</span> <span className="ml-2">{r.status === 'eligible' ? '✅ Eligible' : r.status === 'borderline' ? '⚠️ Borderline' : '❌ Not Eligible'}</span>
+                        <Button size="icon" variant="ghost" onClick={() => handleShowExplanation(r.programName, r)}>
+                          <AlertCircle className="h-5 w-5 text-blue-600" />
+                        </Button>
+                        {(r.status === 'eligible' || r.status === 'multiple_tracks') && !isSaved ? (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => saveProgram(r)}
+                          >
+                            Save
+                          </Button>
+                        ) : null}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ) : (
+              <div className="text-gray-500">No programs found.</div>
+            )
+          ) : filteredResult ? (
+            <div>
+              <h3 className="font-semibold mb-2">Result:</h3>
+              <div className="mb-2 flex items-center gap-2">
+                <span className="font-bold">{filteredResult.programName}</span> at <span className="font-semibold">{filteredResult.universityName}</span> <span className="ml-2">{filteredResult.status === 'eligible' ? '✅ Eligible' : filteredResult.status === 'borderline' ? '⚠️ Borderline' : '❌ Not Eligible'}</span>
+                <Button size="icon" variant="ghost" onClick={() => handleShowExplanation(filteredResult.programName, filteredResult)}>
+                  <AlertCircle className="h-5 w-5 text-blue-600" />
+                </Button>
+              </div>
+              {filteredResult.details && filteredResult.details.length > 0 && (
+                <ul className="list-disc list-inside space-y-1 text-sm">
+                  {filteredResult.details.map((d: string, i: number) => <li key={i}>{d}</li>)}
+                </ul>
+              )}
+              {filteredResult.status === 'not_offered' && alternatives.length > 0 && (
+                <div className="mt-2">
+                  <div className="mb-1 text-sm text-yellow-700">Other universities that offer this program:</div>
+                  <ul className="list-disc list-inside space-y-1 text-sm">
+                    {alternatives.map((a: any) => (
+                      <li key={a.programId} className="flex items-center gap-2">
+                        {a.programName} at {a.universityName}: {a.status === 'eligible' ? '✅ Eligible' : a.status === 'borderline' ? '⚠️ Borderline' : '❌ Not Eligible'}
+                        <Button size="icon" variant="ghost" onClick={() => handleShowExplanation(a.programName, a)}>
+                          <AlertCircle className="h-5 w-5 text-blue-600" />
+                        </Button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          ) : null}
+        </div>
+          {/* Program Combobox */}
+          <Popover open={openPopovers[300] || false} onOpenChange={open => setOpenPopovers(prev => ({ ...prev, 300: open }))}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={openPopovers[300] || false}
+                className="w-full justify-between font-normal h-11"
+                style={{wordBreak: 'break-word', whiteSpace: 'normal', maxWidth: 320, display: 'flex', alignItems: 'center'}}
+              >
+                <span style={{wordBreak: 'break-word', whiteSpace: 'normal', maxWidth: 260, display: 'inline-block'}}>{selectedProgram || "Select a program"}</span>
+                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-96 p-0" align="start">
+              <Command>
+                <CommandInput placeholder="Search programs..." className="h-9" />
+                <CommandList>
+                  <CommandEmpty>No program found.</CommandEmpty>
+                  <CommandGroup>
+                    {programs.map((program) => (
+                      <CommandItem
+                        key={program}
+                        value={program}
+                        onSelect={() => {
+                          setSelectedProgram(program);
+                          setSelectedUniversity('');
+                          setOpenPopovers(prev => ({ ...prev, 300: false }));
+                        }}
+                      >
+                        <Check className={cn("mr-2 h-4 w-4", selectedProgram === program ? "opacity-100" : "opacity-0")} />
+                        <span style={{wordBreak: 'break-word', whiteSpace: 'normal', maxWidth: 320, display: 'inline-block'}}>{program}</span>
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+          {/* University Combobox */}
+          <Popover open={openPopovers[400] || false} onOpenChange={open => setOpenPopovers(prev => ({ ...prev, 400: open }))}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={openPopovers[400] || false}
+                className="w-full justify-between font-normal h-11"
+                style={{wordBreak: 'break-word', whiteSpace: 'normal', maxWidth: 320, display: 'flex', alignItems: 'center'}}
+              >
+                <span style={{wordBreak: 'break-word', whiteSpace: 'normal', maxWidth: 260, display: 'inline-block'}}>{selectedUniversity || "Select a university"}</span>
+                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-96 p-0" align="start" style={{zIndex: 1200}}>
+              <Command>
+                <CommandInput placeholder="Search universities..." className="h-9" />
+                <CommandList>
+                  <CommandEmpty>No university found.</CommandEmpty>
+                  <CommandGroup>
+                    <CommandItem
+                      key="all-universities"
+                      value="Select All Universities"
+                      onSelect={() => {
+                        setSelectedUniversity('');
+                        setOpenPopovers(prev => ({ ...prev, 400: false }));
+                      }}
+                    >
+                      <Check className={cn("mr-2 h-4 w-4", selectedUniversity === '' ? "opacity-100" : "opacity-0")} />
+                      Select All Universities
+                    </CommandItem>
+                    {universities.map((university) => (
+                      <CommandItem
+                        key={university}
+                        value={university}
+                        onSelect={() => {
+                          setSelectedUniversity(university);
+                          setOpenPopovers(prev => ({ ...prev, 400: false }));
+                        }}
+                      >
+                        <Check className={cn("mr-2 h-4 w-4", selectedUniversity === university ? "opacity-100" : "opacity-0")} />
+                        <span style={{wordBreak: 'break-word', whiteSpace: 'normal', maxWidth: 320, display: 'inline-block'}}>{university}</span>
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        </div>
+        <Button 
+          onClick={handleFilter}
+          disabled={!selectedProgram}
+          className="bg-blue-600 hover:bg-blue-700 text-white w-full mb-2"
+        >
+          Check
+        </Button>
+        <button onClick={onClose} style={{ marginTop: "12px" }} className="w-full py-2 rounded bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold">Close</button>
+      </div>
+    </div>
+  );
+};
+
+// ...existing code...
 const subjects = {
   core: [
     { key: 'english' as keyof CalculatorGrades, label: 'English Language' },
@@ -116,6 +361,9 @@ const gradeValues: Record<string, number> = {
 };
 
 export default function CalculatorPage() {
+  // Modal state for search modal
+  // Modal state for search modal
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
   // Listen for route changes to trigger re-render
   const [location] = useLocation();
 
@@ -621,6 +869,25 @@ export default function CalculatorPage() {
   const { theme } = useTheme();
   return (
   <div className={"container mx-auto px-4 py-8 min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900 transition-colors duration-500 w-full"} style={{background: theme === 'dark' ? '#111827' : undefined}} data-testid="calculator">
+    {/* Search Modal for program/university filter */}
+    <SearchModal
+      open={searchModalOpen}
+      onClose={() => setSearchModalOpen(false)}
+      openPopovers={openPopovers}
+      setOpenPopovers={setOpenPopovers}
+      selectedProgram={selectedProgram}
+      setSelectedProgram={setSelectedProgram}
+      selectedUniversity={selectedUniversity}
+      setSelectedUniversity={setSelectedUniversity}
+      programs={programs}
+      universities={universities}
+      handleFilter={handleFilter}
+      filteredResult={filteredResult}
+      alternatives={alternatives}
+      handleShowExplanation={handleShowExplanation}
+      savedIds={savedIds}
+      saveProgram={saveProgram}
+    />
   <div className="max-w-4xl mx-auto text-gray-900 dark:text-gray-100">
         {showCalculator && (
           <>
@@ -905,7 +1172,10 @@ export default function CalculatorPage() {
           <div className="mt-8">
             <Collapsible open={!isCollapsed} onOpenChange={setIsCollapsed}>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-slate-700">Program Eligibility Results</h2>
+                <div className="flex items-center gap-3">
+                  <h2 className="text-2xl font-bold text-slate-700">Program Eligibility Results</h2>
+                  <FloatingSearchButton onClick={() => setSearchModalOpen(true)} />
+                </div>
                 {/* Hide Calculator button removed */}
               </div>
 
@@ -949,12 +1219,11 @@ export default function CalculatorPage() {
                                     {getStatusIcon(result.status)}
                                     <Button
                                       size="sm"
-                                      variant={savedIds.includes(result.programId + '|' + result.universityName) ? 'default' : 'outline'}
-                                      className={savedIds.includes(result.programId + '|' + result.universityName) ? 'bg-green-600 text-white' : ''}
+                                      variant="outline"
                                       onClick={() => saveProgram(result)}
-                                      disabled={savedIds.includes(result.programId + '|' + result.universityName)}
+                                      style={{ display: savedIds.includes(result.programId + '|' + result.universityName) ? 'none' : undefined }}
                                     >
-                                      {savedIds.includes(result.programId + '|' + result.universityName) ? 'Saved' : 'Save'}
+                                      Save
                                     </Button>
                                   </div>
                                 </div>
@@ -1139,7 +1408,7 @@ export default function CalculatorPage() {
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-96 p-0" align="start">
+                <PopoverContent className="w-96 p-0" align="start" style={{zIndex: 1200}}>
                   <Command>
                     <CommandInput placeholder="Search programs..." className="h-9" />
                     <CommandList>
@@ -1177,7 +1446,7 @@ export default function CalculatorPage() {
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-96 p-0" align="start">
+                <PopoverContent className="w-96 p-0" align="start" style={{zIndex: 1200}}>
                   <Command>
                     <CommandInput placeholder="Search universities..." className="h-9" />
                     <CommandList>
@@ -1315,12 +1584,14 @@ export default function CalculatorPage() {
             <DialogHeader>
               <DialogTitle>Program Eligibility Explained</DialogTitle>
             </DialogHeader>
-            {requirementsSection && (
-              <div className="text-sm text-blue-900 bg-blue-50 rounded p-3 mb-3 whitespace-pre-line">
-                {requirementsSection}
-              </div>
-            )}
-            <div className="text-base text-gray-700 py-2">{explanationText}</div>
+            <div style={{maxHeight: '60vh', overflowY: 'auto', paddingRight: '0.5rem'}}>
+              {requirementsSection && (
+                <div className="text-sm text-blue-900 bg-blue-50 rounded p-3 mb-3 whitespace-pre-line">
+                  {requirementsSection}
+                </div>
+              )}
+              <div className="text-base text-gray-700 py-2">{explanationText}</div>
+            </div>
             <Button onClick={() => setExplanationModalOpen(false)} className="mt-4">Close</Button>
           </DialogContent>
         </Dialog>
