@@ -97,6 +97,12 @@ const group2Programs: Record<string, { requiredElectives: string[] }> = {
   },
   'BA. SOCIAL WORK': {
     requiredElectives: ['history|geography|literature in english|french|ghanaian language|government|business management|mathematics (elective)|economics', 'history|geography|literature in english|french|ghanaian language|government|business management|mathematics (elective)|economics', 'history|geography|literature in english|french|ghanaian language|government|business management|mathematics (elective)|economics']
+  },
+  'BSC. AGRICULTURE': {
+    requiredElectives: ['chemistry', 'physics|mathematics (elective)|general agriculture|animal husbandry|crop husbandry|horticulture', 'physics|mathematics (elective)|general agriculture|animal husbandry|crop husbandry|horticulture']
+  },
+  'BSC. AGRICULTURAL BIOTECHNOLOGY': {
+    requiredElectives: ['chemistry', 'physics|mathematics (elective)|general agriculture|animal husbandry|crop husbandry|horticulture', 'physics|mathematics (elective)|general agriculture|animal husbandry|crop husbandry|horticulture']
   }
   // Add more programs here as needed
 };
@@ -234,6 +240,48 @@ export function checkGroup2Eligibility(combo: any, requirement: any, programName
       } else {
         electivesEligible = false;
         details.push('  - THREE from: History, Geography, Literature in English, French, Ghanaian Language, Government, Business Management, Mathematics (Elective), Economics (You missing all)');
+      }
+    } else if (
+      programName.toUpperCase() === 'BSC. AGRICULTURE' ||
+      programName.toUpperCase() === 'BSC. AGRICULTURAL BIOTECHNOLOGY'
+    ) {
+      // Logic: Chemistry (min C6), any 2 from list (min C6), but Physics OR Mathematics (Elective) can be counted only once
+      const hasChemistry = electives.some((e: any) => e.subject.trim().toLowerCase() === 'chemistry' && ['a1','b2','b3','c4','c5','c6'].includes(e.grade.trim().toLowerCase()));
+      const agricList = [
+        'physics',
+        'mathematics (elective)',
+        'general agriculture',
+        'animal husbandry',
+        'crop husbandry',
+        'horticulture'
+      ];
+      // Count Physics or Mathematics (Elective) only once
+      let count = 0;
+      let used = new Set<string>();
+      for (const subj of agricList) {
+        if ((subj === 'physics' || subj === 'mathematics (elective)')) {
+          if (!used.has('phy-math')) {
+            if (electives.some((e: any) => (e.subject.trim().toLowerCase() === 'physics' || e.subject.trim().toLowerCase() === 'mathematics (elective)') && ['a1','b2','b3','c4','c5','c6'].includes(e.grade.trim().toLowerCase()))) {
+              count++;
+              used.add('phy-math');
+            }
+          }
+        } else {
+          if (electives.some((e: any) => e.subject.trim().toLowerCase() === subj && ['a1','b2','b3','c4','c5','c6'].includes(e.grade.trim().toLowerCase()))) {
+            count++;
+            used.add(subj);
+          }
+        }
+      }
+      if (hasChemistry && count >= 2) {
+        electivesEligible = true;
+        details.push('  - Chemistry (✓, min C6)');
+        details.push('  - Any TWO from: Physics OR Mathematics (Elective), General Agriculture, Animal Husbandry, Crop Husbandry, Horticulture (✓, min C6)');
+      } else {
+        electivesEligible = false;
+        details.push(`  - Chemistry (${hasChemistry ? '✓' : 'missing'})`);
+        details.push(`  - Any TWO from: Physics OR Mathematics (Elective), General Agriculture, Animal Husbandry, Crop Husbandry, Horticulture (${count >= 2 ? '✓' : 'missing'})`);
+        details.push('You must have passed Chemistry and any TWO from the list above with at least C6 to be eligible. Physics and Mathematics (Elective) count as one option.');
       }
     } else if (program.requiredElectives.includes('any2')) {
       // Special logic for Statistics and Actuarial Science

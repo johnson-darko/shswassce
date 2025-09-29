@@ -16,6 +16,8 @@ import { useTheme } from "@/context/ThemeContext"; // Adjust path if needed
 
 import { checkEligibilityOffline } from '../lib/offline-eligibility-engine';
 import { group1Explanations } from '../lib/eligibility/group1-eligibility';
+import { customExplanations } from '../lib/eligibility/custom-eligibility';
+import requirementsKnust from '../data/requirements-knust.json';
 import { useLocation } from "wouter";
 
 interface CalculatorGrades {
@@ -173,6 +175,7 @@ export default function CalculatorPage() {
   // Modal state for eligibility explanation
   const [explanationModalOpen, setExplanationModalOpen] = useState(false);
   const [explanationText, setExplanationText] = useState('');
+  const [requirementsSection, setRequirementsSection] = useState('');
 
   // Load grades from localStorage on component mount
   useEffect(() => {
@@ -531,10 +534,86 @@ export default function CalculatorPage() {
   }
 
   // Handler to show explanation modal
-  const handleShowExplanation = (programName: string) => {
+  const handleShowExplanation = (programName: string, selectedResult?: EligibilityResult) => {
+    // Helper to normalize names for matching
+    function normalize(str: string) {
+      return str.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+    }
+    let reqObj = null;
+    if (selectedResult) {
+      reqObj = requirementsKnust.find((r: any) =>
+        normalize(r.programName) === normalize(selectedResult.programName) &&
+        normalize(r.universityName) === normalize(selectedResult.universityName)
+      );
+    }
+    let reqSection = '';
+    if (reqObj) {
+      reqSection += 'Program Requirements:';
+      if (reqObj.coreSubjects?.compulsory?.length) {
+        reqSection += '\nCore Subjects: ' + reqObj.coreSubjects.compulsory.join(', ');
+      }
+      if (reqObj.electiveSubjects?.length) {
+        reqSection += '\nElective Subjects:';
+        reqObj.electiveSubjects.forEach((el: any) => {
+            // Handle both 'groups' and 'subjects' for electives
+            if (el.groups) {
+              // If groups is an array of objects or strings
+              if (Array.isArray(el.groups)) {
+                const groupNames = el.groups.map((g: any) => typeof g === 'string' ? g : g.name).join(', ');
+                reqSection += `\n- Any ${el.count} from groups: ${groupNames} (Min Grade ${el.min_grade || el.minGrade || ''})`;
+              }
+            } else if (el.group) {
+              reqSection += `\n- ${el.group}: ${el.subjects.join(', ')} (Min ${el.minCount}, Grade ${el.minGrade || el.min_grade || ''})`;
+            } else if (el.type === 'single') {
+              reqSection += `\n- ${el.subject} (Min Grade ${el.min_grade})`;
+            } else if (el.type === 'any') {
+              reqSection += `\n- Any ${el.count} of: ${el.subjects.join(', ')} (Min Grade ${el.min_grade})`;
+            }
+        });
+      }
+      if (reqObj.aggregatePoints) {
+        reqSection += `\nAggregate Points: ${reqObj.aggregatePoints}`;
+      }
+      if (reqObj.additionalRequirements) {
+        reqSection += `\nAdditional: ${reqObj.additionalRequirements}`;
+      }
+    }
+    setRequirementsSection(reqSection);
     // Try to match program name in a case-insensitive way
-    const key = Object.keys(group1Explanations).find(k => k.trim().toLowerCase() === programName.trim().toLowerCase());
-    const explanation = key ? group1Explanations[key] : 'No detailed explanation available.';
+    const normalizedName = programName.trim().toUpperCase();
+    const group1Key = Object.keys(group1Explanations).find(k => k.trim().toUpperCase() === normalizedName);
+    const customKey = Object.keys(customExplanations).find(k => k.trim().toUpperCase() === normalizedName);
+    let explanation = '';
+    // Always filter out 'You meet all CORE requirements' and 'Aggregate:' from details
+    const filterDetails = (details: string[]) => details.filter(d => !d.startsWith('You meet all CORE requirements') && !d.startsWith('Aggregate:'));
+    if (group1Key) {
+      explanation = group1Explanations[group1Key];
+      if (selectedResult?.details?.length) {
+        const filteredDetails = filterDetails(selectedResult.details);
+        if (filteredDetails.length > 0) {
+          explanation += '\n\nDetails:';
+          explanation += '\n' + filteredDetails.join('\n');
+        }
+      }
+    } else if (customKey) {
+      explanation = customExplanations[customKey];
+      if (selectedResult?.details?.length) {
+        const filteredDetails = filterDetails(selectedResult.details);
+        if (filteredDetails.length > 0) {
+          explanation += '\n\nDetails:';
+          explanation += '\n' + filteredDetails.join('\n');
+        }
+      }
+    } else if (selectedResult?.details?.length) {
+      const filteredDetails = filterDetails(selectedResult.details);
+      explanation = 'Program Eligibility Explained';
+      if (filteredDetails.length > 0) {
+        explanation += '\n\nDetails:';
+        explanation += '\n' + filteredDetails.join('\n');
+      }
+    } else {
+      explanation = 'Program Eligibility Explained\nNo detailed explanation available.';
+    }
     setExplanationText(explanation);
     setExplanationModalOpen(true);
   };
@@ -882,7 +961,7 @@ export default function CalculatorPage() {
                                 <div className="flex items-center gap-2 mb-2">
                                   <p className="text-sm text-green-700">{result.message}</p>
                                   {/* Question icon for explanation */}
-                                  <Button size="icon" variant="ghost" onClick={() => handleShowExplanation(result.programName)}>
+                                  <Button size="icon" variant="ghost" onClick={() => handleShowExplanation(result.programName, result)}>
                                     <AlertCircle className="h-5 w-5 text-blue-600" />
                                   </Button>
                                 </div>
@@ -1236,6 +1315,11 @@ export default function CalculatorPage() {
             <DialogHeader>
               <DialogTitle>Program Eligibility Explained</DialogTitle>
             </DialogHeader>
+            {requirementsSection && (
+              <div className="text-sm text-blue-900 bg-blue-50 rounded p-3 mb-3 whitespace-pre-line">
+                {requirementsSection}
+              </div>
+            )}
             <div className="text-base text-gray-700 py-2">{explanationText}</div>
             <Button onClick={() => setExplanationModalOpen(false)} className="mt-4">Close</Button>
           </DialogContent>
