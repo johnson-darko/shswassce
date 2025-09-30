@@ -1,32 +1,184 @@
 [
   {
-    "id": "req-001",
-    "programId": "prog-001",
-    "coreSubjects": {"compulsory": ["English", "Mathematics"], "alternatives": [{"type": "one_of", "subjects": ["Integrated Science", "Social Studies"], "minGrade": "C6"}]},
-    "electiveSubjects": [
-  {"type": "single", "subject": "Elective Mathematics", "min_grade": "B3"},
-  {"type": "single", "subject": "Physics", "min_grade": "C6"},
-  {"type": "any", "count": 1, "subjects": ["Biology", "Chemistry", "Geography", "Government", "Economics", "French", "Literature", "History", "Business Management", "Accounting", "Costing", "Elective Mathematics", "Physics"], "min_grade": "C6"}
-    ],
-    "additionalRequirements": "Strong performance in mathematics required",
-    "aggregatePoints": 24,
-    "requirementComplexity": "basic",
-    "programName": "B.Sc. Computer Science",
+    "id": "req-early-grade-distance",
+    "programId": "ug-prog-001",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 30,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not exceeding 30.",
+    "programName": "Bachelor of Education in Early Grade Specialism (Distance)",
     "universityName": "University of Ghana"
   },
   {
-    "id": "req-002",
-    "programId": "prog-002",
-    "coreSubjects": {"English": "C6", "Mathematics": "C6", "Social Studies": "C6", "Integrated Science": "C6"},
-    "electiveSubjects": [
-  {"type": "single", "subject": "Economics", "min_grade": "C6"},
-  {"type": "single", "subject": "Government", "min_grade": "C6"},
-  {"type": "any", "count": 1, "subjects": ["Geography", "French", "Literature", "History", "Business Management", "Accounting", "Costing", "Elective Mathematics", "Physics", "Biology", "Chemistry"], "min_grade": "C6"}
-    ],
-    "additionalRequirements": "Good performance in social sciences preferred",
+    "id": "req-upper-primary-distance",
+    "programId": "ug-prog-002",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 30,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not exceeding 30.",
+    "programName": "Bachelor of Education in Upper Primary Specialism (Distance)",
+    "universityName": "University of Ghana"
+  },
+  {
+    "id": "req-jhs-distance",
+    "programId": "ug-prog-003",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 30,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not exceeding 30.",
+    "programName": "Bachelor of Education in JHS Specialism (Distance)",
+    "universityName": "University of Ghana"
+  },
+  {
+    "id": "req-it-distance",
+    "programId": "ug-prog-004",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
     "aggregatePoints": 24,
-    "requirementComplexity": "basic",
-    "programName": "B.A. Economics",
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not exceeding 24.",
+    "programName": "Bachelor of Science in Information Technology (Distance)",
+    "universityName": "University of Ghana"
+  },
+  {
+    "id": "req-arts-distance",
+    "programId": "ug-prog-005",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 30,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not more than 30.",
+    "programName": "Bachelor of Arts (Distance)",
+    "universityName": "University of Ghana"
+  },
+  {
+    "id": "req-business-distance",
+    "programId": "ug-prog-006",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 30,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not exceeding 30.",
+    "programName": "Bachelor of Science in Business Administration (Distance)",
+    "universityName": "University of Ghana"
+  },
+  {
+    "id": "req-upper-grade",
+    "programId": "ug-prog-007",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not exceeding 24.",
+    "programName": "B.Ed. in Upper Grade Specialism",
+    "universityName": "University of Ghana"
+  },
+  {
+    "id": "req-early-grade",
+    "programId": "ug-prog-008",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not exceeding 24.",
+    "programName": "B.Ed. in Early Grade Specialism",
+    "universityName": "University of Ghana"
+  },
+  {
+    "id": "req-jhs",
+    "programId": "ug-prog-009",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not exceeding 24.",
+    "programName": "B.Ed. in JHS Specialism",
+    "universityName": "University of Ghana"
+  },
+  {
+    "id": "req-social-studies",
+    "programId": "ug-prog-010",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not exceeding 24.",
+    "programName": "B.Ed. in Social Studies",
+    "universityName": "University of Ghana"
+  },
+  {
+    "id": "req-spanish",
+    "programId": "ug-prog-011",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not exceeding 24.",
+    "programName": "B.Ed. in Spanish",
+    "universityName": "University of Ghana"
+  }
+  ,
+  {
+    "id": "req-arabic",
+    "programId": "ug-prog-012",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not exceeding 24.",
+    "programName": "B.Ed. in Arabic",
+    "universityName": "University of Ghana"
+  },
+  {
+    "id": "req-dance",
+    "programId": "ug-prog-013",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not exceeding 24.",
+    "programName": "B.Ed. in Performing Arts (Dance)",
+    "universityName": "University of Ghana"
+  },
+  {
+    "id": "req-music",
+    "programId": "ug-prog-014",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not exceeding 24.",
+    "programName": "B.Ed. in Performing Arts (Music)",
+    "universityName": "University of Ghana"
+  },
+  {
+    "id": "req-theatre",
+    "programId": "ug-prog-015",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not exceeding 24.",
+    "programName": "B.Ed. in Performing Arts (Theatre Arts)",
+    "universityName": "University of Ghana"
+  },
+  {
+    "id": "req-physical-education",
+    "programId": "ug-prog-016",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not exceeding 24.",
+    "programName": "B.Ed. in Physical Education and Health",
+    "universityName": "University of Ghana"
+  }
+  ,
+  {
+    "id": "req-sport-physical-culture",
+    "programId": "ug-prog-017",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three elective subjects with total aggregate not exceeding 24.",
+    "programName": "B.A. in Sport and Physical Culture Studies",
+    "universityName": "University of Ghana"
+  },
+  {
+    "id": "req-fine-arts",
+    "programId": "ug-prog-018",
+    "coreSubjects": {"compulsory": ["English Language", "Mathematics", "Integrated Science", "Social Studies"], "minGrade": "C6"},
+    "electiveSubjects": [{"type": "any", "count": 3, "minGrade": "C6"}],
+    "aggregatePoints": 24,
+    "additionalRequirements": "Credit passes in English Language, Mathematics, Integrated Science, Social Studies and any three electives subjects (aggregate 24 or better, audition/interview required).",
+    "programName": "Bachelor of Fine Arts",
     "universityName": "University of Ghana"
   }
 ]
