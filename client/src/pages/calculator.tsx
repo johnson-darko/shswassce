@@ -18,6 +18,7 @@ import { checkEligibilityOffline } from '../lib/offline-eligibility-engine';
 import { group1Explanations } from '../lib/eligibility/group1-eligibility';
 import { customExplanations } from '../lib/eligibility/custom-eligibility';
 import requirementsKnust from '../data/requirements-knust.json';
+import requirementsUg from "../data/requirements-ug.json";
 import { useLocation } from "wouter";
 
 interface CalculatorGrades {
@@ -788,13 +789,14 @@ export default function CalculatorPage() {
       return str.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
     }
     let reqObj = null;
+    let reqSection = '';
+    // Try KNUST first
     if (selectedResult) {
       reqObj = requirementsKnust.find((r: any) =>
         normalize(r.programName) === normalize(selectedResult.programName) &&
         normalize(r.universityName) === normalize(selectedResult.universityName)
       );
     }
-    let reqSection = '';
     if (reqObj) {
       reqSection += 'Program Requirements:';
       if (reqObj.coreSubjects?.compulsory?.length) {
@@ -824,6 +826,42 @@ export default function CalculatorPage() {
       }
       if (reqObj.additionalRequirements) {
         reqSection += `\nAdditional: ${reqObj.additionalRequirements}`;
+      }
+  } else if (selectedResult && selectedResult.universityName === 'University of Ghana' && selectedResult.matchedRequirementId) {
+      // Always show UG requirements if matchedRequirementId is present
+      reqSection += 'Program Requirements:';
+      const ugReq = requirementsUg.find((r: any) => r.id === selectedResult.matchedRequirementId);
+      if (ugReq) {
+        if (ugReq.coreSubjects?.compulsory?.length) {
+          reqSection += '\nCore Subjects: ' + ugReq.coreSubjects.compulsory.join(', ');
+        }
+        if (
+          ugReq.coreSubjects &&
+          'alternatives' in ugReq.coreSubjects &&
+          Array.isArray((ugReq.coreSubjects as any).alternatives) &&
+          (ugReq.coreSubjects as any).alternatives.length
+        ) {
+          (ugReq.coreSubjects as any).alternatives.forEach((alt: any) => {
+            if (alt.type === 'one_of') {
+              reqSection += `\nOne of: ${alt.subjects.join(', ')} (min grade: ${alt.minGrade})`;
+            }
+          });
+        }
+        if (ugReq.electiveSubjects?.length) {
+          ugReq.electiveSubjects.forEach((el: any) => {
+            if (el.type === 'any' && el.subjects && el.subjects[0] === 'ANY') {
+              reqSection += `\nAny ${el.count} electives with at least grade ${el.min_grade}`;
+            } else if (el.type === 'single') {
+              reqSection += `\nRequired elective: ${el.subject} (min grade: ${el.min_grade})`;
+            }
+          });
+        }
+        if (ugReq.aggregatePoints) {
+          reqSection += `\nAggregate ≤ ${ugReq.aggregatePoints}`;
+        }
+        if (ugReq.additionalRequirements) {
+          reqSection += `\nAdditional: ${ugReq.additionalRequirements}`;
+        }
       }
     }
     setRequirementsSection(reqSection);
