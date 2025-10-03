@@ -21,6 +21,9 @@ import React, { useState, useEffect } from "react";
 import SplashScreen from "./components/SplashScreen";
 import BottomNavigation from "@/components/bottom-navigation"; // Adjust path if needed
 import PrivacyPage from "./pages/privacy";
+import ProfilePage from "./pages/ProfilePage";
+import SubjectsPage from "./pages/SubjectsPage";
+import SubjectsResultsPage from "./pages/SubjectsResultsPage";
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -54,6 +57,8 @@ function App() {
                 <Route path="/saved-programs" element={<SavedProgramsPage />} />
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/privacy" element={<PrivacyPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/subjects" element={<SubjectsResultsPage />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>

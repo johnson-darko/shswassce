@@ -1,6 +1,6 @@
 // Use environment variable for Paystack key
 const paystackKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
@@ -362,6 +362,70 @@ const gradeValues: Record<string, number> = {
 };
 
 export default function CalculatorPage() {
+  // Mode: 'shs' uses average subject grades, 'wassce' uses manual input
+  const [inputMode, setInputMode] = useState<'shs' | 'wassce'>('wassce');
+
+  // Step 2: Helper to fetch SHS average subject grades from localStorage
+  function getShsAverageGrades() {
+    const results = JSON.parse(localStorage.getItem('studentResults') || '{}');
+    const gradeValues = { 'A1': 1, 'B2': 2, 'B3': 3, 'C4': 4, 'C5': 5, 'C6': 6, 'D7': 7, 'E8': 8, 'F9': 9 };
+    const coreSubjectNames = ['English', 'Core Mathematics', 'Integrated Science', 'Social Studies'];
+    function getAverageSubjectGrade(results, subjectIdx, isCore) {
+      const grades = Object.values(results)
+        .map(v => {
+          const res = v;
+          return isCore ? (res.coreGrades && res.coreGrades[subjectIdx]) : (res.electiveGrades && res.electiveGrades[subjectIdx]);
+        })
+        .filter(g => g && gradeValues[g]);
+      if (grades.length === 0) return '';
+      const avg = grades.reduce((a, b) => a + gradeValues[b], 0) / grades.length;
+      const closest = Object.entries(gradeValues).reduce((prev, curr) => Math.abs(curr[1] - avg) < Math.abs(gradeValues[prev] - avg) ? curr[0] : prev, 'A1');
+      return closest;
+    }
+    const firstTermKey = Object.keys(results)[0];
+    const electives = firstTermKey && results[firstTermKey]?.electives ? results[firstTermKey].electives : [];
+    const shsGrades = {
+      english: getAverageSubjectGrade(results, 0, true),
+      mathematics: getAverageSubjectGrade(results, 1, true),
+      science: getAverageSubjectGrade(results, 2, true),
+      social: getAverageSubjectGrade(results, 3, true),
+      elective1Subject: electives[0] || '',
+      elective1Grade: getAverageSubjectGrade(results, 0, false),
+      elective2Subject: electives[1] || '',
+      elective2Grade: getAverageSubjectGrade(results, 1, false),
+      elective3Subject: electives[2] || '',
+      elective3Grade: getAverageSubjectGrade(results, 2, false),
+      elective4Subject: electives[3] || '',
+      elective4Grade: getAverageSubjectGrade(results, 3, false),
+    };
+    return shsGrades;
+  }
+
+  // Store manual WASSCE grades so they persist when toggling modes
+  const wassceGradesRef = useRef<CalculatorGrades | null>(null);
+
+  useEffect(() => {
+    if (inputMode === 'shs') {
+      wassceGradesRef.current = grades;
+      setGrades(getShsAverageGrades());
+    } else if (inputMode === 'wassce') {
+      // Restore manual input mode: use previously entered WASSCE grades if available
+      setGrades(wassceGradesRef.current || {
+        english: '',
+        mathematics: '',
+        science: '',
+        social: '',
+        elective1Subject: '',
+        elective1Grade: '',
+        elective2Subject: '',
+        elective2Grade: '',
+        elective3Subject: '',
+        elective3Grade: '',
+        elective4Subject: '',
+        elective4Grade: '',
+      });
+    }
+  }, [inputMode]);
   // Modal state for search modal
   // Modal state for search modal
   const [searchModalOpen, setSearchModalOpen] = useState(false);
@@ -927,6 +991,21 @@ export default function CalculatorPage() {
       saveProgram={saveProgram}
     />
   <div className="max-w-4xl mx-auto text-gray-900 dark:text-gray-100">
+        {/* Step 1: Toggle buttons for input mode */}
+        <div style={{ display: 'flex', gap: 12, marginBottom: 24, justifyContent: 'center' }}>
+          <button
+            onClick={() => setInputMode('wassce')}
+            style={{ padding: '10px 24px', borderRadius: 8, background: inputMode === 'wassce' ? '#007bff' : '#eee', color: inputMode === 'wassce' ? '#fff' : '#333', border: '1px solid #b3d1ff', fontWeight: 600 }}
+          >
+            Use WASSCE Results
+          </button>
+          <button
+            onClick={() => setInputMode('shs')}
+            style={{ padding: '10px 24px', borderRadius: 8, background: inputMode === 'shs' ? '#007bff' : '#eee', color: inputMode === 'shs' ? '#fff' : '#333', border: '1px solid #b3d1ff', fontWeight: 600 }}
+          >
+            Use SHS Results
+          </button>
+        </div>
         {showCalculator && (
           <>
             <div className="text-center mb-8">
@@ -954,9 +1033,10 @@ export default function CalculatorPage() {
                           {label}
                         </label>
                         <Select 
-                          value={grades[key] || ""} 
+                          value={grades[key] || ""}
                           onValueChange={(value) => handleCoreGradeChange(key, value)}
                           data-testid={`select-${key}`}
+                          disabled={inputMode === 'shs'}
                         >
                           <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select Grade" />
@@ -1030,6 +1110,7 @@ export default function CalculatorPage() {
                                 data-testid={`select-elective-${num}-subject`}
                                 placeholder="Type or select a subject"
                                 autoComplete="off"
+                                disabled={inputMode === 'shs'}
                               />
                               <datalist id={datalistId}>
                                 {getAvailableSubjects(num).map(subject => (
@@ -1042,10 +1123,10 @@ export default function CalculatorPage() {
                               <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Select Grade</label>
                               <select
                                 className="w-full h-11 border rounded px-2"
-                                value={grades[gradeKey] || ""} 
+                                value={grades[gradeKey] || ""}
                                 onChange={e => handleElectiveChange(num, 'Grade', e.target.value)}
                                 data-testid={`select-elective-${num}-grade`}
-                                disabled={!grades[subjectKey]}
+                                disabled={inputMode === 'shs' || !grades[subjectKey]}
                               >
                                 <option value="">Select Grade</option>
                                 {gradeOptions.map(grade => (
@@ -1132,72 +1213,94 @@ export default function CalculatorPage() {
 
                 {/* Check All Program Eligibility Button */}
                 <div className="text-center mt-8">
-                  {!hasPaid ? (
-                    <Button
-                      onClick={() => {
-                        // Ask user for email
-                        const email = window.prompt('Enter your email address for payment receipt:');
-                        if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-                          alert('Please enter a valid email address to receive the payment receipt.');
-                          return;
-                        }
-                        // Paystack integration
-                        const paystack = (window as any).PaystackPop && (window as any).PaystackPop.setup ? (window as any).PaystackPop : null;
-                        if (paystack) {
-                          paystack.setup({
-                            key: paystackKey,
-                            email,
-                            amount: 500, // Amount in pesewas (5 cedis = 500 pesewas)
-                            currency: 'GHS', // Ghana Cedis
-                            callback: function(response: any) {
-                              setHasPaid(true);
-                              localStorage.setItem('hasPaid', 'true');
-                            },
-                            onClose: function() {
-                              // Optionally handle close
-                            }
-                          }).openIframe();
-                        } else {
-                          alert('Paystack is not loaded. Please check your internet connection.');
-                        }
-                      }}
+                  {inputMode === 'shs' ? (
+                    <Button 
+                      onClick={checkProgramEligibility}
+                      disabled={!result || isCheckingEligibility}
                       size="lg"
-                      className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white px-8 py-3 mb-8 shadow-lg rounded-full font-bold text-lg"
-                      data-testid="pay-btn"
+                      className="bg-slate-700 hover:bg-slate-800 text-white px-8 py-3 mb-[4rem]"
+                      data-testid="check-eligibility-btn"
                     >
-                      <span className="inline-flex items-center">
-                        <svg className="h-5 w-5 mr-2 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm0 10c-4.418 0-8-1.79-8-4V7a2 2 0 012-2h12a2 2 0 012 2v7c0 2.21-3.582 4-8 4z" /></svg>
-                        Pay to Unlock Eligibility
-                      </span>
+                      {isCheckingEligibility ? (
+                        <>
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+                          Checking Eligibility...
+                        </>
+                      ) : (
+                        <>
+                          <GraduationCap className="h-5 w-5 mr-2" />
+                          Check All Program Eligibility
+                        </>
+                      )}
                     </Button>
                   ) : (
-                    <>
-                      <div className="mb-4 flex justify-center">
-                        <span className="inline-flex items-center px-4 py-2 rounded-full bg-green-100 text-green-800 font-semibold text-base">
-                          <svg className="h-5 w-5 mr-2 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                          Payment Completed
-                        </span>
-                      </div>
-                      <Button 
-                        onClick={checkProgramEligibility}
-                        disabled={!result || isCheckingEligibility}
+                    !hasPaid ? (
+                      <Button
+                        onClick={() => {
+                          // Ask user for email
+                          const email = window.prompt('Enter your email address for payment receipt:');
+                          if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+                            alert('Please enter a valid email address to receive the payment receipt.');
+                            return;
+                          }
+                          // Paystack integration
+                          const paystack = (window as any).PaystackPop && (window as any).PaystackPop.setup ? (window as any).PaystackPop : null;
+                          if (paystack) {
+                            paystack.setup({
+                              key: paystackKey,
+                              email,
+                              amount: 500, // Amount in pesewas (5 cedis = 500 pesewas)
+                              currency: 'GHS', // Ghana Cedis
+                              callback: function(response: any) {
+                                setHasPaid(true);
+                                localStorage.setItem('hasPaid', 'true');
+                              },
+                              onClose: function() {
+                                // Optionally handle close
+                              }
+                            }).openIframe();
+                          } else {
+                            alert('Paystack is not loaded. Please check your internet connection.');
+                          }
+                        }}
                         size="lg"
-                        className="bg-slate-700 hover:bg-slate-800 text-white px-8 py-3 mb-[4rem]"
-                        data-testid="check-eligibility-btn"
+                        className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white px-8 py-3 mb-8 shadow-lg rounded-full font-bold text-lg"
+                        data-testid="pay-btn"
                       >
-                        {isCheckingEligibility ? (
-                          <>
-                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
-                            Checking Eligibility...
-                          </>
-                        ) : (
-                          <>
-                            <GraduationCap className="h-5 w-5 mr-2" />
-                            Check All Program Eligibility
-                          </>
-                        )}
+                        <span className="inline-flex items-center">
+                          <svg className="h-5 w-5 mr-2 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm0 10c-4.418 0-8-1.79-8-4V7a2 2 0 012-2h12a2 2 0 012 2v7c0 2.21-3.582 4-8 4z" /></svg>
+                          Pay to Unlock Eligibility
+                        </span>
                       </Button>
-                    </>
+                    ) : (
+                      <>
+                        <div className="mb-4 flex justify-center">
+                          <span className="inline-flex items-center px-4 py-2 rounded-full bg-green-100 text-green-800 font-semibold text-base">
+                            <svg className="h-5 w-5 mr-2 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                            Payment Completed
+                          </span>
+                        </div>
+                        <Button 
+                          onClick={checkProgramEligibility}
+                          disabled={!result || isCheckingEligibility}
+                          size="lg"
+                          className="bg-slate-700 hover:bg-slate-800 text-white px-8 py-3 mb-[4rem]"
+                          data-testid="check-eligibility-btn"
+                        >
+                          {isCheckingEligibility ? (
+                            <>
+                              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+                              Checking Eligibility...
+                            </>
+                          ) : (
+                            <>
+                              <GraduationCap className="h-5 w-5 mr-2" />
+                              Check All Program Eligibility
+                            </>
+                          )}
+                        </Button>
+                      </>
+                    )
                   )}
                 </div>
               </>

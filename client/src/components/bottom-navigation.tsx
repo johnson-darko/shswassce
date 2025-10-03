@@ -6,10 +6,12 @@ export default function BottomNavigation() {
   const location = useLocation();
   const { theme } = useTheme();
   const navItems = [
-        { to: "/", label: "Home", icon: <Home /> },
-  { to: "/saved-programs", label: "Saved", icon: <Bookmark /> },
+    { to: "/", label: "Home", icon: <Home /> },
+    { to: "/saved-programs", label: "Saved", icon: <Bookmark /> },
     { to: "/calculator", label: "Aggregate", icon: <Calculator /> },
+    { to: "/subjects", label: "Subjects", icon: <Calculator /> },
     { to: "/settings", label: "Settings", icon: <Settings /> },
+    { to: "/profile", label: "Profile", icon: <Settings /> }, // You can use a different icon if desired
   ];
   return (
     <nav
