@@ -175,7 +175,7 @@ const VacationStudyChallenges: React.FC = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-12 p-6 bg-white dark:bg-gray-900 rounded-2xl shadow-lg">
-      <h1 className="text-2xl font-bold mb-4 text-green-700 dark:text-green-200">Vacation Study Challenges</h1>
+      <h1 className="text-2xl font-bold mb-4 text-green-700 dark:text-green-200">Vacation Practice Exams</h1>
       {program && (
         <div className="mb-3 text-base font-semibold text-blue-700 dark:text-blue-200">
           Your Program: <span className="font-normal">{program}</span>

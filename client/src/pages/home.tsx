@@ -31,7 +31,7 @@ function CardLink({ to, icon, title, desc, onClick }: CardLinkProps) {
     <a
       href={to}
       onClick={handleClick}
-      className={`group bg-gradient-to-br from-blue-200 to-blue-400 dark:from-gray-800 dark:to-gray-700 hover:from-blue-300 hover:to-blue-500 dark:hover:from-gray-700 dark:hover:to-gray-800 text-blue-900 dark:text-blue-100 font-semibold py-4 px-2 rounded-2xl shadow-lg hover:shadow-xl transition-all flex flex-col items-center cursor-pointer select-none
+      className={`group bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-blue-900 dark:text-blue-100 font-semibold py-4 px-2 rounded-2xl shadow-lg hover:shadow-xl transition-all flex flex-col items-center cursor-pointer select-none
         ${animating ? 'animate-card-open' : ''}`}
       style={{
         transition: 'transform 0.65s cubic-bezier(.4,2,.6,1)',
@@ -100,21 +100,44 @@ export default function HomePage() {
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
+  // Get onboarding info from localStorage
+  let onboarding = { stage: '', school: '' };
+  try {
+    onboarding = JSON.parse(localStorage.getItem('onboarding') || '{}');
+  } catch {}
+
   // All main links for cards (from App.tsx)
   const mainLinks = [
-    // ...existing cards
-    {
-      to: "/VacationStudyPlanner",
-      icon: <BarChart2 className="w-7 h-7 mb-1 text-purple-700" />,
-      title: "Vacation Study Planner",
-      desc: "Plan your study goals for the vacation."
-    },
-    {
-      to: "/VacationStudyChallenges",
-      icon: <ShieldCheck className="w-7 h-7 mb-1 text-green-700" />,
-      title: "Vacation Study Challenges",
-      desc: "Practice mock revision questions by level."
-    },
+    // Vacation self guide cards only if not SHS graduate
+    ...(onboarding.stage !== 'graduate' ? [
+      {
+        to: "/VacationStudyPlanner",
+        icon: <BarChart2 className="w-7 h-7 mb-1 text-purple-700" />,
+        title: "Vacation Study Planner",
+        desc: "Plan your study goals for the vacation."
+      },
+      {
+        to: "/VacationStudyChallenges",
+        icon: <ShieldCheck className="w-7 h-7 mb-1 text-green-700" />,
+        title: "Vacation Practice Exams",
+        desc: "Practice mock revision questions by level."
+      },
+      {
+        to: "/subjects",
+        icon: <BookOpen className="w-7 h-7 mb-1 text-indigo-700" />,
+        title: "My Subjects & Results",
+        desc: "Track your SHS Progress by individual subjects grades and Readiness for WASSCE. "
+      }
+    ] : []),
+    // Move New SHS Onboarding after Vacation cards if user is already in SHS
+    ...(onboarding.stage === 'current' ? [
+      {
+        to: "#jhs-to-shs",
+        icon: <Users className="w-7 h-7 mb-1 text-blue-700" />, title: "JHS TO SHS (New Students)",
+        desc: "Start onboarding for new SHS students from JHS.",
+        onClick: () => setShowOnboardingModal(true)
+      }
+    ] : []),
     {
       to: "/calculator",
       icon: <CheckCircle className="w-7 h-7 mb-1 text-green-600" />, title: "Admission Eligibility Checker",
@@ -135,20 +158,17 @@ export default function HomePage() {
       icon: <GraduationCap className="w-7 h-7 mb-1" />, title: "Compare Ghana Universities",
       desc: "Compare universities side by side to make the best choice based on your preferences."
     },
-    {
-      to: "#jhs-to-shs",
-      icon: <Users className="w-7 h-7 mb-1 text-blue-700" />, title: "JHS TO SHS (New Students)",
-      desc: "Start onboarding for new SHS students from JHS.",
-      onClick: () => setShowOnboardingModal(true)
-    },
+    // If not already in SHS, show onboarding in original position
+    ...(onboarding.stage !== 'current' ? [
+      {
+        to: "#jhs-to-shs",
+        icon: <Users className="w-7 h-7 mb-1 text-blue-700" />, title: "JHS TO SHS (New Students)",
+        desc: "Start onboarding for new SHS students from JHS.",
+        onClick: () => setShowOnboardingModal(true)
+      }
+    ] : []),
     // Removed Saved Programs card
   ];
-
-  // Get onboarding info from localStorage
-  let onboarding = { stage: '', school: '' };
-  try {
-    onboarding = JSON.parse(localStorage.getItem('onboarding') || '{}');
-  } catch {}
 
   // Banner message logic
   let bannerMessage = '';
@@ -165,7 +185,7 @@ export default function HomePage() {
       {/* Main Content */}
       <main className="w-full max-w-md mt-8 mb-24 px-4 flex flex-col items-center">
         {/* School name and motivational banner above the banner, horizontal */}
-        {(onboarding.school || bannerMessage) && (
+       {/* {(onboarding.school || bannerMessage) && (
           <div className="w-full flex justify-center items-center gap-3 mb-2 mt-2">
             {onboarding.school && (
               <span className="bg-white/80 dark:bg-gray-900/80 text-blue-900 dark:text-blue-100 px-3 py-1 rounded-full font-semibold shadow text-sm">
@@ -178,7 +198,7 @@ export default function HomePage() {
               </span>
             )}
           </div>
-        )}
+        )} */}
         {/* Banner */}
         <div className="w-full flex justify-center mb-6">
           <div className="relative w-full">
@@ -196,8 +216,10 @@ export default function HomePage() {
         </div>
         {/* Hero */}
         <section className="w-full text-center mb-8">
-          <h2 className="text-2xl font-extrabold text-gray-900 leading-tight mb-2" style={{ color: theme === 'dark' ? 'rgb(62,83,127)' : undefined }}>University Eligibility Tool</h2>
-          <p className="text-base text-gray-600 dark:text-gray-300">Check UNI eligibility and WASSCE score instantly.</p>
+          <h5 className="text-2xl font-bold text-gray-900 leading-tight " style={{ color: theme === 'dark' ? 'rgb(62,83,127)' : undefined }}>
+            {onboarding.stage === 'current' ? 'Own Your Future from High School' : 'University Eligibility Tool'}
+          </h5>
+
         </section>
 
 
@@ -221,6 +243,14 @@ export default function HomePage() {
                 <div className="col-span-2 w-full flex items-center my-2">
                   <hr className="flex-1 border-gray-300 dark:border-gray-700" />
                   <span className="mx-3 text-xs text-gray-500 dark:text-gray-400 font-semibold">Vacation self guide</span>
+                  <hr className="flex-1 border-gray-300 dark:border-gray-700" />
+                </div>
+              )}
+              {/* Divider before University Application Tools cards */}
+              {link.title === 'Admission Eligibility Checker' && (
+                <div className="col-span-2 w-full flex items-center my-2">
+                  <hr className="flex-1 border-gray-300 dark:border-gray-700" />
+                  <span className="mx-3 text-xs text-gray-500 dark:text-gray-400 font-semibold">University Application Tools</span>
                   <hr className="flex-1 border-gray-300 dark:border-gray-700" />
                 </div>
               )}

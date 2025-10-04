@@ -12,8 +12,8 @@ export default function BottomNavigation() {
   const navItems = [
     { to: "/", label: "Home", icon: <Home /> },
     { to: "/saved-programs", label: "Saved", icon: <Bookmark /> },
-    { to: "/calculator", label: "Aggregate", icon: <Calculator /> },
-    { to: "/subjects", label: "Subjects", icon: <Calculator /> },
+
+
     ...(onboardingStage === 'current' || onboardingStage === 'graduate' ? [] : [
       { to: "/onboarding", label: "Onboarding", icon: <Home /> }
     ]),
