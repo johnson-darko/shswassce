@@ -29,10 +29,14 @@ const prospectusChecklist = {
   'Others...': ['Chop Box', 'Trunk', 'Bed Sheets', 'Pillow', 'Cutlery', 'Bucket', 'Toiletries', 'School Uniform', 'Sandals', 'Shoes', 'Others...'],
 };
 
-const Onboarding: React.FC = () => {
+interface OnboardingProps {
+  startingScreen?: number;
+}
+
+const Onboarding: React.FC<OnboardingProps> = ({ startingScreen = 1 }) => {
   const [showShopModal, setShowShopModal] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [screen, setScreen] = useState(1);
+  const [screen, setScreen] = useState(startingScreen);
   const [selectedStage, setSelectedStage] = useState<string>('');
   const [selectedSchool, setSelectedSchool] = useState<string>('');
   const [search, setSearch] = useState('');

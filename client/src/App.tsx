@@ -4,6 +4,8 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
+import VacationStudyPlanner from "@/pages/VacationStudyPlanner";
+import VacationStudyChallenges from "@/pages/VacationStudyChallenges";
 import Onboarding from "@/pages/Onboarding";
 import ScrollToTop from "@/components/ScrollToTop";
 import Home from "@/pages/home";
@@ -61,6 +63,8 @@ function App() {
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/subjects" element={<SubjectsResultsPage />} />
                 <Route path="/onboarding" element={<Onboarding />} />
+                <Route path="/VacationStudyPlanner" element={<VacationStudyPlanner />} />
+                <Route path="/VacationStudyChallenges" element={<VacationStudyChallenges />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>

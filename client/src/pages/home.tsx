@@ -2,16 +2,29 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 // CardLink: animates card on click, then navigates
-function CardLink({ to, icon, title, desc }: { to: string; icon: React.ReactNode; title: string; desc: string }) {
+interface CardLinkProps {
+  to: string;
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+  onClick?: () => void;
+}
+
+function CardLink({ to, icon, title, desc, onClick }: CardLinkProps) {
   const navigate = useNavigate();
   const [animating, setAnimating] = useState(false);
 
+
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    if (onClick) {
+      onClick();
+      return;
+    }
     setAnimating(true);
     setTimeout(() => {
       navigate(to);
-    }, 650); // 650ms for slower, smoother effect
+    }, 650);
   };
 
   return (
@@ -36,6 +49,8 @@ function CardLink({ to, icon, title, desc }: { to: string; icon: React.ReactNode
 import { useTheme } from '@/context/ThemeContext';
 import { Moon, Sun, Search, GraduationCap, University, Calculator, Bot, FileText, Settings, Save, ShieldCheck, BarChart2, BookOpen, Users, CheckCircle } from "lucide-react";
 import banner from '/banner.png';
+
+import Onboarding from './Onboarding';
 
 
 
@@ -82,10 +97,24 @@ function TestimonialCarousel() {
 
 
 export default function HomePage() {
+  const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
   // All main links for cards (from App.tsx)
   const mainLinks = [
+    // ...existing cards
+    {
+      to: "/VacationStudyPlanner",
+      icon: <BarChart2 className="w-7 h-7 mb-1 text-purple-700" />,
+      title: "Vacation Study Planner",
+      desc: "Plan your study goals for the vacation."
+    },
+    {
+      to: "/VacationStudyChallenges",
+      icon: <ShieldCheck className="w-7 h-7 mb-1 text-green-700" />,
+      title: "Vacation Study Challenges",
+      desc: "Practice mock revision questions by level."
+    },
     {
       to: "/calculator",
       icon: <CheckCircle className="w-7 h-7 mb-1 text-green-600" />, title: "Admission Eligibility Checker",
@@ -105,6 +134,12 @@ export default function HomePage() {
       to: "/compare",
       icon: <GraduationCap className="w-7 h-7 mb-1" />, title: "Compare Ghana Universities",
       desc: "Compare universities side by side to make the best choice based on your preferences."
+    },
+    {
+      to: "#jhs-to-shs",
+      icon: <Users className="w-7 h-7 mb-1 text-blue-700" />, title: "JHS TO SHS (New Students)",
+      desc: "Start onboarding for new SHS students from JHS.",
+      onClick: () => setShowOnboardingModal(true)
     },
     // Removed Saved Programs card
   ];
@@ -171,9 +206,45 @@ export default function HomePage() {
 
         {/* All Main Links as Cards */}
         <div className="grid grid-cols-2 gap-4 w-full mb-8">
-          {mainLinks.map(link => (
-            <CardLink key={link.to} {...link} />
+          {mainLinks.map((link, idx) => (
+            <React.Fragment key={link.to}>
+              {/* Divider before JHS TO SHS card */}
+              {link.title === 'JHS TO SHS (New Students)' && (
+                <div className="col-span-2 w-full flex items-center my-2">
+                  <hr className="flex-1 border-gray-300 dark:border-gray-700" />
+                  <span className="mx-3 text-xs text-gray-500 dark:text-gray-400 font-semibold">New SHS Onboarding</span>
+                  <hr className="flex-1 border-gray-300 dark:border-gray-700" />
+                </div>
+              )}
+              {/* Divider before Vacation Study cards */}
+              {link.title === 'Vacation Study Planner' && (
+                <div className="col-span-2 w-full flex items-center my-2">
+                  <hr className="flex-1 border-gray-300 dark:border-gray-700" />
+                  <span className="mx-3 text-xs text-gray-500 dark:text-gray-400 font-semibold">Vacation self guide</span>
+                  <hr className="flex-1 border-gray-300 dark:border-gray-700" />
+                </div>
+              )}
+              <CardLink {...link} onClick={link.onClick} />
+            </React.Fragment>
           ))}
+      {/* Onboarding Modal for JHS TO SHS */}
+      {showOnboardingModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-0 max-w-lg w-full relative">
+            <button
+              onClick={() => setShowOnboardingModal(false)}
+              className="absolute top-3 right-4 text-2xl text-gray-500 hover:text-gray-900 dark:hover:text-white font-bold"
+              style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+            >
+              &times;
+            </button>
+            {/* Set global to start onboarding at screen 3 */}
+            <script dangerouslySetInnerHTML={{__html: "window.onboardingStartingScreen=3;"}} />
+            {/* Render Onboarding */}
+            <Onboarding startingScreen={3} />
+          </div>
+        </div>
+      )}
         </div>
 
         {/* Stats & Testimonials Section (moved below cards) */}
