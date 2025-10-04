@@ -63,13 +63,15 @@ const Onboarding: React.FC<OnboardingProps> = ({ startingScreen = 1 }) => {
   // Screen 1: Welcome
   if (screen === 1) {
     return (
-      <div style={{ maxWidth: 420, margin: '48px auto', padding: 32, background: '#fff', borderRadius: 16, boxShadow: '0 2px 16px rgba(0,0,0,0.08)', textAlign: 'center' }}>
-        <img src={logo} alt="Logo" style={{ width: 80, marginBottom: 24 }} />
-        <h1 style={{ fontWeight: 700, fontSize: 28, marginBottom: 12 }}>Own Your Future from High School</h1>
-        <p style={{ color: '#007bff', fontWeight: 500, marginBottom: 32 }}>Welcome! Start your journey to success.</p>
+      <div style={{ maxWidth: 420, margin: '48px auto', padding: 32, background: '#fff', borderRadius: 20, boxShadow: '0 4px 32px rgba(0,0,0,0.10)', textAlign: 'center', position: 'relative' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 32 }}>
+          <img src={logo} alt="Logo" style={{ width: 100, height: 100, objectFit: 'contain', borderRadius: '50%', boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }} />
+        </div>
+        <h1 style={{ fontWeight: 800, fontSize: 32, marginBottom: 10, color: '#222', letterSpacing: '-1px' }}>Own Your Future from High School</h1>
+        <p style={{ color: '#444', fontWeight: 500, fontSize: 18, marginBottom: 28 }}>Welcome! Start your journey to success.</p>
         <button
           onClick={() => setScreen(2)}
-          style={{ padding: '12px 32px', borderRadius: 8, background: '#007bff', color: '#fff', fontWeight: 600, fontSize: 18, border: 'none', marginTop: 24 }}
+          style={{ padding: '14px 40px', borderRadius: 10, background: 'linear-gradient(90deg,#007bff 0%,#00c6fb 100%)', color: '#fff', fontWeight: 700, fontSize: 20, border: 'none', marginTop: 18, boxShadow: '0 2px 8px rgba(0,123,255,0.10)', cursor: 'pointer', letterSpacing: '0.5px' }}
         >
           Get Started
         </button>

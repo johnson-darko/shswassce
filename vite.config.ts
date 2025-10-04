@@ -8,7 +8,7 @@ export default defineConfig({
     // runtimeErrorOverlay(), // Removed due to ESM error
     // Removed top-level await and dynamic plugin loading
   ],
-    base: '/shswassce/', // Set base for GitHub Pages
+    base: '/', // Set base for GitHub Pages
     resolve: {
       alias: {
         "@": path.resolve(import.meta.dirname, "client", "src"),

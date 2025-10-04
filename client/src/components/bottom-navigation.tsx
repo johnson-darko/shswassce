@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Calculator, Settings, Bookmark } from "lucide-react";
+import { Home, Calculator, Settings, Bookmark, User } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext"; // Adjust path if needed
 
 export default function BottomNavigation() {
@@ -18,7 +18,7 @@ export default function BottomNavigation() {
       { to: "/onboarding", label: "Onboarding", icon: <Home /> }
     ]),
     { to: "/settings", label: "Settings", icon: <Settings /> },
-    { to: "/profile", label: "Profile", icon: <Settings /> }, // You can use a different icon if desired
+    { to: "/profile", label: "Profile", icon: <User /> }, // Changed to profile icon
   ];
   return (
     <nav

@@ -36,9 +36,22 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Check onboarding status
+  let onboardingStage = '';
+  try {
+    const onboarding = JSON.parse(localStorage.getItem('onboarding') || '{}');
+    onboardingStage = onboarding.stage || '';
+  } catch {}
+
   if (showSplash) {
     return <SplashScreen />;
   }
+
+  // Redirect logic for landing page
+  const landingElement =
+    onboardingStage === 'current' || onboardingStage === 'graduate'
+      ? <Home />
+      : <Onboarding />;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -50,7 +63,7 @@ function App() {
               {/* Scroll to top on route change */}
               <ScrollToTop />
               <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={landingElement} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/compare" element={<Compare />} />
                 <Route path="/eligibility" element={<Eligibility />} />
@@ -68,7 +81,8 @@ function App() {
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
-            <BottomNavigation />
+            {/* Only show BottomNavigation if not onboarding page */}
+            {!(onboardingStage !== 'current' && onboardingStage !== 'graduate') ? <BottomNavigation /> : null}
             <ComparisonBar />
           </div>
           <Toaster />
