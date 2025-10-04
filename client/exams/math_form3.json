@@ -1,0 +1,43 @@
+{
+  "subject": "Core Mathematics",
+  "level": "Form 3",
+  "timer": 300,
+  "instructions": "Answer all questions. Show your working for essay questions.",
+  "questions": [
+    {
+      "type": "multiple-choice",
+      "question": "What is the derivative of x^2?",
+      "options": ["x", "2x", "x^2", "2"],
+      "answer": 1,
+  "explanation": "To find the derivative, multiply the power (2) by the number in front (1), and reduce the power by 1. So, x^2 becomes 2x."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "What is the value of sin(90°)?",
+      "options": ["0", "1", "-1", "0.5"],
+      "answer": 1,
+  "explanation": "The sine of 90 degrees is always 1. Imagine a right triangle: the side opposite the angle is the same as the hypotenuse, so the answer is 1."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "What is the solution to 2x + 3 = 7?",
+      "options": ["x = 1", "x = 2", "x = 3", "x = 4"],
+      "answer": 1,
+  "explanation": "First, subtract 3 from both sides: 2x + 3 - 3 = 7 - 3, so 2x = 4. Then divide both sides by 2: 2x/2 = 4/2, so x = 2."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "What is the area of a circle with radius 3?",
+      "options": ["9π", "6π", "3π", "12π"],
+      "answer": 0,
+  "explanation": "The area of a circle is π times the radius squared. The radius is 3, so 3 × 3 = 9. The answer is 9π."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "What is the value of log10(100)?",
+      "options": ["1", "2", "10", "100"],
+      "answer": 1,
+  "explanation": "Logarithms ask: '10 to what power gives 100?' Since 10 × 10 = 100, the answer is 2."
+    }
+  ]
+}

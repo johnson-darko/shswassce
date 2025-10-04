@@ -1,0 +1,11 @@
+{
+  "subject": "English",
+  "level": "Form 1",
+  "timer": 300,
+  "instructions": "Answer all questions carefully.",
+  "questions": [
+  {"type": "multiple-choice", "question": "Choose the correct plural: 'child'", "options": ["childs", "children", "childes", "childies"], "answer": 1, "explanation": "When you have more than one 'child', you say 'children'. It's an irregular plural, so you just remember it."},
+  {"type": "multiple-choice", "question": "Which sentence is correct?", "options": ["She go to school.", "She goes to school.", "She going to school.", "She gone to school."], "answer": 1, "explanation": "The word 'goes' matches 'She'. We add 'es' to 'go' for 'She'. So, 'She goes to school.' is the right sentence."},
+  {"type": "multiple-choice", "question": "Which is a preposition?", "options": ["Under", "Cat", "Run", "Blue"], "answer": 0, "explanation": "A preposition shows where something is. 'Under' tells you the position, like 'The cat is under the table.'"}
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "subject": "English",
+  "level": "Form 2",
+  "timer": 300,
+  "instructions": "Select the best answer.",
+  "questions": [
+  {"type": "multiple-choice", "question": "Which is a conjunction?", "options": ["But", "Dog", "Run", "Quickly"], "answer": 0, "explanation": "A conjunction joins words or sentences together. 'But' joins two things, like 'I want to play, but it's raining.'"},
+  {"type": "multiple-choice", "question": "What is a noun?", "options": ["A person", "A place", "A thing", "All of the above"], "answer": 3, "explanation": "A noun is a word for a person, a place, or a thing. For example, 'girl', 'school', or 'book'."},
+  {"type": "multiple-choice", "question": "Which word is an adverb?", "options": ["Slowly", "Dog", "Red", "Jump"], "answer": 0, "explanation": "An adverb tells us how something is done. 'Slowly' means to do something not fast."}
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "subject": "English",
+  "level": "Form 2",
+  "timer": 300,
+  "instructions": "Answer all questions. Essays must be at least 200 words.",
+  "questions": [
+  {"type": "multiple-choice", "question": "Which is a synonym for 'angry'?", "options": ["Happy", "Furious", "Calm", "Glad"], "answer": 1, "explanation": "A synonym is a word that means the same. 'Furious' means the same as 'angry'."},
+  {"type": "multiple-choice", "question": "What is the plural of 'goose'?", "options": ["Gooses", "Geese", "Goosies", "Goos"], "answer": 1, "explanation": "When you have more than one 'goose', you say 'geese'. It's an irregular plural, so you just remember it."},
+  {"type": "multiple-choice", "question": "Which is a verb?", "options": ["Eat", "Blue", "Table", "Quickly"], "answer": 0, "explanation": "A verb is an action word. 'Eat' is something you do, so it's a verb."}
+  ]
+}

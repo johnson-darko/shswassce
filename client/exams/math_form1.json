@@ -1,0 +1,78 @@
+{
+  "subject": "Core Mathematics",
+  "level": "Form 1",
+  "timer": 300,
+  "instructions": "Answer all questions. Show your working for essay questions.",
+  "questions": [
+    {
+      "type": "multiple-choice",
+      "question": "What is 7 + 5?",
+      "options": ["10", "11", "12", "13"],
+      "answer": 2,
+  "explanation": "Add 7 and 5 together. 7 + 5 equals 12."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "What is the square root of 49?",
+      "options": ["6", "7", "8", "9"],
+      "answer": 1,
+  "explanation": "The square root means what number times itself gives 49? 7 × 7 = 49, so the answer is 7."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "Which is an even number?",
+      "options": ["13", "15", "18", "21"],
+      "answer": 2,
+  "explanation": "Even numbers can be divided by 2 with no remainder. 18 ÷ 2 = 9, so 18 is even."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "What is 5 x 6?",
+      "options": ["30", "35", "25", "40"],
+      "answer": 0,
+  "explanation": "Multiply 5 by 6. 5 × 6 equals 30."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "What is the value of pi (π) to 2 decimal places?",
+      "options": ["3.12", "3.14", "3.16", "3.18"],
+      "answer": 1,
+  "explanation": "Pi (π) is a special number in math. To two decimal places, it is 3.14."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "What is 100 divided by 4?",
+      "options": ["20", "25", "30", "40"],
+      "answer": 1,
+  "explanation": "Divide 100 by 4. 100 ÷ 4 equals 25."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "Which is a prime number?",
+      "options": ["9", "11", "15", "21"],
+      "answer": 1,
+  "explanation": "A prime number can only be divided by 1 and itself. 11 can only be divided by 1 and 11."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "What is the next number in the sequence: 2, 4, 6, ?",
+      "options": ["7", "8", "9", "10"],
+      "answer": 1,
+  "explanation": "Look at the pattern: 2, 4, 6. Each number goes up by 2. So, 6 + 2 = 8."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "What is 15% of 200?",
+      "options": ["20", "25", "30", "35"],
+      "answer": 2,
+  "explanation": "To find 15% of 200, first change 15% to 0.15. Then multiply: 0.15 × 200 = 30."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "What is the perimeter of a square with side 5cm?",
+      "options": ["10cm", "15cm", "20cm", "25cm"],
+      "answer": 2,
+  "explanation": "A square has 4 sides. Each side is 5cm. So, 4 × 5 = 20cm. The perimeter is 20cm."
+    }
+  ]
+}

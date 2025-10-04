@@ -1,0 +1,11 @@
+{
+  "subject": "Integrated Science",
+  "level": "Form 1",
+  "timer": 300,
+  "instructions": "Answer all questions. Explain your answers simply.",
+  "questions": [
+    {"type": "multiple-choice", "question": "What do plants need to make food?", "options": ["Sunlight", "Sand", "Plastic", "Salt"], "answer": 0, "explanation": "Plants use sunlight to make food in a process called photosynthesis. They can't use sand, plastic, or salt for this."},
+    {"type": "multiple-choice", "question": "Which part of the body helps you breathe?", "options": ["Lungs", "Heart", "Stomach", "Brain"], "answer": 0, "explanation": "Your lungs help you breathe by taking in air and giving your body oxygen."},
+    {"type": "multiple-choice", "question": "What is water made of?", "options": ["Oxygen and Hydrogen", "Salt and Sugar", "Air and Fire", "Metal and Wood"], "answer": 0, "explanation": "Water is made of two things: hydrogen and oxygen. The formula is H2O."}
+  ]
+}

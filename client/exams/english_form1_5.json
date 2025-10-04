@@ -1,0 +1,11 @@
+{
+  "subject": "English",
+  "level": "Form 1",
+  "timer": 300,
+  "instructions": "Pick the correct option.",
+  "questions": [
+  {"type": "multiple-choice", "question": "What is the opposite of 'happy'?", "options": ["Sad", "Glad", "Joyful", "Excited"], "answer": 0, "explanation": "Opposite means very different. 'Sad' is very different from 'happy'."},
+  {"type": "multiple-choice", "question": "Which is a pronoun?", "options": ["He", "Run", "Blue", "Table"], "answer": 0, "explanation": "A pronoun is a word we use instead of a name. 'He' can be used instead of a boy's name."},
+  {"type": "multiple-choice", "question": "Which is a conjunction?", "options": ["And", "Dog", "Run", "Quickly"], "answer": 0, "explanation": "A conjunction joins words or sentences together. 'And' joins two things, like 'bread and butter'."}
+  ]
+}

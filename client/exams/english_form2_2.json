@@ -1,0 +1,11 @@
+{
+  "subject": "English",
+  "level": "Form 2",
+  "timer": 300,
+  "instructions": "Choose the correct answers.",
+  "questions": [
+  {"type": "multiple-choice", "question": "Which is an adjective?", "options": ["Smart", "Run", "Dog", "Happily"], "answer": 0, "explanation": "An adjective is a word that describes something. 'Smart' tells us what something looks like."},
+  {"type": "multiple-choice", "question": "What is the opposite of 'soft'?", "options": ["Hard", "Warm", "Cool", "Heat"], "answer": 0, "explanation": "Opposite means completely different. 'Hard' is very different from 'soft'."},
+  {"type": "multiple-choice", "question": "Which is a pronoun?", "options": ["She", "Run", "Blue", "Table"], "answer": 0, "explanation": "A pronoun is a word we use instead of a name. 'She' can be used instead of a girl's name."}
+  ]
+}

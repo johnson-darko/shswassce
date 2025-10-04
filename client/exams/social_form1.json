@@ -1,0 +1,11 @@
+{
+  "subject": "Social Studies",
+  "level": "Form 1",
+  "timer": 300,
+  "instructions": "Answer all questions. Explain your answers simply.",
+  "questions": [
+    {"type": "multiple-choice", "question": "What is the capital of Ghana?", "options": ["Accra", "Kumasi", "Tamale", "Takoradi"], "answer": 0, "explanation": "Accra is the capital city of Ghana. It's where the government is based."},
+    {"type": "multiple-choice", "question": "Why do we need rules in school?", "options": ["To keep order", "To make noise", "To fight", "To sleep"], "answer": 0, "explanation": "Rules help everyone know what to do and keep the school peaceful and safe."},
+    {"type": "multiple-choice", "question": "Which is a good way to help your community?", "options": ["Throw rubbish", "Help clean", "Break things", "Ignore others"], "answer": 1, "explanation": "Helping clean your community makes it nice for everyone and shows you care."}
+  ]
+}

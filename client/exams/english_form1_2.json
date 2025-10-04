@@ -1,0 +1,11 @@
+{
+  "subject": "English",
+  "level": "Form 1",
+  "timer": 300,
+  "instructions": "Choose the correct answers.",
+  "questions": [
+  {"type": "multiple-choice", "question": "Which is an adjective?", "options": ["Beautiful", "Run", "Dog", "Happily"], "answer": 0, "explanation": "An adjective is a word that describes something. 'Beautiful' tells us what something looks like."},
+  {"type": "multiple-choice", "question": "What is the opposite of 'hot'?", "options": ["Cold", "Warm", "Cool", "Heat"], "answer": 0, "explanation": "Opposite means completely different. 'Cold' is very different from 'hot'."},
+  {"type": "multiple-choice", "question": "Which is a pronoun?", "options": ["He", "Run", "Blue", "Table"], "answer": 0, "explanation": "A pronoun is a word we use instead of a name. 'He' can be used instead of a boy's name."}
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "subject": "English",
+  "level": "Form 1",
+  "timer": 300,
+  "instructions": "Answer all questions. Essays must be at least 150 words.",
+  "questions": [
+    {
+      "type": "multiple-choice",
+      "question": "What is a noun?",
+      "options": ["A person", "A place", "A thing", "All of the above"],
+      "answer": 3,
+      "explanation": "A noun is a person, place, or thing. So 'All of the above' is correct."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "Which word is a verb?",
+      "options": ["Run", "Table", "Blue", "Quickly"],
+      "answer": 0,
+      "explanation": "'Run' is an action word, which makes it a verb."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "Which is an adjective?",
+      "options": ["Beautiful", "Swim", "Dog", "Happily"],
+      "answer": 0,
+      "explanation": "'Beautiful' describes a noun, so it is an adjective."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "Choose the correct plural: 'child'",
+      "options": ["childs", "children", "childes", "childies"],
+      "answer": 1,
+      "explanation": "The plural of 'child' is 'children'."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "Which sentence is correct?",
+      "options": ["She go to school.", "She goes to school.", "She going to school.", "She gone to school."],
+      "answer": 1,
+      "explanation": "'She goes to school.' is grammatically correct."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "What is the opposite of 'happy'?",
+      "options": ["Sad", "Glad", "Joyful", "Excited"],
+      "answer": 0,
+      "explanation": "'Sad' is the opposite of 'happy'."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "Which is a pronoun?",
+      "options": ["He", "Run", "Blue", "Table"],
+      "answer": 0,
+      "explanation": "'He' is a pronoun used to refer to a male person."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "Which word is an adverb?",
+      "options": ["Quickly", "Dog", "Red", "Jump"],
+      "answer": 0,
+      "explanation": "'Quickly' describes how something is done, so it is an adverb."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "Which is a preposition?",
+      "options": ["Under", "Cat", "Run", "Blue"],
+      "answer": 0,
+      "explanation": "'Under' shows the relationship of position, so it is a preposition."
+    },
+    {
+      "type": "multiple-choice",
+      "question": "Which is a conjunction?",
+      "options": ["And", "Dog", "Run", "Quickly"],
+      "answer": 0,
+      "explanation": "'And' is a conjunction used to connect words or phrases."
+    }
+  ]
+}

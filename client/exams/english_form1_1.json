@@ -1,0 +1,11 @@
+{
+  "subject": "English",
+  "level": "Form 1",
+  "timer": 300,
+  "instructions": "Answer all questions. Essays must be at least 150 words.",
+  "questions": [
+  {"type": "multiple-choice", "question": "Which is a synonym for 'happy'?", "options": ["Sad", "Glad", "Angry", "Tired"], "answer": 1, "explanation": "A synonym is a word that means the same. 'Glad' means the same as 'happy'."},
+  {"type": "multiple-choice", "question": "What is the plural of 'mouse'?", "options": ["Mouses", "Mices", "Mouse", "Mice"], "answer": 3, "explanation": "When you have more than one 'mouse', you say 'mice'. It's an irregular plural, so you just remember it."},
+  {"type": "multiple-choice", "question": "Which is a verb?", "options": ["Run", "Blue", "Table", "Quickly"], "answer": 0, "explanation": "A verb is an action word. 'Run' is something you do, so it's a verb."}
+  ]
+}
