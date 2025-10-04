@@ -109,3 +109,6 @@ i dont want to use the faculty because some other universites dont have that. So
 Now i would want user to be able to search select which  max two university program/s they would want to do after high school. so it will track the user base on his future uni program of wish and also his  track record by giving an overview and recommendation base on his grades for the subjects and what he has to do well in .
 
 then we would connect it to the aggregate score , so each
+
+
+Would you like to add items into the chopbox. then a kind of a add on store will appear below with a nice interface pf things like Gari,Sugar, Sardine, Milo etc, with each price and the kg and an image , so it will show the total rice

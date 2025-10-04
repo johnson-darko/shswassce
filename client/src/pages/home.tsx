@@ -109,13 +109,41 @@ export default function HomePage() {
     // Removed Saved Programs card
   ];
 
+  // Get onboarding info from localStorage
+  let onboarding = { stage: '', school: '' };
+  try {
+    onboarding = JSON.parse(localStorage.getItem('onboarding') || '{}');
+  } catch {}
+
+  // Banner message logic
+  let bannerMessage = '';
+  if (onboarding.stage === 'current') {
+    bannerMessage = 'Hard Work Pays!';
+  } else if (onboarding.stage === 'graduate') {
+    bannerMessage = 'Work Smarter, Not Harder!';
+  }
+
   return (
-  <div className={`relative min-h-screen flex flex-col items-center justify-between bg-gray-100 dark:bg-gray-900 transition-colors duration-500 w-full`} style={{background: theme === 'dark' ? '#111827' : undefined}}>
+    <div className={`relative min-h-screen flex flex-col items-center justify-between bg-gray-100 dark:bg-gray-900 transition-colors duration-500 w-full`} style={{background: theme === 'dark' ? '#111827' : undefined}}>
       {/* Header (shared) */}
-    
 
       {/* Main Content */}
-  <main className="w-full max-w-md mt-8 mb-24 px-4 flex flex-col items-center">
+      <main className="w-full max-w-md mt-8 mb-24 px-4 flex flex-col items-center">
+        {/* School name and motivational banner above the banner, horizontal */}
+        {(onboarding.school || bannerMessage) && (
+          <div className="w-full flex justify-center items-center gap-3 mb-2 mt-2">
+            {onboarding.school && (
+              <span className="bg-white/80 dark:bg-gray-900/80 text-blue-900 dark:text-blue-100 px-3 py-1 rounded-full font-semibold shadow text-sm">
+                {onboarding.school}
+              </span>
+            )}
+            {bannerMessage && (
+              <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-900 dark:text-yellow-100 px-4 py-1 rounded-full font-bold shadow text-base animate-pulse">
+                {bannerMessage}
+              </span>
+            )}
+          </div>
+        )}
         {/* Banner */}
         <div className="w-full flex justify-center mb-6">
           <div className="relative w-full">

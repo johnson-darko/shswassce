@@ -5,11 +5,18 @@ import { useTheme } from "@/context/ThemeContext"; // Adjust path if needed
 export default function BottomNavigation() {
   const location = useLocation();
   const { theme } = useTheme();
+  let onboardingStage = '';
+  try {
+    onboardingStage = JSON.parse(localStorage.getItem('onboarding') || '{}').stage || '';
+  } catch {}
   const navItems = [
     { to: "/", label: "Home", icon: <Home /> },
     { to: "/saved-programs", label: "Saved", icon: <Bookmark /> },
     { to: "/calculator", label: "Aggregate", icon: <Calculator /> },
     { to: "/subjects", label: "Subjects", icon: <Calculator /> },
+    ...(onboardingStage === 'current' || onboardingStage === 'graduate' ? [] : [
+      { to: "/onboarding", label: "Onboarding", icon: <Home /> }
+    ]),
     { to: "/settings", label: "Settings", icon: <Settings /> },
     { to: "/profile", label: "Profile", icon: <Settings /> }, // You can use a different icon if desired
   ];

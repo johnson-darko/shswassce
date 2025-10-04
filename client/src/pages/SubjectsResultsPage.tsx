@@ -46,7 +46,7 @@ function getAggregate(coreGrades: string[], electives: string[], electiveGrades:
   };
 }
 
-const yearOptions = ['Form 1', 'Form 2', 'Form 3'];
+const yearOptions = ['Form 1', 'Form 2', 'Form 3', 'Mock 1', 'Mock 2', 'Mock 3'];
 const termOptions = ['Term 1', 'Term 2'];
 const coreSubjectNames = [
   'English',
@@ -159,7 +159,15 @@ const SubjectsResultsPage: React.FC = () => {
   const [showElectiveModal, setShowElectiveModal] = useState(false);
   const [electiveSearch, setElectiveSearch] = useState(['']);
   const gradeOptions = [
-    'A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9'
+    { grade: 'A1', range: '75-100%' },
+    { grade: 'B2', range: '70-74%' },
+    { grade: 'B3', range: '65-69%' },
+    { grade: 'C4', range: '60-64%' },
+    { grade: 'C5', range: '55-59%' },
+    { grade: 'C6', range: '50-54%' },
+    { grade: 'D7', range: '45-49%' },
+    { grade: 'E8', range: '40-44%' },
+    { grade: 'F9', range: '0-39%' }
   ];
   const [year, setYear] = useState(yearOptions[0]);
   const [term, setTerm] = useState(termOptions[0]);
@@ -253,7 +261,7 @@ const SubjectsResultsPage: React.FC = () => {
                   >
                     <option value="">Select Grade</option>
                     {gradeOptions.map(opt => (
-                      <option key={opt} value={opt}>{opt}</option>
+                      <option key={opt.grade} value={opt.grade}>{opt.grade} ({opt.range})</option>
                     ))}
                   </select>
                 </div>
@@ -340,7 +348,7 @@ const SubjectsResultsPage: React.FC = () => {
                   >
                     <option value="">Select Grade</option>
                     {gradeOptions.map(opt => (
-                      <option key={opt} value={opt}>{opt}</option>
+                      <option key={opt.grade} value={opt.grade}>{opt.grade} ({opt.range})</option>
                     ))}
                   </select>
                 </div>
